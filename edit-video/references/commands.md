@@ -91,6 +91,7 @@ dapi asset add <paths...> [--folder <id>]   # import local files (optionally int
 dapi asset ls [--folder <id>] [--depth N]   # the library as a folder tree — folders + assets, each entry with `children`
 dapi asset rm <ids...>
 dapi asset mv <ids...> [--to <folderId>]    # move assets into a folder (omit --to = library root)
+dapi asset export <ids...> [-o <path>]      # write assets' original file bytes to disk (no re-encode; local, free) — -o is a directory, or an exact file path for a single id; default: temp dir
 dapi asset probe <id|path>      # container + per-track technical metadata (like ffprobe; local, free)
 dapi asset transcript <id|path> # timed speech transcript of a video/audio asset
 dapi asset frame <id|path> -t 0 2.5  # decode video frames → PNG(s)
