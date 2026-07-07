@@ -119,11 +119,10 @@ dapi asset transcript <id|path> # timed speech transcript of a video/audio asset
 dapi asset frame <id|path> -t 0 2.5  # decode video frames → PNG(s)
 dapi asset visualize <id|path> [-x scale]  # waveform / filmstrip / thumbnail → PNG (alias: viz); smaller scale = more rows/columns
 dapi asset analyze <id|path> -p "…" [-s start] [-e end]  # AI description of an asset (or a window of it) — when probe/viz/frame/transcript aren't enough
-dapi asset sync <audioId|path> -v <videoId|path>   # time offset aligning audio to a video (alias: align)
 ```
 
-The inspect commands (`probe`, `transcript`, `frame`, `visualize`, `analyze`,
-`sync`) accept an asset id **or a local file path** — a path is imported into the
+The inspect commands (`probe`, `transcript`, `frame`, `visualize`, `analyze`)
+accept an asset id **or a local file path** — a path is imported into the
 library first, then the command runs on the new asset.
 
 See `inspection.md` for these read/inspect commands in detail.

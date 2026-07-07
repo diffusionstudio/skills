@@ -102,8 +102,9 @@ dapi node insert <sceneId> --code '<captions preset="spotlight" colors={["#FF005
 Usage notes:
 
 - The scene needs an unmuted audio/video source, else the caption node stays
-  empty. Captions attach shortly after mount and wait for generated audio, so a
-  generated voice track is captioned correctly.
+  empty. Captions attach shortly after mount and wait for generated audio and
+  `syncTo` alignment, so a generated or synced track is captioned at its final
+  placement.
 - Transcripts are **cached** — re-mounting with unchanged audio costs nothing.
 
 ### Choosing a preset

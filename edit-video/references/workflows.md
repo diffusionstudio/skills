@@ -111,7 +111,21 @@ dapi mount broll.tsx              # blocks until generation lands (credits!)
 dapi node screenshot              # verify
 ```
 
-## 7. Restyle existing nodes quickly
+## 7. Align a lav/voice recording to camera audio
+
+No offset math — mute the camera track and let `syncTo` place the clean
+recording (see `authoring-jsx.md`):
+
+```tsx
+<scene key="talk" width={1920} height={1080}>
+  <video key="camera" src="<cameraAssetId>" muted />
+  <audio src="<lavAssetId>" syncTo="camera" />
+</scene>
+```
+
+Check the `{ offsetSeconds, confidence }` line on stderr (≳ 0.9 = trustworthy).
+
+## 8. Restyle existing nodes quickly
 
 ```bash
 dapi node grep -k Name Title -l               # find the node id by name

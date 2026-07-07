@@ -87,9 +87,11 @@ export default function Project() {
 - **`<scene>`** — `key` (**required**), `width`/`height` (**required**), `name`
   (recommended), `fill`. No timing/transform props, no `x`/`y` (canvas placement
   is the editor's concern; new roots are auto-placed near the viewport center).
-- **`<video>`** — `src` (**required**), `objectFit`, `volume` (0–1).
+- **`<video>`** — `src` (**required**), `objectFit`, `volume` (0–1), `muted`
+  (exclude from the audio mix; independent of `volume`), `syncTo` (see Audio sync).
 - **`<image>`** — `src` (**required**), `objectFit`.
-- **`<audio>`** — `src` (**required**), `volume`, `name`, timing only.
+- **`<audio>`** — `src` (**required**), `volume`, `muted`, `syncTo`, `name`,
+  timing only.
 - **`<text>`** — children = the text (**required**), `fontFamily` (check
   `dapi fonts`), `fontSize` (px), `fontWeight` (100–900 / `"bold"`), `fontStyle`,
   `fill`, `textAlign` (`left|center|right`), `textBaseline` (`top|middle|bottom`).
@@ -169,6 +171,29 @@ order. Takes `name` only — purely structural.
   <video src="/Movies/outro.mp4" inPoint="02:30"   outPoint="02:45" />
 </sequence>
 ```
+
+## Audio sync (`syncTo`) — align multi-recorder material
+
+`syncTo` places a node in time by listening instead of arithmetic: give it the
+`key` of another element carrying audio, and the node's `startTime` is derived
+by cross-correlating the two recordings. Use it whenever two recordings capture
+the same take — a lav/voice track against camera audio, two cameras, two mics:
+
+```tsx
+<scene key="talk" width={1920} height={1080}>
+  <video key="camera" src="/Movies/take-3.mp4" inPoint={0} outPoint={45} muted />
+  <audio src="/Movies/lav.wav" syncTo="camera" />
+</scene>
+```
+
+- Both sides must carry an audio track; any pairing works. `syncTo` and
+  `startTime` are mutually exclusive; `inPoint`/`outPoint` stay yours to set
+  (omitted on a synced node, the window defaults to overlapping the target's —
+  a lav track simply covers its take).
+- `muted`/`volume` don't affect the measurement — mute the camera track (as
+  above) to keep only the clean recording audible.
+- Also patchable: `dapi node patch --json '[{"id":12,"syncTo":"camera"}]'`
+  re-aligns an existing node.
 
 ## Editing existing nodes: `node patch`
 

@@ -80,21 +80,6 @@ dapi asset analyze <id> [-p "..."] [-s start] [-e end]   # image/video/audio →
   you already know the region of interest (e.g. from `visualize`). Timestamps in
   the answer are relative to `-s`, not the full asset.
 
-## Align a separate audio recording to a video
-
-```bash
-dapi asset sync <audioId> -v <videoId>    # → { audioId, videoId, offsetSeconds, confidence }
-```
-
-Cross-correlates a standalone recording (e.g. a lav/voice take) against the camera
-audio of `<videoId>`. Read-only: it returns the offset; you position the clip yourself.
-Sign convention: `audioStart = videoStart + offsetSeconds` — feed `offsetSeconds`
-straight into a `node` start update.
-
-- **Check `confidence` before trusting it** (0..1; clear match ≳ 0.9). Low values mean
-  the takes don't share enough common sound — don't apply blindly.
-- Local and free. Both assets must contain overlapping audio from the same take, or it
-  fails with `No reliable alignment found`.
 
 ## Verification habit
 
