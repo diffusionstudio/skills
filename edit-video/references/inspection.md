@@ -18,16 +18,17 @@ structured data, which you then open/read. The render commands (`screenshot`,
 ## See the composed canvas
 
 ```bash
-dapi node screenshot [id] [-f, --frame N]
+dapi node screenshot [id] [-t, --time <time>]
 ```
 
 Focuses the node and captures the **composited canvas** as a PNG → `{ path }`.
-Omit `id` to capture the active scene. `-f/--frame` picks the timeline frame
-(default = current playhead). This is the truest "what the viewer sees at frame N"
-check — use it to confirm layout, overlaps, text, and timing landed.
+Omit `id` to capture the active scene. `-t/--time` picks the timeline position —
+seconds (`3`), frames (`"90f"`), or `"MM:SS"` (default = current playhead). This
+is the truest "what the viewer sees at time T" check — use it to confirm layout,
+overlaps, text, and timing landed.
 
 ```bash
-dapi node screenshot 5 -f 90        # active edit at frame 90
+dapi node screenshot 5 -t 90f       # active edit at frame 90
 ```
 
 After capturing, **Read the returned PNG path** to actually view it.
@@ -35,18 +36,19 @@ After capturing, **Read the returned PNG path** to actually view it.
 ## See an asset's own pixels (full-res)
 
 ```bash
-dapi asset frame <videoId> -t 0 2.5 10 [-o dir]
+dapi asset frame <videoId> -t 0 2.5 "01:40" [-o dir]
 ```
 
-Decodes a **video asset** at one or more source-time timestamps (seconds) and
-writes a PNG per timestamp → JSON Lines `{ time, path }`. Unlike `node screenshot`
-(composited), this is the asset's raw pixels at full resolution. Great for picking
-trim points or a `--start-frame` for generation.
+Decodes a **video asset** at one or more source-time timestamps (`Time` values:
+seconds, `"45f"`, or `"MM:SS"`) and writes a PNG per timestamp → JSON Lines
+`{ time, path }`. Unlike `node screenshot` (composited), this is the asset's raw
+pixels at full resolution. Great for picking trim points or a `startFrame` image
+for generation.
 
 ## Overview a whole asset at a glance
 
 ```bash
-dapi asset visualize <id> [-s startSec] [-e endSec] [-x scale] [-o out.png]   # alias: viz
+dapi asset visualize <id> [-s start] [-e end] [-x scale] [-o out.png]   # alias: viz
 ```
 
 Renders by media type → `{ path }`:
@@ -55,7 +57,7 @@ Renders by media type → `{ path }`:
 - **image** → auto-scaled thumbnail.
 
 Use this to understand pacing/where the audio peaks are before cutting. `-s`/`-e`
-window the time range (seconds, ignored for images). `-x` scales the thumbnails
+window the time range (`Time` values in source time; ignored for images). `-x` scales the thumbnails
 (default `1`, clamped `0.25`–`4`): the canvas stays the same size, so a smaller
 scale packs in more rows and columns (denser time sampling), a larger one shows
 fewer, more detailed cells. For images it scales the output resolution.
@@ -64,7 +66,7 @@ fewer, more detailed cells. For images it scales the output resolution.
 
 ```bash
 dapi asset transcript <id>          # video/audio → segments[] with word-level start/end (seconds)
-dapi asset analyze <id> [-p "..."] [-s startSec] [-e endSec]   # image/video/audio → multimodal answer, saved as an Analysis .md asset
+dapi asset analyze <id> [-p "..."] [-s start] [-e end]   # image/video/audio → multimodal answer
 ```
 
 - `transcript` gives timed words (source/content time) — ideal for caption timing
@@ -73,7 +75,7 @@ dapi asset analyze <id> [-p "..."] [-s startSec] [-e endSec]   # image/video/aud
   e.g. "what's the dominant color?", "summarize what happens"). Note: `analyze`
   uses a multimodal model and may consume credits; the render commands above do not.
   Reach for it mostly when `probe`/`visualize`/`frame`/`transcript` don't settle the question — e.g. to better understand audio
-- `-s`/`-e` window the segment to analyze (seconds, ignored for images). Only that
+- `-s`/`-e` window the segment to analyze (`Time` values, ignored for images). Only that
   segment is uploaded — faster and cheaper on long footage, so prefer a window when
   you already know the region of interest (e.g. from `visualize`). Timestamps in
   the answer are relative to `-s`, not the full asset.
@@ -96,6 +98,6 @@ straight into a `node` start update.
 
 ## Verification habit
 
-1. Make the edit (`node add` / `node style` / `node caption`).
-2. `dapi node screenshot` at the relevant frame(s) → **Read the PNG**.
+1. Make the edit (`mount` / `node insert` / `node patch`).
+2. `dapi node screenshot` at the relevant time(s) → **Read the PNG**.
 3. Confirm it matches intent; if not, adjust and re-shoot. Only then report done.

@@ -1,6 +1,6 @@
 # How to approach an edit (studio process)
 
-Don't dive straight into `node add`. A good edit is a **planned pipeline**, the
+Don't dive straight into `mount`. A good edit is a **planned pipeline**, the
 same way a professional post-production team works: understand the material,
 decide the story, then assemble. Crucially, **persist each step as a markdown
 file on disk** rather than holding it all in your head.
@@ -66,9 +66,9 @@ shortlist of prompts is itself a plannable artifact.
 ### 5. Edit plan / creative brief — `edit/edit-plan.md`
 
 The ordered timeline: every clip in sequence with composition in/out points and
-which source range plays. This is the thing you translate into the HTML you feed
-`node add` (timing maps directly to `data-ip`/`data-op`/`data-st` —
-see `authoring-html.md`).
+which source range plays. This is the thing you translate into the JSX project
+module you feed `mount` (timing maps directly to `inPoint`/`outPoint`/`startTime` —
+see `authoring-jsx.md`).
 
 ```markdown
 1. 0:00–0:08  gbHJ (src 0:03–0:11)        title overlay "Hello"
@@ -87,7 +87,9 @@ see `authoring-html.md`).
 
 ## Then assemble
 
-Only once the plan exists do you build: author HTML per `authoring-html.md`,
-place clips with timing straight from the plan, and **verify each step visually**
-(`inspection.md`). Update the plan file as reality diverges — it stays the source
-of truth for the edit.
+Only once the plan exists do you build: author the project module per
+`authoring-jsx.md` (keep it next to the plan, e.g. `edit/project.tsx`), place
+clips with timing straight from the plan, and **verify each step visually**
+(`inspection.md`). Re-`mount` as the module evolves — keyed roots rebuild in
+place. Update the plan file as reality diverges — it stays the source of truth
+for the edit.

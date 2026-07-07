@@ -1,7 +1,7 @@
 # Exporting (rendering to video)
 
 ```bash
-dapi node export [id] [-o, --output <path>] [--config <json> | --file <path>]
+dapi node export [id] [-o, --output <path>] [<config.json> | --json <str>]
 ```
 
 Renders a **scene** to a video file on disk. Scenes are nodes, so this lives under
@@ -34,8 +34,10 @@ whole file in memory), so large/long renders are fine.
 ## Encode config
 
 Pass encode settings as one JSON object — the same shape the in-app exporter uses
-(`EncoderConfig`), minus the runtime fields the CLI fills in. Give it inline with
-`--config` or from a file with `--file` (at most one). The whole thing is
+(`EncoderConfig`), minus the runtime fields the CLI fills in. Give it as a
+positional `.json` file path or inline with `--json` (at most one). Node ids are
+integers, so a lone non-numeric positional is read as the config path
+(`dapi node export encode.json` works without an id). The whole thing is
 **optional** — omit it for an mp4 / 1080p / H.264 render.
 
 ```ts
@@ -72,17 +74,17 @@ dapi node export
 dapi node export 4 -o ~/Desktop/cut.mp4
 
 # 4K, higher bitrate
-dapi node export 4 -o out.mp4 --config '{"video":{"resolution":2160,"bitrate":40000000}}'
+dapi node export 4 -o out.mp4 --json '{"video":{"resolution":2160,"bitrate":40000000}}'
 
 # WebM (VP9 + Opus) for the web
-dapi node export -o promo.webm --config '{"format":"webm","video":{"codec":"vp9"},"audio":{"codec":"opus"}}'
+dapi node export -o promo.webm --json '{"format":"webm","video":{"codec":"vp9"},"audio":{"codec":"opus"}}'
 
 # Audio-only (ogg), or first 10s only
-dapi node export -o voiceover.ogg --config '{"format":"ogg"}'
-dapi node export -o teaser.mp4   --config '{"trim":{"end":10}}'
+dapi node export -o voiceover.ogg --json '{"format":"ogg"}'
+dapi node export -o teaser.mp4   --json '{"trim":{"end":10}}'
 
 # Reuse a saved preset file
-dapi node export 4 -o final.mp4 --file ./presets/youtube-4k.json
+dapi node export 4 -o final.mp4 ./presets/youtube-4k.json
 ```
 
 ## Errors

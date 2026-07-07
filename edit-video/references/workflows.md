@@ -1,7 +1,9 @@
 # End-to-end recipes
 
 Each recipe assumes the app is running (`dapi open` if not) and you've run
-`dapi ctx` to orient. Commands return JSON — capture ids you'll reuse.
+`dapi ctx` to orient. Commands return JSON — capture ids you'll reuse. For
+non-trivial edits, keep the project module as a `.tsx` file next to the footage
+and re-`mount` it as it evolves (keyed roots rebuild in place, no duplicates).
 
 ## 1. Start a project from a folder of footage
 
@@ -14,32 +16,39 @@ dapi ctx                         # note activeSceneId
 ## 2. Build a title scene over a clip
 
 ```bash
-# pick the clip's asset id from `asset ls`, then author HTML
-dapi node add --html "$(cat <<'HTML'
-<div data-nm="Open" data-w="1920" data-h="1080"
-     style="display:flex; align-items:center; justify-content:center;">
-  <video src="<clipAssetId>" data-ip="0" data-op="8"
-         style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover;"></video>
-  <span data-nm="Title" data-ip="1" data-op="6"
-        style="font-size:8rem; font-weight:bold; color:white;">Hello World</span>
-</div>
-HTML
-)"
-# -> { insertedIds: [...] }
-dapi node screenshot -f 90        # verify, then Read the PNG
+# pick the clip's asset id from `asset ls`, then author JSX
+cat > open.tsx <<'TSX'
+export default function Project() {
+  return (
+    <scene key="open" name="Open" width={1920} height={1080}>
+      <video src="<clipAssetId>" inPoint={0} outPoint={8} />
+      <text name="Title" inPoint={1} outPoint={6}
+            textAlign="center" textBaseline="middle"
+            fontSize={128} fontWeight="bold" fill="white">
+        Hello World
+      </text>
+    </scene>
+  );
+}
+TSX
+dapi mount open.tsx
+dapi node tree                    # discover the created node ids
+dapi node screenshot -t 3         # verify, then Read the PNG
 ```
 
-(`node add` takes `--html <str>` or `--file <path>` — there's no stdin. If the
-inline form is awkward, write the HTML to a file and use `--file scene.html`.)
+(`mount` takes a module path or `--code <str>` — there's no stdin. `--code`
+accepts a bare JSX expression: `dapi mount --code '<scene key="x" …>…</scene>'`.)
 
 ## 3. Trim a clip
 
-Trimming = setting the visible window (`data-ip`/`data-op`) and which source part
-plays (`data-st`). Re-author the node (or its `insert-child`) with new timing:
+Trimming = setting the visible window (`inPoint`/`outPoint`) and which source
+part plays (`startTime`). Edit the timing in your module and re-`mount` (keyed
+roots rebuild in place), or patch the node directly:
 
-```html
-<video src="<id>" data-ip="0" data-op="10" data-st="-1:30"></video>
-<!-- shows 10s; source starts 1m30s in -->
+```bash
+dapi node grep -k Name "Main clip" -l          # find the node id
+dapi node patch --json '[{"id":12,"inPoint":0,"outPoint":10,"startTime":"-1:30"}]'
+# shows 10s; source starts 1m30s in
 ```
 
 To find the right trim points first: `dapi asset visualize <id>` (filmstrip +
@@ -47,11 +56,11 @@ waveform) or `dapi asset frame <id> -t 90 95 100`.
 
 ## 4. Sequence several clips back-to-back
 
-```html
+```tsx
 <sequence>
-  <video src="<a>" data-ip="0"  data-op="5"></video>
-  <video src="<b>" data-ip="5"  data-op="12"></video>
-  <video src="<c>" data-ip="12" data-op="20"></video>
+  <video src="<a>" inPoint={0}  outPoint={5} />
+  <video src="<b>" inPoint={5}  outPoint={12} />
+  <video src="<c>" inPoint={12} outPoint={20} />
 </sequence>
 ```
 
@@ -59,50 +68,60 @@ waveform) or `dapi asset frame <id> -t 90 95 100`.
 
 ## 5. Add narration + auto-captions
 
-Generation is declarative — declare the voice as an `<asset>` and reference it, then
-caption the scene:
+Generation is declarative — declare the voice with `generate.voice` and reference
+it; `<captions />` transcribes the scene's mix:
 
 ```bash
 dapi voices                       # pick a voice id
-dapi node add <sceneId> --mode insert-child --html "$(cat <<'HTML'
-<defs>
-  <asset id="vo" type="voice" voice="<voiceId>" prompt="In 2026, everything changed." />
-</defs>
-<audio src="vo" data-ip="0"></audio>
-HTML
-)"
-dapi node caption                 # captions the active scene's audio -> caption node
-dapi node screenshot -f 30        # verify captions render
+dapi node insert <sceneId> --code '
+  import { generate } from "@diffusionstudio/jsx";
+  const vo = generate.voice({ prompt: "In 2026, everything changed.", voice: "<voiceId>" });
+  export default () => <>
+    <audio src={vo} inPoint={0} />
+    <captions preset="classic" />
+  </>;
+'
+# blocks until the voice generates; captions attach asynchronously after
+dapi node screenshot -t 1         # verify captions render
 ```
 
 ## 6. Generate B-roll you don't have
 
 ```bash
 dapi models video                 # check model ids, durations, features
-dapi node add --html "$(cat <<'HTML'
-<defs>
-  <asset id="broll" type="video" model="kling-3-pro"
-         prompt="slow aerial over snowy peaks" duration="5" aspect-ratio="16:9" />
-</defs>
-<div data-nm="B-roll" data-w="1920" data-h="1080">
-  <video src="broll" data-ip="0" data-op="5" style="position:absolute; inset:0;"></video>
-</div>
-HTML
-)"
-# placeholders appear immediately; screenshot again once generation lands
+cat > broll.tsx <<'TSX'
+import { generate } from "@diffusionstudio/jsx";
+
+const broll = generate.video({
+  prompt: "slow aerial over snowy peaks",
+  model: "kling-3-pro",
+  duration: 5,
+  aspectRatio: "16:9",
+});
+
+export default function Project() {
+  return (
+    <scene key="broll" name="B-roll" width={1920} height={1080}>
+      <video src={broll} inPoint={0} outPoint={5} />
+    </scene>
+  );
+}
+TSX
+dapi mount broll.tsx              # blocks until generation lands (credits!)
+dapi node screenshot              # verify
 ```
 
 ## 7. Restyle existing nodes quickly
 
 ```bash
-dapi node ls                                  # find the node id
-dapi node style --patch '[{"id":12,"opacity":0.8,"rotate":"4deg","top":"60px"}]'
+dapi node grep -k Name Title -l               # find the node id by name
+dapi node patch --json '[{"id":12,"opacity":0.8,"rotation":4,"y":60}]'
 dapi sel set 12 && dapi sel focus             # frame it on canvas
 dapi node screenshot                          # verify
 ```
 
 ## General loop
 
-`ctx → (find ids: asset ls / node ls / tree) → edit (node add — incl. declared
-`<asset>` generation — | node style | node caption) → inspect (screenshot / frame /
-visualize) → adjust → report only what you saw.`
+`ctx → (find ids: asset ls / node tree / node grep) → edit (mount — incl.
+`generate.*` and `<captions>` — | node insert | node patch) → inspect
+(screenshot / frame / visualize) → adjust → report only what you saw.`
