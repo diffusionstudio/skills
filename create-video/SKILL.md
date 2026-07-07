@@ -41,5 +41,5 @@ Lottie-style props.
 | Authoring scenes (JSX API) | `references/authoring-jsx.md` | Adding/replacing content, positioning, **timing & trims** |
 | AI generation | `references/generation.md` | Creating image/video/voice/audio assets, auto-captions, models |
 | Inspecting & verifying | `references/inspection.md` | Seeing the canvas/assets — screenshots, frames, waveforms, transcripts |
-| Exporting (rendering) | `references/exporting.md` | Rendering a scene to a video file — formats, codecs, resolution, trims |
+| Rendering | `references/rendering.md` | Rendering a scene to a video file — formats, codecs, resolution, trims |
 | End-to-end recipes | `references/workflows.md` | Full task walkthroughs that combine the above |

@@ -96,14 +96,14 @@ prop rejects that entity's whole patch (no half edits). For anything structural 
 adding content, sequences, generation — use `mount` / `node insert` with JSX
 (see `authoring-jsx.md`).
 
-## Export (render to video)
+## Render (to video)
 
 ```bash
-dapi node export [id] [-o out.mp4] [config.json | --json '{…}']
+dapi node render [id] [-o out.mp4] [config.json | --json '{…}']
 ```
 
 Renders a scene to a video file (defaults to the active scene) → `{ path }`.
-Local and free, but long-running. See `exporting.md` for the encode config
+Local and free, but long-running. See `rendering.md` for the encode config
 (format, codec, resolution, bitrate, fps, audio, trim).
 
 ## Assets (library)

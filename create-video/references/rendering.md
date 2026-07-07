@@ -1,11 +1,11 @@
-# Exporting (rendering to video)
+# Rendering to video
 
 ```bash
-dapi node export [id] [-o, --output <path>] [<config.json> | --json <str>]
+dapi node render [id] [-o, --output <path>] [<config.json> | --json <str>]
 ```
 
 Renders a **scene** to a video file on disk. Scenes are nodes, so this lives under
-`node`. Omit `[id]` to export the active scene. **Local and free** (no credits, no
+`node`. Omit `[id]` to render the active scene. **Local and free** (no credits, no
 sign-in required), but **long-running** — it blocks while compositing every frame,
 with an elapsed-time spinner on stderr and clean JSON on stdout. Returns the
 written path:
@@ -19,7 +19,7 @@ whole file in memory), so large/long renders are fine.
 
 ## Scope & timing
 
-- **One scene per call** — there's no whole-project/timeline export. Export each
+- **One scene per call** — there's no whole-project/timeline render. Render each
   scene separately.
 - The encode window follows the scene's timeline **workarea** (its trim): it
   starts at the workarea start and runs to the scene's end, unless capped earlier
@@ -33,11 +33,11 @@ whole file in memory), so large/long renders are fine.
 
 ## Encode config
 
-Pass encode settings as one JSON object — the same shape the in-app exporter uses
+Pass encode settings as one JSON object — the same shape the in-app encoder uses
 (`EncoderConfig`), minus the runtime fields the CLI fills in. Give it as a
 positional `.json` file path or inline with `--json` (at most one). Node ids are
 integers, so a lone non-numeric positional is read as the config path
-(`dapi node export encode.json` works without an id). The whole thing is
+(`dapi node render encode.json` works without an id). The whole thing is
 **optional** — omit it for an mp4 / 1080p / H.264 render.
 
 ```ts
@@ -68,23 +68,23 @@ Width follows the scene's aspect ratio from the chosen `resolution`.
 
 ```bash
 # Active scene → temp mp4, all defaults
-dapi node export
+dapi node render
 
 # A specific scene → a path you choose
-dapi node export 4 -o ~/Desktop/cut.mp4
+dapi node render 4 -o ~/Desktop/cut.mp4
 
 # 4K, higher bitrate
-dapi node export 4 -o out.mp4 --json '{"video":{"resolution":2160,"bitrate":40000000}}'
+dapi node render 4 -o out.mp4 --json '{"video":{"resolution":2160,"bitrate":40000000}}'
 
 # WebM (VP9 + Opus) for the web
-dapi node export -o promo.webm --json '{"format":"webm","video":{"codec":"vp9"},"audio":{"codec":"opus"}}'
+dapi node render -o promo.webm --json '{"format":"webm","video":{"codec":"vp9"},"audio":{"codec":"opus"}}'
 
 # Audio-only (ogg), or first 10s only
-dapi node export -o voiceover.ogg --json '{"format":"ogg"}'
-dapi node export -o teaser.mp4   --json '{"trim":{"end":10}}'
+dapi node render -o voiceover.ogg --json '{"format":"ogg"}'
+dapi node render -o teaser.mp4   --json '{"trim":{"end":10}}'
 
 # Reuse a saved preset file
-dapi node export 4 -o final.mp4 ./presets/youtube-4k.json
+dapi node render 4 -o final.mp4 ./presets/youtube-4k.json
 ```
 
 ## Errors
@@ -96,6 +96,6 @@ fails or is canceled.
 
 ## Verify it
 
-Exporting is the end of the pipeline, but still confirm the cut before declaring
+Rendering is the end of the pipeline, but still confirm the cut before declaring
 done: re-check the relevant frames with `dapi node screenshot` (see
 `inspection.md`), and only then hand over the path.
