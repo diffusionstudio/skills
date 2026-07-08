@@ -10,7 +10,7 @@ structured data, which you then open/read. The render commands (`screenshot`,
 | Mode | Speed | Cost | Use for |
 | --- | --- | --- | --- |
 | `probe` | Fast | Free | Technical metadata first: container, duration, per-track codec params |
-| `transcript` | Medium (audio upload) | Cheap | Footage that contains speakers, e.g. a talking head |
+| `transcribe` | Medium (audio upload) | Cheap | Footage that contains speakers, e.g. a talking head |
 | `analyze` | Slow (source upload) | Expensive | Semantic multimodal analysis of an asset; escalate to it when the modes above leave you uncertain. Window with `-s`/`-e` to upload less |
 | `visualize` (`viz`) | Fast | Free | Your main tool for a quick visual representation. Narrow the window for more fine-grained analysis |
 | `frame` | Fast | Free | Peek at individual frames; useful to narrow down scene transitions and find visual cut timestamps |
@@ -65,16 +65,16 @@ fewer, more detailed cells. For images it scales the output resolution.
 ## Read what's said / what's shown
 
 ```bash
-dapi asset transcript <id>          # video/audio → segments[] with word-level start/end (seconds)
+dapi asset transcribe <id>          # video/audio → segments[] with word-level start/end (seconds)
 dapi asset analyze <id> [-p "..."] [-s start] [-e end]   # image/video/audio → multimodal answer
 ```
 
-- `transcript` gives timed words (source/content time) — ideal for caption timing
+- `transcribe` gives timed words (source/content time) — ideal for caption timing
   or finding a quote to cut to. Fails with `No speech detected` if silent.
 - `analyze` (no prompt → general description; with `-p` → answers your question,
   e.g. "what's the dominant color?", "summarize what happens"). Note: `analyze`
   uses a multimodal model and may consume credits; the render commands above do not.
-  Reach for it mostly when `probe`/`visualize`/`frame`/`transcript` don't settle the question — e.g. to better understand audio
+  Reach for it mostly when `probe`/`visualize`/`frame`/`transcribe` don't settle the question — e.g. to better understand audio
 - `-s`/`-e` window the segment to analyze (`Time` values, ignored for images). Only that
   segment is uploaded — faster and cheaper on long footage, so prefer a window when
   you already know the region of interest (e.g. from `visualize`). Timestamps in

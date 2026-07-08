@@ -9,14 +9,15 @@ and re-`mount` it as it evolves (keyed roots rebuild in place, no duplicates).
 
 ```bash
 dapi open ./shoot-2026-06        # creates project, imports all media, writes .dapi
-dapi asset ls                    # confirm what got imported (ids + types)
+dapi asset tree                  # confirm what got imported (folder tree)
+dapi asset ls                    # or the raw records (ids, types, per-asset metadata)
 dapi ctx                         # note activeSceneId
 ```
 
 ## 2. Build a title scene over a clip
 
 ```bash
-# pick the clip's asset id from `asset ls`, then author JSX
+# pick the clip's asset id from `asset tree` / `asset ls`, then author JSX
 cat > open.tsx <<'TSX'
 export default function Project() {
   return (
@@ -123,7 +124,9 @@ recording (see `authoring-jsx.md`):
 </scene>
 ```
 
-Check the `{ offsetSeconds, confidence }` line on stderr (≳ 0.9 = trustworthy).
+Alignment blocks the mount and is cached, so exit `0` means it landed; a
+correlation too weak to trust fails the mount instead (the node keeps its default
+placement).
 
 ## 8. Restyle existing nodes quickly
 
@@ -134,8 +137,44 @@ dapi sel set 12 && dapi sel focus             # frame it on canvas
 dapi node screenshot                          # verify
 ```
 
+## 9. Animate a property (keyframes)
+
+Any transform prop (`x`, `y`, `opacity`, `rotation`, …) takes a keyframe list;
+`time` is node-local (0 = the node's in point). Author it in JSX, or patch it onto
+an existing node (see `authoring-jsx.md`):
+
+```tsx
+<image src="<id>" inPoint={0} outPoint={5}
+  x={[{ time: 0, value: -400 }, { time: 1, value: 200, easing: "easeOut" }]}
+  opacity={[{ time: 0, value: 0 }, { time: "15f", value: 1 }]} />
+```
+
+```bash
+# slide-and-fade an existing node in, without a re-mount
+dapi node patch --json '[{"id":12,"opacity":[{"time":0,"value":0},{"time":"15f","value":1}]}]'
+dapi node screenshot -t "8f"                  # verify mid-animation, then Read the PNG
+```
+
+## 10. Add a transition between clips
+
+`transition` sits on the outgoing `<sequence>` child and renders the cut into the
+next clip (see `authoring-jsx.md`):
+
+```tsx
+<sequence>
+  <video src="<a>" outPoint={8} transition={{ type: "fadeToBlack", duration: 0.5 }} />
+  <video src="<b>" />
+</sequence>
+```
+
+```bash
+# or patch one onto an existing clip; "transition": null removes it
+dapi node patch --json '[{"id":12,"transition":{"type":"dissolve","duration":1}}]'
+dapi node screenshot -t <cut±time>            # verify the overlap renders
+```
+
 ## General loop
 
-`ctx → (find ids: asset ls / node tree / node grep) → edit (mount — incl.
+`ctx → (find ids: asset tree / node tree / node grep) → edit (mount — incl.
 `generate.*` and `<captions>` — | node insert | node patch) → inspect
 (screenshot / frame / visualize) → adjust → report only what you saw.`
