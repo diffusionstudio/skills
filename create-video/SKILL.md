@@ -36,7 +36,7 @@ Lottie-style props.
 
 | Topic | File | When |
 | ----- | ---- | ---- |
-| Installing `dapi` | `references/installation.md` | Setting up the CLI/app (Homebrew, macOS) when `dapi` isn't on PATH yet |
+| Installing `dapi` | `references/installation.md` | Setting up the CLI/app when `dapi` isn't on PATH yet — Homebrew (macOS) or from source |
 | **How to approach an edit** | `references/editing-process.md` | **Start here for any non-trivial edit** — the studio pipeline (asset map → analysis → shortlists → plan), persisted as markdown |
 | Command surface & orientation | `references/commands.md` | Navigating projects, selection, nodes, assets, folders |
 | Authoring scenes (JSX API) | `references/authoring-jsx.md` | Adding/replacing content, positioning, **timing & trims**, keyframe animation, transitions |
