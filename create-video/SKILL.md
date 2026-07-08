@@ -11,7 +11,7 @@ description: >-
 
 `dapi` is the CLI that drives a running Diffusion Studio app over a local socket.
 You build and edit a video composition entirely through these commands. Each
-scene is a scene graph of nodes, authored as **Solid JSX**: positioned with explicit 
+scene is a scene graph of nodes, authored as **Solid JSX**: positioned with explicit
 pixel props and timed with Lottie-style props.
 
 ## Discover the CLI; don't work from memory
@@ -22,29 +22,27 @@ or output shapes:
 
 - `dapi --help`, `dapi <group> --help`, and `dapi <group> <command> --help`
   enumerate every command, argument, and option.
+- Every command's help links its page in the API reference; fetch that page
+  before using a command in a non-trivial way. The JSX syntax is specified in
+  the reference's `jsx/` folder, linked from the `mount` and `node insert` pages.
 
 ## Golden rules
 
 1. **The app must be running.** If it isn't, run `dapi open` first.
-2. **Always start with `dapi ctx`** to learn the project, scenes, active scene,
-   playhead frame, and available fonts before doing anything.
-3. **Output is JSON** on stdout (single value or JSON Lines); errors go to
-   stderr with a non-zero exit. Parse stdout, don't scrape prose.
-4. **Node ids are integers** (entity ids); **asset and folder ids are opaque
-   strings**. Don't mix them up.
-5. **You can't watch the video, so look.** After any visual change, capture a
-   frame or screenshot and inspect it (see `references/inspection.md`).
-6. **Generation costs credits and is slow** (`mount` blocks until every
-   declared asset lands) and requires a signed-in account (`dapi whoami`).
-7. **Plan before you cut.** For anything beyond a one-off tweak, work like a
-   studio: map and analyze the footage, then write the edit plan to markdown
-   files before assembling. See `references/editing-process.md`.
+2. **Always start with `dapi ctx`** to orient before doing anything.
+3. **You can't watch the video, so look.** After any visual change, capture a
+   screenshot or frame and inspect it (see `references/understand.md`).
+4. **Generation costs credits and is slow**, and requires a signed-in account
+   (`dapi whoami`).
+5. **Plan before you cut.** For anything beyond a one-off tweak, map and
+   analyze the footage and write the plan to disk before assembling (see
+   `references/edit.md`).
 
-## Read the one you need
+## Task guides
 
-| Topic | File | When |
-| ----- | ---- | ---- |
-| Installing `dapi` | `references/installation.md` | `dapi` isn't on PATH yet: Homebrew (macOS) or from source |
-| **How to approach an edit** | `references/editing-process.md` | **Start here for any non-trivial edit**: the studio pipeline (asset map → analysis → shortlists → plan), persisted as markdown |
-| Choosing commands | `references/choosing-commands.md` | Which command (and which JSX reference page) fits the task at hand |
-| Inspecting & verifying | `references/inspection.md` | Picking the right way to see the canvas or an asset, and the verify habit |
+| Task | File | Covers |
+| ---- | ---- | ------ |
+| Understand footage | `references/understand.md` | Inspecting and analyzing video/audio/images; verifying your edits |
+| Generate footage | `references/generate.md` | Producing AI image/video/voice/audio assets |
+| Edit footage | `references/edit.md` | The studio process from footage (or brief) to a finished composition |
+| Install `dapi` | `references/installation.md` | Getting the CLI on PATH: Homebrew (macOS) or from source |
