@@ -80,7 +80,9 @@ export default function Project() {
 ### Common props (all visual elements)
 
 `key`, `name`, `x`, `y`, `width`, `height`, `rotation` (degrees), `opacity`
-(0–1), `cornerRadius` (px), and the timing props below.
+(0–1), `cornerRadius` (px), and the timing props below. Every transform prop
+here (`x`, `y`, `width`, `height`, `rotation`, `opacity`, `cornerRadius`) is
+**animatable**: pass a keyframe list instead of a static value (see [Animation](#animation)).
 
 ### Per-element props
 
@@ -123,7 +125,7 @@ color, alpha ignored — use `opacity`.
 ## Media `src` resolution
 
 `src` accepts:
-- **Asset id** — `src="gbHJ"` (from `dapi asset ls`).
+- **Asset id** — `src="gbHJ"` (from `dapi asset tree` / `dapi asset ls`).
 - **`AssetRef`** — the value returned by a `generate.*` declaration (AI-generated
   on mount — see `generation.md`): `src={hero}`.
 - **Global path** — `src="/Movies/clip.mp4"`.
@@ -159,6 +161,53 @@ in point, so the first second of the source is trimmed off.
 If `inPoint`/`outPoint` are omitted, a media node fits its natural duration and a
 group auto-fits its children.
 
+## Animation (keyframes)
+
+Animatable props take a **keyframe list** in place of a static value: `x`, `y`,
+`width`, `height`, `rotation`, `opacity`, `cornerRadius`, `volume`, plus paint
+`color` and color-stop `offset` (so gradients can move too).
+
+```tsx
+<image
+  src="/photo.jpg"
+  inPoint={0} outPoint={5}
+  x={[
+    { time: 0, value: -400 },
+    { time: 1, value: 200, easing: "easeOut" },
+  ]}
+  opacity={[{ time: 0, value: 0 }, { time: "15f", value: 1 }]}
+/>
+```
+
+```ts
+type Keyframe<T> = { time: Time; value: T; easing?: Easing };
+type Animatable<T> = T | Keyframe<T>[];
+```
+
+- `time` is **node-local**: `0` is the node's own in point, in any time format
+  (`1`, `"15f"`, `"MM:SS"`). Timing props stay composition-relative but keyframe
+  times don't, so the animation travels with the clip.
+- Outside the keyframed range the value holds at the first (or last) keyframe.
+- `easing` shapes the segment from its keyframe to the next; the last keyframe's
+  easing is ignored. Default `"linear"`.
+- A **static value wipes any existing keyframes** on that prop: mount and
+  `dapi node patch` own what they set. Keyframes land as ordinary editor keyframes
+  (editable in the timeline and inspector), and props the render doesn't touch
+  keep their hand-made tracks across re-mounts.
+
+| Easing | Use for |
+| ------ | ------- |
+| `"linear"` (default) | Constant-rate change. |
+| `"easeIn"`, `"easeOut"`, `"easeInOut"` | Standard acceleration curves (CSS equivalents). |
+| `"gentle"`, `"snappy"`, `"bouncy"`, `"strong"` | Spring presets, from soft settle to hard overshoot. |
+| `"cubicBezier(x1,y1,x2,y2)"` | Custom curve, CSS control points. |
+| `"spring(bounce,duration)"` | Custom spring: bounce `0`–`1`, duration in ms. |
+| `"steps(n)"` | Discrete hold: n equal steps, no interpolation. |
+
+Because animation is part of the shared property table, `dapi node patch` takes
+keyframe lists identically:
+`dapi node patch --json '[{"id":12,"opacity":[{"time":0,"value":0},{"time":1,"value":1}]}]'`.
+
 ## Sequences (track-like, back-to-back)
 
 `<sequence>` lays its children out sequentially, non-overlapping, in document
@@ -171,6 +220,35 @@ order. Takes `name` only — purely structural.
   <video src="/Movies/outro.mp4" inPoint="02:30"   outPoint="02:45" />
 </sequence>
 ```
+
+### Transitions (between sequence clips)
+
+A clip inside a `<sequence>` takes a `transition` prop that renders the cut into
+the clip that follows it:
+
+```tsx
+<sequence>
+  <video src="/Movies/a.mp4" outPoint={8} transition={{ type: "fadeToBlack", duration: 0.5 }} />
+  <video src="/Movies/b.mp4" />
+</sequence>
+```
+
+| Type | Effect |
+| --- | ------ |
+| `"dissolve"` (default) | Crossfade: the incoming clip fades in over the outgoing one. |
+| `"slideFromRight"` | Incoming clip slides in over the outgoing one, decelerating. |
+| `"slideFromLeft"` | Same, from the left. |
+| `"fadeToBlack"` | Dip to black: fade out, then fade the incoming clip in. |
+| `"fadeToWhite"` | Same, through white. |
+
+- `duration` takes any [time format](#timing--trims-the-part-agents-get-wrong)
+  (default 1 s) and runs centered on the cut. Timing is untouched: the clips stay
+  back-to-back and the renderer overlaps them only while the transition runs.
+- It only renders on a direct `<sequence>` child that has a clip after it; on the
+  last clip it waits until one follows, and outside a sequence the engine drops it.
+- Patchable like any prop: a partial value merges into the clip's existing
+  transition (`{"id":42,"transition":{"duration":2}}` keeps the type), and
+  `"transition": null` removes it.
 
 ## Audio sync (`syncTo`) — align multi-recorder material
 
@@ -192,6 +270,9 @@ the same take — a lav/voice track against camera audio, two cameras, two mics:
   a lav track simply covers its take).
 - `muted`/`volume` don't affect the measurement — mute the camera track (as
   above) to keep only the clean recording audible.
+- Alignment runs locally after any generated assets land, is cached by the source
+  pair, and blocks the mount, so exit `0` means final placement. A correlation too
+  weak to trust **fails the command**, and the node keeps its default placement.
 - Also patchable: `dapi node patch --json '[{"id":12,"syncTo":"camera"}]'`
   re-aligns an existing node.
 

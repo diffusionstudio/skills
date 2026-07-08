@@ -38,7 +38,7 @@ Lottie-style props.
 | ----- | ---- | ---- |
 | **How to approach an edit** | `references/editing-process.md` | **Start here for any non-trivial edit** — the studio pipeline (asset map → analysis → shortlists → plan), persisted as markdown |
 | Command surface & orientation | `references/commands.md` | Navigating projects, selection, nodes, assets, folders |
-| Authoring scenes (JSX API) | `references/authoring-jsx.md` | Adding/replacing content, positioning, **timing & trims** |
+| Authoring scenes (JSX API) | `references/authoring-jsx.md` | Adding/replacing content, positioning, **timing & trims**, keyframe animation, transitions |
 | AI generation | `references/generation.md` | Creating image/video/voice/audio assets, auto-captions, models |
 | Inspecting & verifying | `references/inspection.md` | Seeing the canvas/assets — screenshots, frames, waveforms, transcripts |
 | Rendering | `references/rendering.md` | Rendering a scene to a video file — formats, codecs, resolution, trims |

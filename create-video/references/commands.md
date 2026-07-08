@@ -110,18 +110,19 @@ Local and free, but long-running. See `rendering.md` for the encode config
 
 ```bash
 dapi asset add <paths...> [--folder <id>]   # import local files (optionally into a folder)
-dapi asset ls [--folder <id>] [--depth N]   # the library as a folder tree — folders + assets, each entry with `children`
+dapi asset ls [ids...]                       # raw asset records (per-type metadata, folderId, stored transcript); all assets if no ids
+dapi asset tree [--folder <id>] [--depth N]  # the library as a folder tree — folders + assets; only folders carry `children`
 dapi asset rm <ids...>
 dapi asset mv <ids...> [--to <folderId>]    # move assets into a folder (omit --to = library root)
 dapi asset export <ids...> [-o <path>]      # write assets' original file bytes to disk (no re-encode; local, free) — -o is a directory, or an exact file path for a single id; default: temp dir
 dapi asset probe <id|path>      # container + per-track technical metadata (like ffprobe; local, free)
-dapi asset transcript <id|path> # timed speech transcript of a video/audio asset
+dapi asset transcribe <id|path> # timed speech transcript of a video/audio asset
 dapi asset frame <id|path> -t 0 2.5  # decode video frames → PNG(s)
 dapi asset visualize <id|path> [-x scale]  # waveform / filmstrip / thumbnail → PNG (alias: viz); smaller scale = more rows/columns
 dapi asset analyze <id|path> -p "…" [-s start] [-e end]  # AI description of an asset (or a window of it) — when probe/viz/frame/transcript aren't enough
 ```
 
-The inspect commands (`probe`, `transcript`, `frame`, `visualize`, `analyze`)
+The inspect commands (`probe`, `transcribe`, `frame`, `visualize`, `analyze`)
 accept an asset id **or a local file path** — a path is imported into the
 library first, then the command runs on the new asset.
 
@@ -138,7 +139,7 @@ dapi folder rm <ids...>              # ⚠ cascades: deletes all descendant fold
 ```
 
 Folder ids are opaque strings like asset ids; the library root has no id — omit
-the flag/arg to mean root. `asset ls` reads the whole hierarchy (folders + assets);
+the flag/arg to mean root. `asset tree` reads the whole hierarchy (folders + assets);
 `asset mv` moves assets between folders.
 
 ## AI generation & discovery

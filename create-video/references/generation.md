@@ -75,9 +75,11 @@ generate.audio({ prompt, model? })
 - **Chaining:** `startFrame` / `endFrame` / `refs` accept other `AssetRef`s —
   generate an image, then animate it into a video. Referenced-only assets
   generate but produce no node.
-- **Caching:** unchanged declarations are reused on re-mount instead of
-  regenerating; changing any option regenerates. Set `seed` for reproducibility.
-  The cache lasts for the app session only.
+- **Caching:** results are cached by content (model, prompt, resolved refs,
+  seed, …) **in the asset library**, so unchanged declarations are reused on
+  re-mount instead of regenerating — even across app sessions — and identical
+  declarations collapse to one asset. Changing any option regenerates; deleting
+  a generated asset clears its cache entry. Set `seed` for reproducibility.
 - **Errors:** per-model constraint violations (`aspectRatio`, `duration`, feature
   flags) exit non-zero after generation settles; the mounted tree stays and the
   affected placeholder is left without a paint — fix the declaration and re-mount.
@@ -127,7 +129,7 @@ defaults). **Pick by the video's tone:**
 <captions preset="spotlight" colors={["#FF0055"]} />
 ```
 
-> To caption raw media instead of a scene's mix, use `dapi asset transcript <id>`
+> To caption raw media instead of a scene's mix, use `dapi asset transcribe <id>`
 > (see [`inspection.md`](inspection.md)) and author the caption text yourself.
 
 See [`authoring-jsx.md`](authoring-jsx.md) for placing the generated assets.

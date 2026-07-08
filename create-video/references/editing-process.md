@@ -39,7 +39,7 @@ findings: what happens, usable in/out ranges, cut points, audio quality, speech.
 
 - `visualize` first (fast/free) for a filmstrip + waveform overview of each clip.
 - `frame` to pin exact transition/cut timestamps.
-- `transcript` for any clip with speakers (gives word-level times for cutting on
+- `transcribe` for any clip with speakers (gives word-level times for cutting on
   a line). `analyze` only when meaning matters and speech is sparse/absent —
   window it with `-s`/`-e` when you already know the region of interest.
 
