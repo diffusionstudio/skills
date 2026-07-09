@@ -6,7 +6,7 @@
 on your PATH. Install both with Homebrew:
 
 ```sh
-brew install --cask diffusionstudio/tap/diffusion-studio
+brew install --cask diffusionstudio/tap/editor
 ```
 
 The cask links `dapi` automatically. After a manual `.dmg` install instead, link
