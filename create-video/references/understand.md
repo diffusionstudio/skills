@@ -17,6 +17,8 @@ after capturing, **Read the PNG path** to actually view it.
 All five accept an asset id or a local file path (a path is imported first,
 then inspected).
 
+> **A transcript does not reveal silence.** Word timestamps only mark *speech*. The gaps between them are not necessarily quiet — music, score, laughter, applause, or sound design routinely fill them. `asset visualize` renders the waveform and marks silent parts.
+
 ## Canvas vs asset pixels
 
 - `node screenshot` captures the **composited canvas** at a timeline position:
