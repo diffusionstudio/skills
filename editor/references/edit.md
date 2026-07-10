@@ -29,9 +29,9 @@ duration, and a one-line "what it is" (fill the last column as you analyze).
 
 ### 2. Analyze the footage: `edit/footage-analysis.md`
 
-Go through each asset with the inspection modes (see `understand.md`) and
-record what happens, usable in/out ranges, cut points, audio quality, speech.
-Write timestamps down; they feed every later step.
+Go through each asset, inspecting it and recording what
+happens, usable in/out ranges, cut points, audio quality, speech. Write
+timestamps down; they feed every later step.
 
 ### 3. A-roll shot list: `edit/a-roll.md`
 
@@ -60,47 +60,7 @@ it as reality diverges.
 ## Assemble
 
 Keep the project module next to the plan (e.g. `edit/project.tsx`) and evolve
-it there. Three ways to change the composition; read each command's reference
-page before first use:
+it there. Re-mounting the evolving module is the main loop; add to or tweak
+existing nodes in place when you don't want to rebuild the whole scene.
 
-- **`mount`**: build or rebuild scenes from the module. Idempotent by `key`,
-  so re-mounting the evolving module is the main loop.
-- **`node insert`**: add content under an existing node, leaving the rest
-  untouched.
-- **`node patch`**: tweak props on existing nodes without a re-mount.
-
-To find ids: `node tree` for structure, `node grep` to search by name or
-content, `asset tree` / `asset ls` for media. Orient with `dapi ctx` whenever
-unsure.
-
-While authoring, read the JSX reference page that matches what you're writing:
-
-- **Timing and trims are the usual failure point**: read `jsx/timing.md`
-  before setting in/out points or source offsets.
-- Clips back-to-back: `jsx/sequences.md`; styling the cut between two sequence
-  clips: `jsx/transitions.md`.
-- Animating a prop: `jsx/keyframes.md`.
-- Aligning multi-recorder material (lav vs camera, two cameras): don't compute
-  offsets, use audio sync (`jsx/audio-sync.md`).
-
-**Verify each step visually** (`understand.md`) and only report what you saw.
-
-## Captions
-
-`<captions />` inside a scene transcribes that scene's audio mix
-(`jsx/captions.md`). Pick the preset by the video's tone:
-
-| Preset | Reach for it when |
-| ------ | ----------------- |
-| `classic` (default) | Safe default: vlogs, talking heads, general content |
-| `cascade` | Calm, editorial feel; interviews, documentary pacing |
-| `spotlight` | High-energy social clips (Reels/Shorts/TikTok) needing word-level emphasis |
-| `whisper` | Minimal, cinematic footage where captions should stay out of the way |
-| `paper` | Text-forward content: explainers, quotes, essays |
-| `guinea` | Loud, playful, meme-adjacent content |
-| `stark` | Stylized promos/trailers where type is part of the image |
-
-## Deliver
-
-`node render` renders one scene per call to a video file: local and free, but
-long-running. Re-check the relevant frames before handing over the path.
+**Verify each mount visually** using `node screenshot`.
