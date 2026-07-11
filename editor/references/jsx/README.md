@@ -1,0 +1,103 @@
+# JSX Code Syntax
+
+The JSX API defines the code contract for injecting content into the editor via the CLI. Compositions are authored as **Solid components** that a custom renderer (built on `solid-js/universal`, Solid's equivalent of React's reconciler) mounts **directly into the editor's ECS**. Every JSX element becomes an entity; every prop is a component write. There is no hidden DOM, no CSS resolution, and no measuring pass.
+
+A project is structured like a SolidJS app: a **root** is established on the canvas (typically a Scene, identified by its key and created if absent) and the project's component tree renders into it. **All positioning is explicit** (`x`, `y`, `width`, `height` in pixels).
+
+The pipeline is driven by two commands: [`dapi mount`](../mount.md) renders the project's roots into the document, and [`dapi node insert`](../node/insert.md) runs the same pipeline into an existing parent entity. [`dapi node patch`](../node/patch.md) assigns the same props on existing nodes.
+
+## Contents
+
+| File | Covers |
+| ---- | ------ |
+| [module.md](./module.md) | Project module contract, module environment, types and tooling |
+| [roots.md](./roots.md) | Root elements, `key` identity, canvas placement |
+| [elements.md](./elements.md) | Element-to-node mapping, coordinates and sizing, the shared property table |
+| [scene.md](./scene.md), [group.md](./group.md), [rect.md](./rect.md), [text.md](./text.md), [video.md](./video.md), [image.md](./image.md), [audio.md](./audio.md) | Per-element props |
+| [paints.md](./paints.md) | `<solidPaint>`, gradients, `<colorStop>` |
+| [media.md](./media.md) | `src` resolution (paths, URLs, asset ids, `AssetRef`) |
+| [timing.md](./timing.md) | `inPoint` / `outPoint` / `startTime`, time formats |
+| [keyframes.md](./keyframes.md) | Keyframe animation and easing |
+| [transitions.md](./transitions.md) | The `transition` prop on sequence clips |
+| [sequences.md](./sequences.md) | `<sequence>` sequential placement |
+| [audio-sync.md](./audio-sync.md) | `syncTo` audio alignment |
+| [captions.md](./captions.md) | `<captions>` and style presets |
+| [generate.md](./generate.md) | Declarative AI asset generation (`generate.*`) |
+| [lifecycle.md](./lifecycle.md) | One-shot render lifecycle |
+| [errors.md](./errors.md) | Where each pipeline stage fails and with what effect |
+
+## Pipeline
+
+1. **Compile**: the CLI bundles the entry file with esbuild + `babel-preset-solid` in `universal` mode, so JSX compiles against the editor's renderer runtime (`@diffusionstudio/jsx`) instead of the DOM. Compile errors fail here, before the app is contacted.
+2. **Ship**: the resulting single-file ESM bundle is sent to the running app over the local socket.
+3. **Evaluate**: the app imports the module. Top-level code (including top-level `await`) runs to completion. The module's **default export** is the project component.
+4. **Mount**: the component tree is rendered into a **staging root**. The universal renderer materializes each element as an ECS entity with the appropriate components (see [elements.md](./elements.md)). Mounting is synchronous; an error here aborts the import with nothing inserted.
+5. **Commit**: the rendered roots are reconciled against the document (see [roots.md](./roots.md)) as a **single undoable operation** that also covers the generated assets below.
+6. **Generate**: declared assets generate in dependency order, **blocking the command** until every one has landed. Each placeholder renders a generating state until its asset lands, then the node's paint is attached (see [generate.md](./generate.md)).
+7. **Sync**: nodes declaring `syncTo` are aligned once every generated asset has landed: each node's audio is cross-correlated against its target's and its `startTime` is written from the measured offset (see [audio-sync.md](./audio-sync.md)). Local and blocking; captions wait for it.
+
+## Full example
+
+```tsx
+import { For } from "solid-js";
+import { generate, type Time } from "@diffusionstudio/jsx";
+
+const hero = generate.image({
+  prompt: "A neon city at night, cinematic",
+  aspectRatio: "16:9",
+  seed: 42,
+});
+
+const heroMotion = generate.video({
+  prompt: "slow camera push-in",
+  startFrame: hero,
+  duration: 5,
+});
+
+const TITLES = [
+  { text: "Hello World", inPoint: 3, outPoint: 6 },
+  { text: "Chapter One", inPoint: 6, outPoint: 9 },
+];
+
+function Title(props: { text: string; inPoint: Time; outPoint: Time }) {
+  return (
+    <text
+      textAlign="center"
+      textBaseline="middle"
+      color="#FFFFFF"
+      fontSize={128}
+      fontWeight="bold"
+      height={1080}
+      width={1920}
+      inPoint={props.inPoint}
+      outPoint={props.outPoint}
+    >
+      {props.text}
+    </text>
+  );
+}
+
+export default function Project() {
+  return (
+    <scene key="my-first-scene" name="MyFirstScene" fill="black" width={1920} height={1080}>
+      <sequence>
+        <video src={heroMotion} inPoint={0} outPoint={5} transition={{ type: "dissolve" }} />
+        <video src="/Movies/video.mp4" inPoint={5} outPoint={16} startTime="-30f" />
+      </sequence>
+
+      <image src={hero} x={40} y={40} width={200} height={112} />
+
+      <For each={TITLES}>{(t) => <Title {...t} />}</For>
+
+      <audio
+        src="https://my.videoarchive.com/audio/video-xyz.wav"
+        inPoint={2.2}
+        outPoint={16}
+        volume={0.5}
+      />
+
+      <captions />
+    </scene>
+  );
+}
+```
