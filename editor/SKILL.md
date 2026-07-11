@@ -27,7 +27,7 @@ Analysis is audio-first: the soundtrack usually carries more meaning than the pi
 2. **Get the lay of the land.** Render a `dapi media waveform` (audio) and a `dapi media filmstrip` (video) for a fast, cheap overview of where the loud and quiet stretches and the visual scene changes fall.
 3. **Listen to the audio.** Run `dapi media listen` with a prompt tailored to the context (what you actually need to know), and explicitly ask the model to include timestamps in its answer. See `references/listen-prompts.md` for prompt patterns.
 4. **Transcribe speech.** If the audio contains speech, also run `dapi media transcribe`: its word-level timestamps are far more precise than a listen summary.
-5. **Sample the video against the audio.** Use `dapi media grab` to pull 5 to 20 frames. Grabbing at a fixed interval is the naive default; the better approach is to pull the distinct moments the audio already pointed you to, feeding the timestamps from the transcript or listen output straight in, e.g. `-t '00:32' '00:45' ...`. Let the audio decide which frames are worth looking at rather than sampling blindly.
+5. **Sample the video against the audio.** Use `dapi media grab` to pull frames. When the audio has already pointed you at specific moments, feed those timestamps straight in from the transcript or listen output, e.g. `-t '00:32' '00:45' ...`. When you need a visual pass without such cues, reach for `--auto`: it scans the footage and keeps only the frames where the picture settles into a new visual state, dropping near-duplicates.
 
 Because audio usually matters more than the visuals, you can often stop early: for a lot of footage the filmstrip alone is enough to grasp the video side, and a full frame-by-frame pass with `grab` adds little.
 
