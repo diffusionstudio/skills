@@ -3,7 +3,7 @@
 A text node; children become editable glyphs. Because the box defaults to the parent's box, a centered full-frame title is simply `<text textAlign="center" textBaseline="middle">…</text>`.
 
 ```tsx
-<text color="#FFFFFF" fontSize={128} fontWeight="bold" textAlign="center" textBaseline="middle">
+<text fill="#FFFFFF" fontSize={128} fontWeight="bold" textAlign="center" textBaseline="middle">
   Hello World
 </text>
 ```
@@ -19,6 +19,6 @@ All [common props](./elements.md#common-props), plus:
 | `fontSize` | `number` | editor default | Px. |
 | `fontWeight` | `number \| "normal" \| "bold"` | `"normal"` | CSS weights `100`-`900`. |
 | `fontStyle` | `"normal" \| "italic"` | `"normal"` | |
-| `color` | `Animatable<string>` | editor default | The glyph color, any CSS color. |
+| `fill` | `string` | white | The glyph color; any CSS color, alpha ignored (use `opacity`). Shorthand for a solid paint child (see [paints.md](./paints.md)); animate it by declaring the paint explicitly. |
 | `textAlign` | `"left" \| "center" \| "right"` | `"left"` | Horizontal alignment of glyphs within the box. |
 | `textBaseline` | `"top" \| "middle" \| "bottom"` | `"top"` | Vertical alignment within the box. |

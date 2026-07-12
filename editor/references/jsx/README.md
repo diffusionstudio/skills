@@ -4,6 +4,8 @@ The JSX API defines the code contract for injecting content into the editor via 
 
 A project is structured like a SolidJS app: a **root** is established on the canvas (typically a Scene, identified by its key and created if absent) and the project's component tree renders into it. **All positioning is explicit** (`x`, `y`, `width`, `height` in pixels).
 
+The markup is **pseudo-SVG**: elements like `<rect>`, `<text>`, `<linearGradientPaint>`, and `<colorStop>` mirror SVG's shape-and-paint model, but the tags and props are the editor's own (see [elements.md](./elements.md)), not the SVG spec.
+
 The pipeline is driven by two commands: [`dapi mount`](../mount.md) renders the project's roots into the document, and [`dapi node insert`](../node/insert.md) runs the same pipeline into an existing parent entity. [`dapi node patch`](../node/patch.md) assigns the same props on existing nodes.
 
 ## Contents
@@ -16,7 +18,7 @@ The pipeline is driven by two commands: [`dapi mount`](../mount.md) renders the 
 | [scene.md](./scene.md), [group.md](./group.md), [rect.md](./rect.md), [text.md](./text.md), [video.md](./video.md), [image.md](./image.md), [audio.md](./audio.md) | Per-element props |
 | [paints.md](./paints.md) | `<solidPaint>`, gradients, `<colorStop>` |
 | [media.md](./media.md) | `src` resolution (paths, URLs, asset ids, `AssetRef`) |
-| [timing.md](./timing.md) | `inPoint` / `outPoint` / `startTime`, time formats |
+| [timing.md](./timing.md) | `start` / `end` / `sourceIn` / `sourceOut`, time formats |
 | [keyframes.md](./keyframes.md) | Keyframe animation and easing |
 | [transitions.md](./transitions.md) | The `transition` prop on sequence clips |
 | [sequences.md](./sequences.md) | `<sequence>` sequential placement |
@@ -34,7 +36,7 @@ The pipeline is driven by two commands: [`dapi mount`](../mount.md) renders the 
 4. **Mount**: the component tree is rendered into a **staging root**. The universal renderer materializes each element as an ECS entity with the appropriate components (see [elements.md](./elements.md)). Mounting is synchronous; an error here aborts the import with nothing inserted.
 5. **Commit**: the rendered roots are reconciled against the document (see [roots.md](./roots.md)) as a **single undoable operation** that also covers the generated assets below.
 6. **Generate**: declared assets generate in dependency order, **blocking the command** until every one has landed. Each placeholder renders a generating state until its asset lands, then the node's paint is attached (see [generate.md](./generate.md)).
-7. **Sync**: nodes declaring `syncTo` are aligned once every generated asset has landed: each node's audio is cross-correlated against its target's and its `startTime` is written from the measured offset (see [audio-sync.md](./audio-sync.md)). Local and blocking; captions wait for it.
+7. **Sync**: nodes declaring `syncTo` are aligned once every generated asset has landed: each node's audio is cross-correlated against its target's and its `start` is written from the measured offset (see [audio-sync.md](./audio-sync.md)). Local and blocking; captions wait for it.
 
 ## Full example
 
@@ -55,22 +57,22 @@ const heroMotion = generate.video({
 });
 
 const TITLES = [
-  { text: "Hello World", inPoint: 3, outPoint: 6 },
-  { text: "Chapter One", inPoint: 6, outPoint: 9 },
+  { text: "Hello World", start: 3, end: 6 },
+  { text: "Chapter One", start: 6, end: 9 },
 ];
 
-function Title(props: { text: string; inPoint: Time; outPoint: Time }) {
+function Title(props: { text: string; start: Time; end: Time }) {
   return (
     <text
       textAlign="center"
       textBaseline="middle"
-      color="#FFFFFF"
+      fill="#FFFFFF"
       fontSize={128}
       fontWeight="bold"
       height={1080}
       width={1920}
-      inPoint={props.inPoint}
-      outPoint={props.outPoint}
+      start={props.start}
+      end={props.end}
     >
       {props.text}
     </text>
@@ -81,8 +83,8 @@ export default function Project() {
   return (
     <scene key="my-first-scene" name="MyFirstScene" fill="black" width={1920} height={1080}>
       <sequence>
-        <video src={heroMotion} inPoint={0} outPoint={5} transition={{ type: "dissolve" }} />
-        <video src="/Movies/video.mp4" inPoint={5} outPoint={16} startTime="-30f" />
+        <video src={heroMotion} start={0} end={5} transition={{ type: "dissolve" }} />
+        <video src="/Movies/video.mp4" start={5} end={10} sourceIn={12} />
       </sequence>
 
       <image src={hero} x={40} y={40} width={200} height={112} />
@@ -91,9 +93,9 @@ export default function Project() {
 
       <audio
         src="https://my.videoarchive.com/audio/video-xyz.wav"
-        inPoint={2.2}
-        outPoint={16}
-        volume={0.5}
+        sourceIn={6}
+        sourceOut={16}
+        volume={-6}
       />
 
       <captions />

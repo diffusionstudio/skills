@@ -5,13 +5,13 @@ Lowercase intrinsic elements map 1:1 onto internal node types:
 | Element | Internal node | Notes |
 | ------- | ------------- | ----- |
 | [`<scene>`](./scene.md) | **Geometry with Scene tag** | Clips its children to `width`×`height`. Document root only. |
-| [`<group>`](./group.md) | **Geometry with Group tag** | Container with a transform; give it `fill` to draw a rectangle. |
+| [`<group>`](./group.md) | **Geometry with Group tag** | Container with a transform; auto-fits its size from its children. Takes no `fill` or explicit size. |
 | [`<rect>`](./rect.md) | **Geometry with Solid paint** | A filled rectangle; takes only paint children. |
 | [`<video>`](./video.md) | **Geometry with Video paint** | `src` resolves to a video asset. |
 | [`<image>`](./image.md) | **Geometry with Image paint** | `src` resolves to an image asset. |
 | [`<audio>`](./audio.md) | **Geometry with Audio component and a hidden Waveform paint** | No visual output; carries volume. |
 | [`<text>`](./text.md) | **Geometry with Text component** | Children become editable glyphs. |
-| [`<sequence>`](./sequences.md) | **Sequential group** | Lays children out back-to-back. |
+| [`<sequence>`](./sequences.md) | **Sequential group** | Track container for back-to-back clips; positions are explicit. |
 | [`<captions>`](./captions.md) | **Caption node** | Transcribes the enclosing scene's audio. |
 | [`<solidPaint>`](./paints.md) | **Solid paint** | Paint child. |
 | [`<linearGradientPaint>` / `<radialGradientPaint>`](./paints.md) | **Gradient paint** | Paint child; takes `<colorStop>` children. |
@@ -38,7 +38,7 @@ All visual elements accept:
 | `rotation` | `Animatable<number>` | `0` | Rotation in degrees. |
 | `opacity` | `Animatable<number>` | `1` | `0`-`1`. |
 | `cornerRadius` | `Animatable<number>` | `0` | Uniform corner radius, px. |
-| `inPoint`, `outPoint`, `startTime` | `Time` | see [timing.md](./timing.md) | Temporal placement. |
+| `start`, `end`, `sourceIn`, `sourceOut` | `Time` | see [timing.md](./timing.md) | Temporal placement. |
 | `transition` | `TransitionSpec \| null` | none | Transition into the next clip; direct children of `<sequence>` only (see [transitions.md](./transitions.md)). |
 
 `Animatable` props also take a keyframe list; see [keyframes.md](./keyframes.md).

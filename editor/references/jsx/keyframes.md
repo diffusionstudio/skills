@@ -5,7 +5,7 @@ Animatable props accept a keyframe list in place of a static value:
 ```tsx
 <image
   src="/photo.jpg"
-  inPoint={0} outPoint={5}
+  start={0} end={5}
   x={[
     { time: 0, value: -400 },
     { time: 1, value: 200, easing: "easeOut" },
@@ -23,7 +23,7 @@ Animatable props: `x`, `y`, `width`, `height`, `rotation`, `opacity`, `cornerRad
 
 ## Semantics
 
-- `time` is **node-local**: `0` is the node's in point, in any [time format](./timing.md#time-formats). Timing props are composition-relative; keyframe times are not, so animation moves with the clip.
+- `time` is **node-local**: `0` is where the clip begins (its `start`), in any [time format](./timing.md#time-formats). Timing props are parent-relative; keyframe times are not, so animation moves with the clip.
 - Outside the keyframed range the value holds at the first/last keyframe.
 - `easing` shapes the segment from its keyframe to the next; the last keyframe's easing is ignored. Default `"linear"`.
 - A **static value replaces any existing keyframes** on that property; mount and `dapi node patch` own what they set. Keyframes land as regular editor keyframes, editable in the timeline and inspector, and props the render doesn't set keep their hand-made tracks across re-mounts.

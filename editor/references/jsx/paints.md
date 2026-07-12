@@ -11,7 +11,7 @@ Internally a node's fill is not a property but a **paint child**: a sub-entity a
 </rect>
 ```
 
-Paint elements are valid inside any visual element (`<rect>`, `<group>`, `<scene>`, `<text>`, `<video>`, `<image>`). Multiple paints stack in document order; later paints render on top, and a paint child on a `<video>`/`<image>` draws over the media paint created by `src`.
+Paint elements are valid inside any filled visual element (`<rect>`, `<scene>`, `<text>`, `<video>`, `<image>`); a `<group>` has no fill of its own, so it takes none. Multiple paints stack in document order; later paints render on top, and a paint child on a `<video>`/`<image>` draws over the media paint created by `src`.
 
 | Element | Props | Meaning |
 | ------- | ----- | ------- |

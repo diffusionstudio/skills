@@ -1,20 +1,27 @@
 # Timing
 
-Timing props follow Lottie-inspired semantics. All values are **composition-relative** (measured against the parent's timeline), in any supported [time format](#time-formats).
+Timing splits the two independent questions a clip answers: **where it sits on the parent timeline** (`start` / `end`) and **which part of its source plays** (`sourceIn` / `sourceOut`). All values accept any [time format](#time-formats).
 
-| Prop | Lottie | Meaning |
-| ---- | ------ | ------- |
-| `inPoint` | `ip` | Composition time at which the node becomes visible/audible. |
-| `outPoint` | `op` | Composition time at which the node stops. |
-| `startTime` | `st` | Composition time at which the node's *source* time 0 is placed. Shifts the source content within the in/out window. Defaults to the in point. |
+| Prop | Meaning |
+| ---- | ------- |
+| `start` | Parent-timeline time at which the clip begins. Default 0. |
+| `end` | Parent-timeline time at which the clip ends. Alternative to `sourceOut`. |
+| `sourceIn` | Source in point: the time within the source where playback begins. Default 0; trims the head. |
+| `sourceOut` | Source out point: the time within the source where playback ends. Defaults to the source's natural end. Alternative to `end`. |
 
 ## Semantics
 
-- `inPoint` / `outPoint` define the **visible/audible window** on the parent timeline. They are a pair; if omitted, a media node fits its natural duration and a group auto-fits its children.
-- `startTime` controls **which part of the source plays inside that window**. It is the composition time where source frame 0 sits, so it may be negative to skip into the source.
-- Instead of declaring `startTime`, a media node can derive it from another node's audio with `syncTo` (see [audio-sync.md](./audio-sync.md)).
+- `start` / `end` place the clip on the parent timeline. `sourceIn` / `sourceOut` select which part of the source plays. On-timeline duration always equals the played source length, so `end - start == sourceOut - sourceIn`.
+- **`end` and `sourceOut` are two spellings of the same out edge** — the clip's end in timeline time (`end`) versus source time (`sourceOut`). Set one; the last one set wins.
+- Sourceless nodes (`<rect>`, `<group>`, `<text>`) have no footage to trim, so you place them with `start` / `end` alone.
+- Instead of setting `start`, a media node can derive its placement from another node's audio with `syncTo` (see [audio-sync.md](./audio-sync.md)).
+- If timing is omitted, a media node fits its natural duration at `start` 0, and a group auto-fits its children. A [`<sequence>`](./sequences.md) does not position its children for you: give each an explicit `start` (the next clip's `start` is the previous clip's end).
 
-> Example: `inPoint={0} outPoint={16} startTime="-30f"` shows the clip from composition second 0 to 16, but because source-time-0 is placed 30 frames *before* the in point, the first 30 frames (1s @ 30fps) of the source are trimmed; playback begins 1s into the source.
+> Examples:
+> - `<rect start={2} end={5} fill="red" />` — a rectangle on screen from timeline second 2 to 5.
+> - `<video start={5} sourceIn={10} sourceOut={20} />` — plays source seconds 10–20 (a 10-second clip) beginning at timeline second 5.
+> - `<video start={2} end={5} sourceIn={10} />` — the same source starting at 10 s, stretched to fill the timeline window 2–5 (so it plays source 10–13).
+> - `<video start={0} sourceIn={1} />` — trims the first second off the head and places the clip at the top of the timeline.
 
 ## Time formats
 

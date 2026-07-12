@@ -1,14 +1,16 @@
 # Sequences
 
-`<sequence>` enforces **sequential, non-overlapping** placement of its children: the editor's track-like behavior. It has no spatial or temporal properties of its own; it lays its children out back-to-back in document order.
+`<sequence>` is a track-like container for back-to-back clips. It carries no timing of its own and **does not position its children at mount** — give each child an explicit `start` (see [timing.md](./timing.md)). What it adds is clip-to-clip [transitions](./transitions.md) on direct children, and, in the editor, a non-overlapping invariant: dragging or regrouping clips trims or removes whatever they land on.
 
 ```tsx
 <sequence>
-  <video src="/Movies/intro.mp4" inPoint={0}     outPoint={12} />
-  <video src="/Movies/main.mp4"  inPoint={12}    outPoint="02:30" />
-  <video src="/Movies/outro.mp4" inPoint="02:30" outPoint="02:45" />
+  <video src="/Movies/intro.mp4" start={0}  end={12} />                 {/* timeline 0–12 */}
+  <video src="/Movies/main.mp4"  start={12} end="02:30" sourceIn={5} /> {/* timeline 12–2:30, source from 5 s */}
+  <video src="/Movies/outro.mp4" start="02:30" />                       {/* from 2:30, plays to its natural end */}
 </sequence>
 ```
+
+The next clip's `start` must match the previous clip's on-timeline end — its `end`, or from the source side `start + (sourceOut - sourceIn)`. Here `main` ends at `02:30`, so `outro` starts there. Giving `main` an `end` places the next cut at a round timeline mark without computing source lengths.
 
 ## Props
 
