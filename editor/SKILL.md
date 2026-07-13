@@ -19,26 +19,25 @@ and `dapi <group> <command> --help` enumerate every command, argument, and optio
 
 ## Workflow
 
-### In depth footage analysis
+### Understand the footage
 
-Analysis is audio-first: the soundtrack usually carries more meaning than the pixels, so lead with it and sample the video against what you hear.
+Choose the depth and order of analysis from the brief and the available tracks. Speech-led footage rewards close audio analysis; action-, demonstration-, or atmosphere-led footage may require the visual pass to lead.
 
 1. **Probe first.** `dapi media probe <id|path>` reports the container and its tracks, telling you up front whether the file has a video track, an audio track, or both. Everything after branches on that.
-2. **Get the lay of the land.** Render a `dapi media waveform` (audio) and a `dapi media filmstrip` (video) for a fast, cheap overview of where the loud and quiet stretches and the visual scene changes fall.
-3. **Listen to the audio.** Run `dapi media listen` with a prompt tailored to the context (what you actually need to know), and explicitly ask the model to include timestamps in its answer. See `references/listen-prompts.md` for prompt patterns.
-4. **Transcribe speech.** If the audio contains speech, also run `dapi media transcribe`: its word-level timestamps are far more precise than a listen summary.
-5. **Sample the video against the audio.** Use `dapi media grab` to pull frames. When the audio has already pointed you at specific moments, feed those timestamps straight in from the transcript or listen output, e.g. `-t '00:32' '00:45' ...`. When you need a visual pass without such cues, reach for `--auto`: it scans the footage and keeps only the frames where the picture settles into a new visual state, dropping near-duplicates.
-
-Because audio usually matters more than the visuals, you can often stop early: for a lot of footage the filmstrip alone is enough to grasp the video side, and a full frame-by-frame pass with `grab` adds little.
+2. **Get the lay of the land.** Render a `dapi media waveform` for audio tracks and a `dapi media filmstrip` for video tracks to see loud and quiet stretches, visual states, and scene changes cheaply.
+3. **Follow the audio when it carries meaning.** Run `dapi media listen` with a prompt tailored to what you need to know and ask for timestamps. If it contains speech, also run `dapi media transcribe` for precise word-level timing. See `references/listen-prompts.md` for prompt patterns.
+4. **Follow the visuals when they carry meaning.** Use `dapi media grab` to pull frames. Feed it timestamps from audio analysis when they provide useful cues; otherwise use `--auto` to keep new visual states while dropping near-duplicates.
+5. **Stop when you have enough evidence.** Match the inspection effort to the decision: a filmstrip may settle a simple visual question, while action, demonstrations, or subtle performances need targeted frames.
 
 ### Assemble an edit
 
 Build the composition incrementally, verifying as you go. The JSX syntax that `mount` and `insert` consume is specified in `references/jsx/` (start with `references/jsx/README.md`).
 
-1. **Write the brief first.** Capture the edit as a markdown file: It is the plan every mount works toward and the thing to check the result against.
-2. **Lay down the A-roll.** Assemble the primary footage as JSX and `dapi mount` it. Get the spine of the edit right before anything else.
-3. **Layer the rest on top.** Once the A-roll holds, add B-roll and secondary assets (sound effects, captions, overlays) with further mounts or `dapi node insert`.
-4. **Verify every change.** After each `mount` or `insert`, run `dapi node capture` to see what the viewer actually gets, and reconcile it against the brief before moving on.
+1. **Write the brief first.** Capture the intended outcome and constraints in a markdown file: it is the plan every mount works toward and the result is checked against.
+2. **Apply editorial judgment.** After understanding the brief and inspecting any available material, read `references/editing-guidelines.md` before planning or executing a video creation or editing task. Analysis-only tasks can skip it.
+3. **Build the spine.** Identify what carries the video and assemble its primary structure as JSX with `dapi mount` before adding supporting layers.
+4. **Add only motivated support.** Add B-roll, sound effects, captions, overlays, generated media, transitions, or other secondary elements only when they serve the brief or material.
+5. **Verify every change.** After each `mount` or `insert`, run `dapi node capture` to see what the viewer actually gets, and reconcile it against the brief before moving on.
 
 JSX best practices:
 
@@ -51,4 +50,5 @@ JSX best practices:
 | ---- | ---- | ------ |
 | Install `dapi` | `references/installation.md` | Getting the CLI on PATH: Homebrew (macOS) or from source |
 | Prompt `media listen` | `references/listen-prompts.md` | Prompt patterns for audio analysis: summaries, moment lookups, music, timestamp format |
+| Make editing decisions | `references/editing-guidelines.md` | Cross-format judgment for structure, pacing, supporting layers, sound, and viewer-focused review |
 | Write JSX compositions | `references/jsx/README.md` | The JSX syntax `mount` and `node insert` consume: elements, sequences, timing, generation |
