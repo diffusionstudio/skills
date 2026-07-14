@@ -21,9 +21,13 @@ Inspect the relevant `dapi` help before use. Treat it as authoritative for the l
 
 Orient to the request, project, and material. When supplied media needs inspection, probe it first to identify its tracks and properties, then inspect only the modalities and evidence the decision requires. Speech, action, music, graphics, or atmosphere may lead.
 
-Select among waveform, filmstrip, transcription, targeted frames, and semantic analysis rather than following a fixed recipe. Use hosted analysis only when its evidence justifies privacy, upload, time, credit, and context costs. Stop when evidence is sufficient.
+Use waveform and filmstrip as inexpensive orientation evidence when the corresponding tracks exist. A filmstrip provides coarse visual structure and scene-state orientation; it does not validate precise crop, framing, readability, expression, gesture, UI detail, or an exact cut frame.
 
-Match conclusion strength to inspected evidence. A suitable still supports a claim about that frame; motion, sustained quality or readability, boundary, and whole-interval claims require evidence capable of testing them. State material uncertainty when stronger evidence is unavailable.
+Use transcript or timestamped audio findings to choose targeted frame grabs when audio provides useful cues. When no useful timestamps exist, consider automatic visual sampling if the exact live help and available runtime support it. Use targeted grabs whenever a decision depends on a specific frame-level property. Use hosted analysis only when its evidence justifies privacy, upload, time, credit, and context costs.
+
+Match conclusion strength to inspected evidence. A suitable still supports a claim about that frame; motion, sustained quality or readability, boundary, and whole-interval claims require evidence capable of testing them. Stop only when every consequential decision has evidence at the needed fidelity, and state material uncertainty when stronger evidence is unavailable.
+
+On failure, report the observed error separately from suspected causes. Do not repeat an unchanged command unless the retry tests a named hypothesis. A fallback preserves progress but is not automatically evidentially equivalent; state what remains unverified.
 
 ### Assemble an edit
 
