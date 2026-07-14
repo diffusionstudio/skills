@@ -19,9 +19,9 @@ and `dapi <group> <command> --help` enumerate every command, argument, and optio
 
 ## Workflow
 
-### Understand the footage
+### Understand the material
 
-Choose the depth and order of analysis from the brief and the available tracks. Speech-led footage rewards close audio analysis; action-, demonstration-, or atmosphere-led footage may require the visual pass to lead.
+Choose the depth and order of analysis from the request and the available material. Speech-led footage rewards close audio analysis; action-, demonstration-, atmosphere-, or graphics-led work may require the visual pass to lead.
 
 1. **Probe first.** `dapi media probe <id|path>` reports the container and its tracks, telling you up front whether the file has a video track, an audio track, or both. Everything after branches on that.
 2. **Get the lay of the land.** Render a `dapi media waveform` for audio tracks and a `dapi media filmstrip` for video tracks to see loud and quiet stretches, visual states, and scene changes cheaply.
@@ -31,13 +31,14 @@ Choose the depth and order of analysis from the brief and the available tracks. 
 
 ### Assemble an edit
 
-Build the composition incrementally, verifying as you go. The JSX syntax that `mount` and `insert` consume is specified in `references/jsx/` (start with `references/jsx/README.md`).
+Decide the edit before representing it as JSX, then build incrementally. The JSX syntax that `mount` and `insert` consume is specified in `references/jsx/` (start with `references/jsx/README.md`).
 
-1. **Write the brief first.** Capture the intended outcome and constraints in a markdown file: it is the plan every mount works toward and the result is checked against.
-2. **Apply editorial judgment.** After understanding the brief and inspecting any available material, read `references/editing-guidelines.md` before planning or executing a video creation or editing task. Analysis-only tasks can skip it.
-3. **Build the spine.** Identify what carries the video and assemble its primary structure as JSX with `dapi mount` before adding supporting layers.
-4. **Add only motivated support.** Add B-roll, sound effects, captions, overlays, generated media, transitions, or other secondary elements only when they serve the brief or material.
-5. **Verify every change.** After each `mount` or `insert`, run `dapi node capture` to see what the viewer actually gets, and reconcile it against the brief before moving on.
+1. **Record intent in proportion to the task.** For nontrivial, open-ended, multi-asset, or long-running work, capture the intended outcome, explicit constraints, and major decisions in a Markdown brief or edit plan. For small deterministic changes, use the request itself as the brief.
+2. **Apply editorial judgment when choices remain.** After the first-pass inspection and before structural decisions, read `references/editing-guidelines.md` when the task leaves unresolved choices about selection, ordering, pacing, emphasis, layer roles, sound-picture relationships, generated representation, source meaning, or qualitative critique. Skip it for fully specified mechanical changes, metadata inspection, and export.
+3. **Decide the organizing structure.** Choose the selection, ordering logic, section-level drivers, and timing intent before expressing them as JSX. Then assemble the structure with `dapi mount`.
+4. **Assign each layer a role.** Speech, visuals, music, text, graphics, captions, sound, effects, or generated media may lead or support at different moments. Add or refine them only when their role follows from the request or material.
+5. **Validate technically at meaningful milestones.** Inspect the tree or state after high-risk changes. Use targeted `dapi node capture <scene-or-node-id> -t ...` checks for layout, visibility, text, and isolated appearance; explicit times are relative to the selected node's first visible frame. Do not use capture alone to validate scene timing. Consult the live command help before use.
+6. **Review editorially in time.** After the rough structure and before delivery, render the affected sequence and review it at its intended pace for pacing, transition movement, readability duration, audio continuity, rhythm, and surrounding boundaries. If direct playback is unavailable, use bounded `dapi media listen <rendered-path> --keep-video`, filmstrip, waveform, and targeted frames as supplements, and report remaining temporal uncertainty.
 
 JSX best practices:
 
@@ -50,5 +51,5 @@ JSX best practices:
 | ---- | ---- | ------ |
 | Install `dapi` | `references/installation.md` | Getting the CLI on PATH: Homebrew (macOS) or from source |
 | Prompt `media listen` | `references/listen-prompts.md` | Prompt patterns for audio analysis: summaries, moment lookups, music, timestamp format |
-| Make editing decisions | `references/editing-guidelines.md` | Cross-format judgment for structure, pacing, supporting layers, sound, and viewer-focused review |
+| Make editing decisions | `references/editing-guidelines.md` | Cross-format judgment for structure, pacing, layer roles, sound, source integrity, and viewer-focused review |
 | Write JSX compositions | `references/jsx/README.md` | The JSX syntax `mount` and `node insert` consume: elements, sequences, timing, generation |

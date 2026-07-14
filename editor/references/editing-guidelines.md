@@ -1,47 +1,49 @@
 # Video Editing Guidelines
 
-Use these guidelines after understanding the request and inspecting any available material. The brief and available evidence set the direction; these guidelines resolve choices left open. They describe judgment, not a house style.
+Use these guidelines after understanding the request and material. Specifications, references, and evidence set the direction; these guidelines resolve choices left open.
 
 ## 1. Decision priorities
 
 When choices compete, optimize in this order:
 
-1. **Fulfil the intended viewer outcome.** Make every major choice support what the viewer should understand, feel, or do.
-2. **Preserve meaning and factual continuity.** Never create a false statement, reaction, chronology, or cause through selection or juxtaposition.
-3. **Make the structure legible.** The viewer should know what matters and how it connects.
-4. **Maintain attention through relevance.** Prefer new information, progression, or deliberate emotional change over constant stimulation.
-5. **Use motivated choices.** A cut, overlay, sound, or effect should have a reason in the material or intended outcome.
-6. **Prefer restraint.** Removing an unnecessary layer usually strengthens the rest.
+1. **Fulfil the intended viewer outcome.** Support what the viewer should understand, feel, or do.
+2. **Preserve meaning and factual continuity.** Do not create a false statement, reaction, chronology, or cause through selection or juxtaposition.
+3. **Make the structure legible.** Make importance and relationships clear.
+4. **Maintain attention through relevance.** Prefer meaningful information or emotional change over stimulation by default.
+5. **Motivate choices.** Tie cuts, overlays, sounds, and effects to the material or outcome.
+6. **Match complexity to intent.** Use economy, density, repetition, spectacle, stillness, comedy, or deliberate artificiality when it serves the requested experience; remove elements with no identifiable role.
 
-Treat explicit direction as intentional unless it misrepresents the source. When direction is sparse, infer from the material instead of using a fixed template.
+Follow explicit specifications, supplied references, and established style unless they would cause material factual misrepresentation or are technically impossible. When direction is sparse, infer from the material instead of using a fixed template.
 
-## 2. Find the video's spine
+## 2. Identify the organizing logic
 
-Identify what primarily carries the experience before shaping the edit. It may be:
+Identify what primarily carries each section before shaping the edit. It may be:
 
-- **Speech or argument:** the wording, logic, performance, or conversation provides the progression.
-- **Visual action or demonstration:** the viewer must see a process, event, place, or change unfold.
-- **Music or rhythm:** musical phrases, energy, or repetition organize the experience.
-- **Text or graphics:** written information or visual explanation is the main vehicle for meaning.
-- **Atmosphere or emotion:** observation, behavior, texture, or silence matters more than explicit exposition.
+- **Speech or argument:** wording, logic, performance, or conversation
+- **Visual action or demonstration:** a process, event, place, or change
+- **Music or rhythm:** phrases, energy, or repetition
+- **Text or graphics:** written information or visual explanation
+- **Atmosphere or emotion:** observation, behavior, texture, or silence
 
-The driver can change between sections. Follow those changes instead of forcing one mode. Analyze audio deeply when speech, music, or sound carries meaning; analyze visuals deeply when action, composition, or demonstration carries it. Use the other channel to confirm the primary one.
+The driver can change by section. Analyze audio deeply when speech, music, or sound carries meaning and visuals when action, composition, or demonstration carries it. Use the other channel for context and confirmation.
 
-A talking-head explanation may be driven by its argument; a silent process video may be driven by visual steps even with music. Neither should inherit the other's editing pattern.
+A launch may be graphics-led while it establishes the idea, music-led while it builds energy, and demonstration-led when it proves the result. Do not force one section's pattern onto the others.
 
 ## 3. Structure and pace
 
-Build a progression, not merely a shorter timeline. Keep material that introduces, develops, demonstrates, complicates, or resolves the point. Compress repetition unless it aids comprehension, rhythm, emphasis, or emotion.
+Create intentional temporal development or recurrence, not merely a shorter timeline. The organizing logic may be linear, cyclical, parallel, episodic, contrast-led, motif-led, rhythm-led, or deliberately impressionistic.
 
-Reorder only when chronology is unimportant or the result remains truthful. Preserve setup before payoff, question before answer, and action before consequence when those relationships matter. Establish missing context instead of hiding a confusing discontinuity with decoration.
+Keep material that introduces, develops, demonstrates, complicates, resolves, contrasts, or intentionally returns. Compress repetition unless it aids comprehension, rhythm, emphasis, comedy, or emotion.
 
-Cut when meaning, action, attention, speaker, emotion, or rhythm changes. Hold when the viewer needs time to read, understand, observe, react, or feel. Relentless cutting flattens emphasis because nothing becomes important.
+Reorder only when chronology is unimportant or the result remains truthful. Preserve setup and payoff, question and answer, or action and consequence when those relationships matter. Establish missing context instead of decorating a confusing discontinuity.
 
-Vary pacing with information density and emotional weight. Dense instructions may need fewer simultaneous elements and longer holds; familiar action may tolerate compression. A pause revealing discomfort may be essential, while one spent searching for words may be expendable.
+Cut when meaning, action, attention, speaker, emotion, or rhythm changes. Hold when the viewer needs to read, understand, observe, react, or feel. Relentless cutting flattens emphasis.
 
-## 4. Supporting layers must earn their place
+Vary pacing with information density and emotional weight. Dense instructions may need fewer simultaneous elements and longer holds; familiar action may tolerate compression. Keep a revealing pause; consider removing one spent searching for words.
 
-Add B-roll, captions, text, graphics, overlays, generated media, transitions, or effects only when they clearly do at least one job:
+## 4. Every layer needs a role
+
+Speech, visuals, music, text, graphics, captions, sound, effects, or generated media may lead or support at different moments. Give every major layer at least one clear job:
 
 - Clarify an idea or relationship
 - Demonstrate what speech alone cannot show
@@ -51,21 +53,23 @@ Add B-roll, captions, text, graphics, overlays, generated media, transitions, or
 - Establish or change mood deliberately
 - Improve comprehension or accessibility
 
-Prefer the most direct layer that works. Do not repeat information in speech, captions, a title, and an illustration unless repetition is useful. Captions help with accessibility, silent viewing, language support, or difficult audio; they are not automatic decoration. Graphics should simplify or reveal, not compete.
+Prefer a layer that performs its job clearly. Do not repeat information across speech, captions, titles, and illustrations unless useful. Use captions for accessibility, silent viewing, language support, or difficult audio—not automatic decoration. Make competition between graphics and other layers deliberate.
 
-Use B-roll to show the object, action, place, evidence, or emotional counterpoint—not merely to avoid looking at a speaker. Use generated media when available material cannot represent the idea faithfully; avoid generic imagery or anything that could be mistaken for documentary evidence.
+Use B-roll to show the object, action, place, evidence, or emotional counterpoint—not merely to avoid looking at a speaker.
 
-Prefer a direct cut unless a transition communicates passage, connection, contrast, or tonal shift. Motion and effects should direct attention or express change. If an addition is noticeable mainly because it exists, test the edit without it.
+In factual, testimonial, autobiographical, documentary, or product-claim work, do not present generated material as recorded evidence of an event, result, reaction, or product behavior. Clearly frame or disclose synthetic illustration or reconstruction when a reasonable viewer could mistake it for source footage. In fictional or expressive work, judge generated media by the brief and internal coherence rather than documentary realism.
+
+Prefer a direct cut unless a transition communicates passage, connection, contrast, or tonal shift. Use motion and effects to direct attention or express change. Test dispensable additions by removing them.
 
 ## 5. Sound and picture work together
 
-Protect intelligibility when speech carries meaning. Let music support structure and emotion without dictating every cut or masking performance. Align to musical phrases when useful, but let a strong action or spoken idea override the beat.
+Protect intelligibility when speech carries meaning. When music leads, let phrases, energy, or repetition organize the edit; when it supports, keep it from masking performance. A strong action or spoken idea may override the beat, while a deliberately rhythmic edit may let the beat drive.
 
-Preserve ambience when it gives scale, place, continuity, or credibility. Silence can create focus, tension, relief, or contrast; do not fill it automatically. Use sound effects to make an important action legible or tactile, not to announce every movement.
+Preserve ambience when it gives scale, place, continuity, or credibility. Silence can create focus, tension, relief, or contrast. Use sound effects to make important action legible or tactile, not to announce every movement.
 
-Decide which layer leads each moment. When the viewer must read, simplify competing speech and motion. When dialogue is subtle, avoid imagery that suggests an unrelated interpretation. When sound conveys an off-screen event, holding the picture may strengthen it.
+Decide which layer leads each moment. When viewers must read, manage competing speech and motion. Avoid imagery that distorts subtle dialogue. Holding the picture may strengthen an off-screen sound.
 
-A restrained music entrance after a decisive line can create emphasis; wall-to-wall music at equal intensity removes the contrast that would make that entrance meaningful.
+A music entrance, drop, repeated hit, or sustained intensity can each create structure when deliberate; unchanging intensity chosen by default usually removes contrast.
 
 ## 6. Review the edit as a viewer
 
@@ -77,8 +81,9 @@ Review at the intended pace, not only as isolated frames or technical events. As
 - Are any moments confusing, repetitive, rushed, or inert?
 - Is attention directed to the right element at the right time?
 - Would removing a cut, layer, effect, or sound improve the moment?
+- Does the chosen intensity, density, rhythm, surprise, stillness, or artificiality serve the brief?
 - Does the ending resolve, conclude, or intentionally release the experience?
 
 Fix the largest viewer-facing problem before polishing details. Recheck the surrounding sequence after structural changes because pacing, continuity, and emphasis are relational.
 
-Common failure patterns are filler B-roll, cutting at a fixed interval, redundant captions and graphics, unmotivated transitions, generic stock or generated imagery, excessive simultaneous motion, wall-to-wall music, sound effects on every action, and verification that confirms rendering but never evaluates meaning or rhythm.
+Common failure patterns are filler B-roll, cutting at a fixed interval, redundant captions and graphics, unmotivated transitions, generic stock or generated imagery, unmanaged simultaneous motion, wall-to-wall music by default, sound effects on every action, and verification that confirms rendering but never evaluates meaning or rhythm.
