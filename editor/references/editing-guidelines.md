@@ -34,9 +34,9 @@ Cut or change emphasis when meaning, action, attention, emotion, or rhythm calls
 
 ## 4. Test layer necessity and representation
 
-Speech, visuals, music, text, graphics, captions, sound, effects, transitions, and generated media may lead or contribute at different moments. Add a layer when it fulfills explicit direction or solves a specific viewer, material, accessibility, structural, or expressive need supported by the brief or material.
+Judge the source moment, crop, placement, surrounding layers, and assigned meaning together. Preserve the subject and context needed for its role, verify visible or audible content supports the intended claim, and judge hierarchy at delivery size through the relevant interval. If it fails, reconsider the moment, framing, timing, or layout.
 
-An identifiable role alone is insufficient when a layer merely restates existing information or introduces unsupported messaging. Repetition remains valid when it deliberately aids comprehension, accessibility, emphasis, rhythm, or requested style. Prefer the clearest way to meet the need, and test doubtful additions by removing them.
+Treat captions as edited language and composition, not merely successful transcription. Group words into meaningful spoken units and align changes with meaning, phrasing, emphasis, comprehension, and readable timing. Judge readability, placement, and repetition against titles, source text, speech, subject, and focal hierarchy. Repetition remains valid when it supports comprehension, accessibility, emphasis, rhythm, or requested style; it is harmful when it adds no distinct function and competes with the intended focal priority.
 
 In factual, testimonial, autobiographical, documentary, or product-claim work, do not present generated material as recorded evidence of an event, result, reaction, or product behavior. Clearly frame or disclose synthetic illustration or reconstruction when a reasonable viewer could mistake it for source footage. In fictional or expressive work, judge generated media by the brief and internal coherence rather than documentary realism.
 
@@ -56,12 +56,10 @@ Review the experience at its intended pace and in context. Ask:
 
 - Is the intended outcome clear without extra explanation?
 - Does the sequence preserve source meaning and necessary context?
-- Is every material addition requested or necessary, and is any repetition purposeful?
+- Are captions and other text meaningful, readable, and hierarchically coherent at the intended pace, and is any repetition purposeful?
 - Does attention reach the right place at the right time?
 - Do structure, density, rhythm, surprise, stillness, and artificiality fit the direction?
 - Are any moments confusing, rushed, inert, misleading, or unintentionally repetitive?
 - Does the ending conclude, resolve, loop, or intentionally release the experience?
 
 Fix the largest viewer-facing problem before polishing details. Recheck related moments after structural changes because pacing, continuity, emphasis, and meaning are relational.
-
-Common failures include arbitrary cutting, filler imagery, unsupported or redundant messaging, unmotivated transitions, generic generated material, unmanaged simultaneous demands, default wall-to-wall music or effects, and review that confirms technical output without evaluating the viewer's experience.
