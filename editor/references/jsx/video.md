@@ -6,7 +6,7 @@ A video clip. `src` resolves to a video asset (see [media.md](./media.md)); when
 <video src="/Movies/main.mp4" start={0} sourceIn={1} sourceOut={13} volume={-3} />
 ```
 
-**Sizing.** When `width`/`height` are omitted, the box defaults to the source's **intrinsic dimensions**, not the parent box — so a 1920×1080 clip placed in a 1080×1920 scene sits at its native landscape size (letterboxed), it does not fill the scene. Set explicit `width`/`height` to fit; `objectFit` then governs how the source maps into that box. This is a property of the element itself: wrapping the clip in a [`<sequence>`](./sequences.md) does not change it.
+**Sizing.** When `width`/`height` are omitted, the box defaults to the source's **intrinsic dimensions**, not the parent box — so a 1920×1080 clip placed in a 1080×1920 scene sits at its native landscape size, anchored top-left (overflowing the scene's width, leaving the lower portion empty); it does not fill the scene. Set explicit `width`/`height` to fit; `objectFit` then governs how the source maps into that box. This is a property of the element itself: wrapping the clip in a [`<sequence>`](./sequences.md) does not change it.
 
 ## Props
 
