@@ -22,7 +22,7 @@ User-defined components are ordinary Solid components; they compose intrinsics a
 ## Coordinates and sizing
 
 - Coordinates are **pixels relative to the parent's box**, origin top-left. No percentages, no layout keywords; explicit numbers until the layout engine lands.
-- **Every element's box defaults to its parent's box**: `x` and `y` default to `0`, `width` and `height` default to the parent's size (the JSX analog of `position: absolute; inset: 0`). The scene's box is its required `width`×`height`.
+- **Every element's box defaults to its parent's box**: `x` and `y` default to `0`, `width` and `height` default to the parent's size (the JSX analog of `position: absolute; inset: 0`). The scene's box is its required `width`×`height`. **Exception:** an element whose `src` resolves to media with intrinsic dimensions (e.g. [`<video>`](./video.md)) defaults `width`/`height` to that source's native size, not the parent's — so a differently-shaped source appears at native size (letterboxed) until you set an explicit box. This is independent of any [`<sequence>`](./sequences.md) or [`<group>`](./group.md) wrapper.
 - How media pixels map into the box is controlled by `objectFit`, never by the box itself. A generated asset's placeholder therefore always has a definite size, even before the asset exists.
 
 ## Common props
@@ -34,7 +34,7 @@ All visual elements accept:
 | `key` | `string` | none | Stable identity across mounts; **required** on document roots (see [roots.md](./roots.md)). |
 | `name` | `string` | none | Human-readable node name. |
 | `x`, `y` | `Animatable<number>` | `0` | Position relative to the parent, px. |
-| `width`, `height` | `Animatable<number>` | parent size | Box size, px. |
+| `width`, `height` | `Animatable<number>` | parent size (media `src`: source's intrinsic size) | Box size, px. |
 | `rotation` | `Animatable<number>` | `0` | Rotation in degrees. |
 | `opacity` | `Animatable<number>` | `1` | `0`-`1`. |
 | `cornerRadius` | `Animatable<number>` | `0` | Uniform corner radius, px. |
