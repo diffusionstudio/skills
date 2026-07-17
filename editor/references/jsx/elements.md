@@ -22,8 +22,8 @@ User-defined components are ordinary Solid components; they compose intrinsics a
 ## Coordinates and sizing
 
 - Coordinates are **pixels relative to the parent's box**, origin top-left. No percentages, no layout keywords; explicit numbers until the layout engine lands.
-- **Every element's box defaults to its parent's box**: `x` and `y` default to `0`, `width` and `height` default to the parent's size (the JSX analog of `position: absolute; inset: 0`). The scene's box is its required `width`×`height`. **Exception:** an element whose `src` resolves to media with intrinsic dimensions ([`<video>`](./video.md), [`<image>`](./image.md)) defaults `width`/`height` to that source's native size, not the parent's — so a differently-shaped source appears at native size, anchored top-left and not scaled to fill, until you set an explicit box. This is independent of any [`<sequence>`](./sequences.md) or [`<group>`](./group.md) wrapper.
-- How media pixels map into the box is controlled by `objectFit`, never by the box itself. A generated asset's placeholder therefore always has a definite size, even before the asset exists.
+- **Every element's box defaults to its parent's box**: `x` and `y` default to `0`, `width` and `height` to the parent's size (the JSX analog of `position: absolute; inset: 0`); the scene's box is its required `width`×`height`. **Media is the exception:** [`<video>`](./video.md) and [`<image>`](./image.md) default `width`/`height` to the source's native size, not the parent's — e.g. a 1920×1080 clip in a 1080×1920 scene sits landscape at top-left, not filling it, until you set an explicit box (a [`<sequence>`](./sequences.md) or [`<group>`](./group.md) wrapper doesn't change this).
+- How media pixels map into the box is controlled by `objectFit`, never by the box itself; it defaults to `cover`, filling the box and cropping any overflow. A generated asset's placeholder therefore always has a definite size, even before the asset exists.
 
 ## Common props
 

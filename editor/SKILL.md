@@ -43,7 +43,7 @@ Build the composition incrementally, verifying as you go. The JSX syntax that `m
 JSX best practices:
 
 - **Wrap entities in sequences** so the timeline stays structured and readable rather than a flat pile of clips.
-- **Give every entity an explicit width and height** rather than relying on implicit sizing (media defaults to its source's native size; see `references/jsx/video.md`).
+- **Give every entity an explicit width and height** rather than relying on implicit sizing (media defaults to its source's native size, not the scene's; see `references/jsx/elements.md`).
 
 ## Guides
 
