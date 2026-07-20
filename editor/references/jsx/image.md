@@ -15,4 +15,4 @@ All [common props](./elements.md#common-props), plus:
 | `src` | `string \| AssetRef` | **required** | See [media.md](./media.md). |
 | `objectFit` | `"cover" \| "contain" \| "fill"` | `"cover"` | How the source maps into the box. |
 
-A paint child draws over the media paint created by `src` (see [paints.md](./paints.md)).
+A paint child draws over the media paint created by `src` (see [paints.md](./paints.md)); a [`<shaderPaint>`](./shader-paint.md) child instead post-processes it, so the image renders through the shader.

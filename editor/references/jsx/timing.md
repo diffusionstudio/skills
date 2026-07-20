@@ -18,7 +18,7 @@ Timing splits the two independent questions a clip answers: **where it sits on t
 - If timing is omitted, a media node fits its natural duration at `start` 0, and a group auto-fits its children. A [`<sequence>`](./sequences.md) does not position its children for you: give each an explicit `start` (the next clip's `start` is the previous clip's end).
 
 > Examples:
-> - `<rect start={2} end={5} fill="red" />` — a rectangle on screen from timeline second 2 to 5.
+> - `<rect start={2} end={5} width={200} height={120} fill="red" />` — a rectangle on screen from timeline second 2 to 5.
 > - `<video start={5} sourceIn={10} sourceOut={20} />` — plays source seconds 10–20 (a 10-second clip) beginning at timeline second 5.
 > - `<video start={2} end={5} sourceIn={10} />` — the same source starting at 10 s, stretched to fill the timeline window 2–5 (so it plays source 10–13).
 > - `<video start={0} sourceIn={1} />` — trims the first second off the head and places the clip at the top of the timeline.

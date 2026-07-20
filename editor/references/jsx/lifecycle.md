@@ -19,7 +19,7 @@ export default function Project() {
   const { time, frame } = useTicker();
   return (
     <scene key="hud" width={1920} height={1080}>
-      <text fontSize={80}>{`frame ${frame()}`}</text>
+      <text width={600} height={100} fontSize={80}>{`frame ${frame()}`}</text>
       <rect x={860 + Math.sin(time() * 4) * 200} y={490} width={100} height={100} fill="#f43" />
     </scene>
   );
