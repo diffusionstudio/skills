@@ -5,6 +5,7 @@
 ```tsx
 <video
   src="/Movies/intro.mp4"
+  width={1920} height={1080}
   start={0} end={8}
   animations={[
     { type: "fade", duration: "15f" },

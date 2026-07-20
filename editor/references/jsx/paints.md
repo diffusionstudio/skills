@@ -21,6 +21,7 @@ Paint elements are valid inside any filled visual element (`<rect>`, `<scene>`, 
 | `<colorStop>` | `offset` (**required**, `0`-`1`), `color` (**required**), `opacity` | Gradient color stop. Valid only inside gradient paints, which take no other children. |
 | [`<htmlPaint>`](./html-paint.md) | `opacity`, HTML children | Reactive HTML laid out and drawn into the parent's box (flagged Chromium API). `<html>` is shorthand for a `<rect>` carrying one. |
 | [`<surfacePaint>`](./surface-paint.md) | `opacity`, `ref` (**required**) | A canvas your `ref` callback draws into (any context type), sampled into the parent's box every frame. `<surface>` is shorthand for a `<rect>` carrying one. |
+| [`<shaderPaint>`](./shader-paint.md) | `opacity`, `wgsl` (**required**), `uniforms` | A WGSL fragment shader applied to the video/image paint directly below it (that media renders only through the shader's output), or run procedurally when there is none. |
 
 Colors accept any CSS color; alpha is ignored (use `opacity`). `color`, `opacity`, and `offset` are animatable (see [keyframes.md](./keyframes.md)), so gradients can animate. Paints have no spatial or timing props and cannot be document roots.
 

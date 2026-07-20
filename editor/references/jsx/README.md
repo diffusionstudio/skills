@@ -19,6 +19,7 @@ The pipeline is driven by two commands: [`dapi mount`](../mount.md) renders the 
 | [paints.md](./paints.md) | `<solidPaint>`, gradients, `<colorStop>` |
 | [html-paint.md](./html-paint.md) | `<html>`: reactive HTML children drawn into the box |
 | [surface-paint.md](./surface-paint.md) | `<surface>`: a ref-provided canvas you draw into, sampled every frame |
+| [shader-paint.md](./shader-paint.md) | `<shaderPaint>`: a WGSL fragment shader over the media paint below it |
 | [media.md](./media.md) | `src` resolution (paths, URLs, asset ids, `AssetRef`) |
 | [timing.md](./timing.md) | `start` / `end` / `sourceIn` / `sourceOut`, time formats |
 | [keyframes.md](./keyframes.md) | Keyframe animation and easing |
@@ -86,8 +87,8 @@ export default function Project() {
   return (
     <scene key="my-first-scene" name="MyFirstScene" fill="black" width={1920} height={1080}>
       <sequence>
-        <video src={heroMotion} start={0} end={5} transition={{ type: "dissolve" }} />
-        <video src="/Movies/video.mp4" start={5} end={10} sourceIn={12} />
+        <video src={heroMotion} width={1920} height={1080} start={0} end={5} transition={{ type: "dissolve" }} />
+        <video src="/Movies/video.mp4" width={1920} height={1080} start={5} end={10} sourceIn={12} />
       </sequence>
 
       <image src={hero} x={40} y={40} width={200} height={112} />

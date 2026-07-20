@@ -3,7 +3,7 @@
 A video clip. `src` resolves to a video asset (see [media.md](./media.md)); when timing is omitted, the node fits its natural duration (see [timing.md](./timing.md)).
 
 ```tsx
-<video src="/Movies/main.mp4" start={0} sourceIn={1} sourceOut={13} volume={-3} />
+<video src="/Movies/main.mp4" width={1920} height={1080} start={0} sourceIn={1} sourceOut={13} volume={-3} />
 ```
 
 ## Props
@@ -18,4 +18,4 @@ All [common props](./elements.md#common-props), plus:
 | `muted` | `boolean` | `false` | Excludes the node's audio from the mix; independent of `volume`. |
 | `syncTo` | `string` | none | Key of another element carrying audio; derives `start` by audio alignment (see [audio-sync.md](./audio-sync.md)). Mutually exclusive with `start`. |
 
-A paint child draws over the media paint created by `src` (see [paints.md](./paints.md)).
+A paint child draws over the media paint created by `src` (see [paints.md](./paints.md)); a [`<shaderPaint>`](./shader-paint.md) child instead post-processes it, so the frame renders through the shader.

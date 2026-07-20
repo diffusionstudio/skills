@@ -4,9 +4,12 @@
 
 ```tsx
 <sequence>
-  <video src="/Movies/intro.mp4" start={0}  end={12} />                 {/* timeline 0–12 */}
-  <video src="/Movies/main.mp4"  start={12} end="02:30" sourceIn={5} /> {/* timeline 12–2:30, source from 5 s */}
-  <video src="/Movies/outro.mp4" start="02:30" />                       {/* from 2:30, plays to its natural end */}
+  {/* timeline 0–12 */}
+  <video src="/Movies/intro.mp4" width={1920} height={1080} start={0} end={12} />
+  {/* timeline 12–2:30, source from 5 s */}
+  <video src="/Movies/main.mp4" width={1920} height={1080} start={12} end="02:30" sourceIn={5} />
+  {/* from 2:30, plays to its natural end */}
+  <video src="/Movies/outro.mp4" width={1920} height={1080} start="02:30" />
 </sequence>
 ```
 
