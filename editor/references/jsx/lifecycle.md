@@ -2,9 +2,9 @@
 
 ## A mount stays live
 
-After `dapi mount` returns, its reactive graph keeps running: signals, effects, timers, and [`useTicker`](#useticker) keep driving the mounted entities. Updates land in the document immediately (not as undo steps) — prop writes, conditional inserts and removals (`<Show>`, `<For>`), text, and reactive `src` swaps including `generate.*`. The materialized nodes are ordinary editable entities; asset generation is owned by the engine. `syncTo` and new `<Captions>` are mount-only and throw if changed after commit. A run ends when a later `mount` claims one of its root keys (swapping the entities and disposing the old graph) or the project closes.
+After `dapi mount` returns, its reactive graph keeps running: signals, effects, timers, and [`useTicker`](#useticker) keep driving the mounted entities. Updates land in the document immediately (not as undo steps) — prop writes, conditional inserts and removals (`<Show>`, `<For>`), text, and reactive `src` swaps including `generate.*`. The materialized nodes are ordinary editable entities; asset generation is owned by the engine. `syncTo` and new `<captions>` are mount-only and throw if changed after commit. A run ends when a later `mount` claims one of its root keys (swapping the entities and disposing the old graph) or the project closes.
 
-The compiled module is persisted with the document and re-executed in every context: reload rebuilds the graph and its runtime hosts (`<Surface>`/`<Html>`), and export and capture drive the ticker across the frames they render. Re-execution binds to the existing entities rather than re-authoring them, so hand-edits survive; it rewrites only the props your effects animate. This requires the module's structure to be deterministic: `Math.random()` and `Date.now()` must not decide element counts or `<Show>`/`<For>` branches (using them inside an effect is fine).
+The compiled module is persisted with the document and re-executed in every context: reload rebuilds the graph and its runtime hosts (`<surface>`/`<html>`), and export and capture drive the ticker across the frames they render. Re-execution binds to the existing entities rather than re-authoring them, so hand-edits survive; it rewrites only the props your effects animate. This requires the module's structure to be deterministic: `Math.random()` and `Date.now()` must not decide element counts or `<Show>`/`<For>` branches (using them inside an effect is fine).
 
 `node insert` renders into an existing parent and is not persisted or kept live.
 
@@ -18,10 +18,10 @@ import { useTicker } from "@diffusionstudio/jsx";
 export default function Project() {
   const { time, frame } = useTicker();
   return (
-    <Scene key="hud" width={1920} height={1080}>
-      <Text fontSize={80}>{`frame ${frame()}`}</Text>
-      <Rect x={860 + Math.sin(time() * 4) * 200} y={490} width={100} height={100} fill="#f43" />
-    </Scene>
+    <scene key="hud" width={1920} height={1080}>
+      <text fontSize={80}>{`frame ${frame()}`}</text>
+      <rect x={860 + Math.sin(time() * 4) * 200} y={490} width={100} height={100} fill="#f43" />
+    </scene>
   );
 }
 ```
@@ -39,7 +39,7 @@ The values respect play, pause, scrubbing, looping, and playback speed, which wa
 
 ## `useFile`
 
-Resolves a [`src`](./media.md) (path, asset id, URL, or a `generate.*` ref) to its `File`, so effects can read the raw bytes: draw a library image onto a [`<Surface>`](./surface-paint.md), parse a data file, decode audio. The module is sandboxed and can't fetch a path or asset id itself, so resolution goes through the host, exactly as `src` does.
+Resolves a [`src`](./media.md) (path, asset id, URL, or a `generate.*` ref) to its `File`, so effects can read the raw bytes: draw a library image onto a [`<surface>`](./surface-paint.md), parse a data file, decode audio. The module is sandboxed and can't fetch a path or asset id itself, so resolution goes through the host, exactly as `src` does.
 
 ```tsx
 import { createSignal, createEffect } from "solid-js";
@@ -57,7 +57,7 @@ function Logo() {
     ctx.drawImage(await createImageBitmap(f), 0, 0, el.width, el.height);
   });
 
-  return <Surface ref={setCanvas} width={640} height={360} />;
+  return <surface ref={setCanvas} width={640} height={360} />;
 }
 ```
 

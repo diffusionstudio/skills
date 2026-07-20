@@ -1,6 +1,6 @@
 # Media source resolution
 
-`src` (on [`<Video>`](./video.md), [`<Image>`](./image.md), [`<Audio>`](./audio.md)) accepts:
+`src` (on [`<video>`](./video.md), [`<image>`](./image.md), [`<audio>`](./audio.md)) accepts:
 
 - **Global path**: e.g. `"/Movies/video.mp4"`, resolved against the user's OS.
 - **Remote URL**: e.g. `"https://my.videoarchive.com/audio/clip.wav"`, registered as a remote asset.

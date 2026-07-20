@@ -3,18 +3,15 @@
 The entry file is a standard Solid component module:
 
 ```tsx
-import { Scene } from "@diffusionstudio/jsx";
-
 export default function Project() {
   return (
-    <Scene key="intro" name="Intro" fill="black" width={1920} height={1080}>
+    <scene key="intro" name="Intro" fill="black" width={1920} height={1080}>
       {/* ... */}
-    </Scene>
+    </scene>
   );
 }
 ```
 
-The element import is optional at runtime — the compiler auto-imports PascalCase elements — but it makes the file typecheck (see [Types and tooling](#types-and-tooling)).
 
 The component receives no props; which document node each rendered root maps onto is declared in the JSX itself via `key` (see [roots.md](./roots.md)).
 
@@ -46,7 +43,7 @@ A `dapi.config.json` in the working directory pins versions or redirects userlan
 
 ## Types and tooling
 
-`@diffusionstudio/jsx` ships the composition elements and their prop types, the JSX namespace, `Time`, `AssetRef`, and the `generate` namespace. The PascalCase elements auto-import at compile time, so project files use them without import statements. For editor IntelliSense and typechecking in a project folder:
+`@diffusionstudio/jsx` ships the JSX namespace (which types the camelCase composition tags), for editor IntelliSense and typechecking in a project folder:
 
 ```json
 {
@@ -57,6 +54,6 @@ A `dapi.config.json` in the working directory pins versions or redirects userlan
 }
 ```
 
-The CLI does not typecheck; types are stripped at compile time. Run `tsc --noEmit` in the project folder for type safety. The compile-time auto-import is invisible to TypeScript, so for typechecking import the elements you use explicitly (`import { Scene, Text } from "@diffusionstudio/jsx"`) — explicit imports and the auto-import behave identically at runtime.
+The CLI does not typecheck; types are stripped at compile time. Run `tsc --noEmit` in the project folder for type safety.
 
 Userland packages resolve from a CDN at runtime, so they need no runtime install, but the editor still wants their type declarations. For IntelliSense on a library, install it (or its `@types/…`) as a **dev-only** dependency (`npm i -D three`); it is used purely for typechecking and never bundled or shipped.

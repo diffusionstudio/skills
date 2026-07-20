@@ -1,9 +1,9 @@
-# `<Rect>`
+# `<rect>`
 
 A filled rectangle. Takes only [paint children](./paints.md); use `cornerRadius` for rounded corners.
 
 ```tsx
-<Rect x={40} y={40} width={640} height={360} cornerRadius={24} fill="#FF0055" />
+<rect x={40} y={40} width={640} height={360} cornerRadius={24} fill="#FF0055" />
 ```
 
 ## Props

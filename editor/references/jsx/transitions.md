@@ -1,13 +1,13 @@
 # Transitions
 
-`transition` declares a transition **into the next clip**, set on the **outgoing** clip and rendered centered on the cut. It is valid only on direct children of [`<Sequence>`](./sequences.md).
+`transition` declares a transition **into the next clip**, set on the **outgoing** clip and rendered centered on the cut. It is valid only on direct children of [`<sequence>`](./sequences.md).
 
 ```tsx
-<Sequence>
-  <Video src="/Movies/intro.mp4" start={0}  end={12} transition={{ type: "fadeToBlack", duration: "20f" }} />
-  <Video src="/Movies/main.mp4"  start={12} end={24} transition={{}} />  {/* dissolve, 1s */}
-  <Video src="/Movies/outro.mp4" start={24} end={30} />
-</Sequence>
+<sequence>
+  <video src="/Movies/intro.mp4" start={0}  end={12} transition={{ type: "fadeToBlack", duration: "20f" }} />
+  <video src="/Movies/main.mp4"  start={12} end={24} transition={{}} />  {/* dissolve, 1s */}
+  <video src="/Movies/outro.mp4" start={24} end={30} />
+</sequence>
 ```
 
 ```ts

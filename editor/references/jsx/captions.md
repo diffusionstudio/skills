@@ -1,9 +1,9 @@
 # Captions
 
-`<Captions />` inside a scene transcribes that scene's audio into a caption node: a styled, timed transcript, produced on import. To caption an already-open scene, insert one with [`dapi node insert`](../node/insert.md).
+`<captions />` inside a scene transcribes that scene's audio into a caption node: a styled, timed transcript, produced on import. To caption an already-open scene, insert one with [`dapi node insert`](../node/insert.md).
 
 ```tsx
-<Captions preset="spotlight" colors={["#FF0055"]} verticalAlign="bottom" />
+<captions preset="spotlight" colors={["#FF0055"]} verticalAlign="bottom" />
 ```
 
 Transcription is **asynchronous and non-blocking**: the caption node is inserted at commit and its transcript attaches once ready. Because it reads the scene's audio, it runs **after** any generated assets in the scene have landed and after [audio sync](./audio-sync.md) has resolved; captioning a generated `voice`/`audio` track transcribes the finished audio at its final placement. The scene must contain an unmuted audio or video source; otherwise the caption node is left empty.

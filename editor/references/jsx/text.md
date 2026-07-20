@@ -1,11 +1,11 @@
-# `<Text>`
+# `<text>`
 
-A text node; children become editable glyphs. Because the box defaults to the parent's box, a centered full-frame title is simply `<Text textAlign="center" textBaseline="middle">…</Text>`.
+A text node; children become editable glyphs. Because the box defaults to the parent's box, a centered full-frame title is simply `<text textAlign="center" textBaseline="middle">…</text>`.
 
 ```tsx
-<Text fill="#FFFFFF" fontSize={128} fontWeight="bold" textAlign="center" textBaseline="middle">
+<text fill="#FFFFFF" fontSize={128} fontWeight="bold" textAlign="center" textBaseline="middle">
   Hello World
-</Text>
+</text>
 ```
 
 ## Props

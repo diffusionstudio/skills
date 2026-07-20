@@ -1,11 +1,11 @@
-# `<Scene>`
+# `<scene>`
 
 The composition root: clips its children to `width`×`height`. Valid **only** at the document top level; scenes do not nest. The first rendered root becomes the active scene (see [roots.md](./roots.md)).
 
 ```tsx
-<Scene key="intro" name="Intro" fill="black" width={1920} height={1080}>
+<scene key="intro" name="Intro" fill="black" width={1920} height={1080}>
   {/* children */}
-</Scene>
+</scene>
 ```
 
 ## Props
@@ -17,4 +17,4 @@ The composition root: clips its children to `width`×`height`. Valid **only** at
 | `name` | `string` | none | Scene name (recommended). |
 | `fill` | `string` | none | Background fill, any CSS color (alpha is ignored). |
 
-No timing or transform props. Canvas position is an editor concern; `<Scene>` has no `x`/`y`.
+No timing or transform props. Canvas position is an editor concern; `<scene>` has no `x`/`y`.

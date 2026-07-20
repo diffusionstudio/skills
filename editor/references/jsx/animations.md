@@ -3,7 +3,7 @@
 `animations` declares **preset in/out animations** on a clip: each entry plays over the clip's head (`"in"`) or tail (`"out"`), between the node's static state and the preset's start/end state. For hand-authored motion on individual props, use [keyframes](./keyframes.md); the two compose on distinct properties.
 
 ```tsx
-<Video
+<video
   src="/Movies/intro.mp4"
   start={0} end={8}
   animations={[
@@ -40,7 +40,7 @@ The editor's animations inspector options:
 | `"scramble"` | Text only: resolves scrambled characters into the text. |
 | `"gain"` | Audio only: volume ramp (fade-in/fade-out of the mix). No visual effect. |
 
-Text types apply only to [`<Text>`](./text.md) and [`<Captions>`](./captions.md); a mount that puts them elsewhere fails validation.
+Text types apply only to [`<text>`](./text.md) and [`<captions>`](./captions.md); a mount that puts them elsewhere fails validation.
 
 ## Semantics
 

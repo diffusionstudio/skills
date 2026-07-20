@@ -1,23 +1,23 @@
 # Element reference
 
-PascalCase composition elements map 1:1 onto internal node types (lowercase tags are DOM vocabulary, valid only inside [`<Html>`](./html-paint.md) content):
+camelCase composition elements map 1:1 onto internal node types. Lowercase DOM vocabulary is valid only inside [`<html>`](./html-paint.md) content.
 
 | Element | Internal node | Notes |
 | ------- | ------------- | ----- |
-| [`<Scene>`](./scene.md) | **Geometry with Scene tag** | Clips its children to `width`×`height`. Document root only. |
-| [`<Group>`](./group.md) | **Geometry with Group tag** | Container with a transform; auto-fits its size from its children. Takes no `fill` or explicit size. |
-| [`<Rect>`](./rect.md) | **Geometry with Solid paint** | A filled rectangle; takes only paint children. |
-| [`<Video>`](./video.md) | **Geometry with Video paint** | `src` resolves to a video asset. |
-| [`<Image>`](./image.md) | **Geometry with Image paint** | `src` resolves to an image asset. |
-| [`<Audio>`](./audio.md) | **Geometry with Audio component and a hidden Waveform paint** | No visual output; carries volume. |
-| [`<Text>`](./text.md) | **Geometry with Text component** | Children become editable glyphs. |
-| [`<Sequence>`](./sequences.md) | **Sequential group** | Track container for back-to-back clips; positions are explicit. |
-| [`<Captions>`](./captions.md) | **Caption node** | Transcribes the enclosing scene's audio. |
-| [`<SolidPaint>`](./paints.md) | **Solid paint** | Paint child. |
-| [`<LinearGradientPaint>` / `<RadialGradientPaint>`](./paints.md) | **Gradient paint** | Paint child; takes `<ColorStop>` children. |
-| [`<ColorStop>`](./paints.md) | **Gradient color stop** | Valid only inside gradient paints. |
-| [`<Html>`](./html-paint.md) | **Geometry with Html paint** | Children are real, reactive HTML drawn into the box by the browser (html-in-canvas, flagged Chromium API). `<HtmlPaint>` is the paint child form. |
-| [`<Surface>`](./surface-paint.md) | **Geometry with Surface paint** | `ref` hands you a canvas to draw with any context type (2d, webgl, webgpu); sampled every frame. `<SurfacePaint>` is the paint child form. |
+| [`<scene>`](./scene.md) | **Geometry with Scene tag** | Clips its children to `width`×`height`. Document root only. |
+| [`<group>`](./group.md) | **Geometry with Group tag** | Container with a transform; auto-fits its size from its children. Takes no `fill` or explicit size. |
+| [`<rect>`](./rect.md) | **Geometry with Solid paint** | A filled rectangle; takes only paint children. |
+| [`<video>`](./video.md) | **Geometry with Video paint** | `src` resolves to a video asset. |
+| [`<image>`](./image.md) | **Geometry with Image paint** | `src` resolves to an image asset. |
+| [`<audio>`](./audio.md) | **Geometry with Audio component and a hidden Waveform paint** | No visual output; carries volume. |
+| [`<text>`](./text.md) | **Geometry with Text component** | Children become editable glyphs. |
+| [`<sequence>`](./sequences.md) | **Sequential group** | Track container for back-to-back clips; positions are explicit. |
+| [`<captions>`](./captions.md) | **Caption node** | Transcribes the enclosing scene's audio. |
+| [`<solidPaint>`](./paints.md) | **Solid paint** | Paint child. |
+| [`<linearGradientPaint>` / `<radialGradientPaint>`](./paints.md) | **Gradient paint** | Paint child; takes `<colorStop>` children. |
+| [`<colorStop>`](./paints.md) | **Gradient color stop** | Valid only inside gradient paints. |
+| [`<html>`](./html-paint.md) | **Geometry with Html paint** | Children are real, reactive HTML drawn into the box by the browser (html-in-canvas, flagged Chromium API). `<htmlPaint>` is the paint child form. |
+| [`<surface>`](./surface-paint.md) | **Geometry with Surface paint** | `ref` hands you a canvas to draw with any context type (2d, webgl, webgpu); sampled every frame. `<surfacePaint>` is the paint child form. |
 
 User-defined components are ordinary Solid components; they compose the elements above and carry no runtime cost. Only the elements above produce entities.
 
@@ -42,7 +42,7 @@ All visual elements accept:
 | `opacity` | `Animatable<number>` | `1` | `0`-`1`. |
 | `cornerRadius` | `Animatable<number>` | `0` | Uniform corner radius, px. |
 | `start`, `end`, `sourceIn`, `sourceOut` | `Time` | see [timing.md](./timing.md) | Temporal placement. |
-| `transition` | `TransitionSpec \| null` | none | Transition into the next clip; direct children of `<Sequence>` only (see [transitions.md](./transitions.md)). |
+| `transition` | `TransitionSpec \| null` | none | Transition into the next clip; direct children of `<sequence>` only (see [transitions.md](./transitions.md)). |
 | `animations` | `AnimationSpec[]` | none | Preset in/out animations over the clip's head and tail (see [animations.md](./animations.md)). |
 
 `Animatable` props also take a keyframe list; see [keyframes.md](./keyframes.md).

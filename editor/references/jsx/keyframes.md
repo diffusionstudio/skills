@@ -3,7 +3,7 @@
 Animatable props accept a keyframe list in place of a static value:
 
 ```tsx
-<Image
+<image
   src="/photo.jpg"
   start={0} end={5}
   x={[

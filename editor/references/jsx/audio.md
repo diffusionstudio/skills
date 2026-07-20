@@ -1,9 +1,9 @@
-# `<Audio>`
+# `<audio>`
 
 An audio clip: no visual output, no spatial props; carries volume. When timing is omitted, the node fits its natural duration (see [timing.md](./timing.md)).
 
 ```tsx
-<Audio src="https://my.videoarchive.com/audio/clip.wav" start={2.2} sourceOut={16} volume={-6} />
+<audio src="https://my.videoarchive.com/audio/clip.wav" start={2.2} sourceOut={16} volume={-6} />
 ```
 
 ## Props

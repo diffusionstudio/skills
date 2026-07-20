@@ -1,9 +1,9 @@
-# `<Image>`
+# `<image>`
 
 An image. `src` resolves to an image asset (see [media.md](./media.md)).
 
 ```tsx
-<Image src="/photo.jpg" x={40} y={40} width={200} height={112} />
+<image src="/photo.jpg" x={40} y={40} width={200} height={112} />
 ```
 
 ## Props
