@@ -1,6 +1,6 @@
 # Media source resolution
 
-`src` (on [`<video>`](./video.md), [`<image>`](./image.md), [`<audio>`](./audio.md)) accepts:
+`src` (on [`<Video>`](./video.md), [`<Image>`](./image.md), [`<Audio>`](./audio.md)) accepts:
 
 - **Global path**: e.g. `"/Movies/video.mp4"`, resolved against the user's OS.
 - **Remote URL**: e.g. `"https://my.videoarchive.com/audio/clip.wav"`, registered as a remote asset.
@@ -8,3 +8,5 @@
 - **`AssetRef`**: the value returned by a `generate.*` declaration (see [generate.md](./generate.md)). The node is inserted immediately as a placeholder and its paint is attached once the asset has generated.
 
 In [`dapi node patch`](../node/patch.md), `src` takes a path, URL, or asset id; `generate.*` declarations are JSX-only.
+
+To read a source's raw bytes inside an effect (rather than mount it as a node), pass the same input to [`useFile`](./lifecycle.md#usefile), which resolves it to a `File`.

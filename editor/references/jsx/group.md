@@ -1,11 +1,11 @@
-# `<group>`
+# `<Group>`
 
 A container with a transform but no dimensions of its own: a group derives its box from its children, and they are positioned relative to it.
 
 ```tsx
-<group x={100} y={100}>
+<Group x={100} y={100}>
   {/* children */}
-</group>
+</Group>
 ```
 
 ## Props

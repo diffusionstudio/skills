@@ -49,7 +49,7 @@ JSX best practices:
 
 | Task | File | Covers |
 | ---- | ---- | ------ |
-| Install `dapi` | `references/installation.md` | Getting the CLI on PATH: Homebrew (macOS) or from source |
+| Install `dapi` | `references/installation.md` | Getting the CLI on PATH: link from an installed app (default), Homebrew, or from source |
 | Prompt `media listen` | `references/listen-prompts.md` | Prompt patterns for audio analysis: summaries, moment lookups, music, timestamp format |
 | Make editing decisions | `references/editing-guidelines.md` | Structure, pace, layer necessity, sound, source integrity, and viewer review |
 | Write JSX compositions | `references/jsx/README.md` | The JSX syntax `mount` and `node insert` consume: elements, sequences, timing, sizing, generation |

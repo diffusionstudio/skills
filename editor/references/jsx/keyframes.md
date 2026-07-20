@@ -3,7 +3,7 @@
 Animatable props accept a keyframe list in place of a static value:
 
 ```tsx
-<image
+<Image
   src="/photo.jpg"
   start={0} end={5}
   x={[
@@ -19,7 +19,7 @@ type Keyframe<T> = { time: Time; value: T; easing?: Easing };
 type Animatable<T> = T | Keyframe<T>[];
 ```
 
-Animatable props: `x`, `y`, `width`, `height`, `rotation`, `opacity`, `cornerRadius`, `volume`, `color`, `offset`. As part of the shared property table this applies to [`dapi node patch`](../node/patch.md) identically, and to [paints and color stops](./paints.md) (`color`, `opacity`, `offset` animate gradients).
+Animatable props: `x`, `y`, `offsetX`, `offsetY`, `width`, `height`, `rotation`, `opacity`, `cornerRadius`, `volume`, `color`, `offset`. As part of the shared property table this applies to [`dapi node patch`](../node/patch.md) identically, and to [paints and color stops](./paints.md) (`color`, `opacity`, `offset` animate gradients). For preset in/out effects (fade, slides, text reveals, ...) use the [`animations` prop](./animations.md) instead.
 
 ## Semantics
 

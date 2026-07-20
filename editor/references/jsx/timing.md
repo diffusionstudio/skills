@@ -13,15 +13,15 @@ Timing splits the two independent questions a clip answers: **where it sits on t
 
 - `start` / `end` place the clip on the parent timeline. `sourceIn` / `sourceOut` select which part of the source plays. On-timeline duration always equals the played source length, so `end - start == sourceOut - sourceIn`.
 - **`end` and `sourceOut` are two spellings of the same out edge** — the clip's end in timeline time (`end`) versus source time (`sourceOut`). Set one; the last one set wins.
-- Sourceless nodes (`<rect>`, `<group>`, `<text>`) have no footage to trim, so you place them with `start` / `end` alone.
+- Sourceless nodes (`<Rect>`, `<Group>`, `<Text>`) have no footage to trim, so you place them with `start` / `end` alone.
 - Instead of setting `start`, a media node can derive its placement from another node's audio with `syncTo` (see [audio-sync.md](./audio-sync.md)).
-- If timing is omitted, a media node fits its natural duration at `start` 0, and a group auto-fits its children. A [`<sequence>`](./sequences.md) does not position its children for you: give each an explicit `start` (the next clip's `start` is the previous clip's end).
+- If timing is omitted, a media node fits its natural duration at `start` 0, and a group auto-fits its children. A [`<Sequence>`](./sequences.md) does not position its children for you: give each an explicit `start` (the next clip's `start` is the previous clip's end).
 
 > Examples:
-> - `<rect start={2} end={5} fill="red" />` — a rectangle on screen from timeline second 2 to 5.
-> - `<video start={5} sourceIn={10} sourceOut={20} />` — plays source seconds 10–20 (a 10-second clip) beginning at timeline second 5.
-> - `<video start={2} end={5} sourceIn={10} />` — the same source starting at 10 s, stretched to fill the timeline window 2–5 (so it plays source 10–13).
-> - `<video start={0} sourceIn={1} />` — trims the first second off the head and places the clip at the top of the timeline.
+> - `<Rect start={2} end={5} fill="red" />` — a rectangle on screen from timeline second 2 to 5.
+> - `<Video start={5} sourceIn={10} sourceOut={20} />` — plays source seconds 10–20 (a 10-second clip) beginning at timeline second 5.
+> - `<Video start={2} end={5} sourceIn={10} />` — the same source starting at 10 s, stretched to fill the timeline window 2–5 (so it plays source 10–13).
+> - `<Video start={0} sourceIn={1} />` — trims the first second off the head and places the clip at the top of the timeline.
 
 ## Time formats
 

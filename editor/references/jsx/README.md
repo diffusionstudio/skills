@@ -4,7 +4,7 @@ The JSX API defines the code contract for injecting content into the editor via 
 
 A project is structured like a SolidJS app: a **root** is established on the canvas (typically a Scene, identified by its key and created if absent) and the project's component tree renders into it. **All positioning is explicit** (`x`, `y`, `width`, `height` in pixels).
 
-The markup is **pseudo-SVG**: elements like `<rect>`, `<text>`, `<linearGradientPaint>`, and `<colorStop>` mirror SVG's shape-and-paint model, but the tags and props are the editor's own (see [elements.md](./elements.md)), not the SVG spec.
+The markup is **pseudo-SVG**: elements like `<Rect>`, `<Text>`, `<LinearGradientPaint>`, and `<ColorStop>` mirror SVG's shape-and-paint model, but the tags and props are the editor's own (see [elements.md](./elements.md)), not the SVG spec.
 
 The pipeline is driven by two commands: [`dapi mount`](../mount.md) renders the project's roots into the document, and [`dapi node insert`](../node/insert.md) runs the same pipeline into an existing parent entity. [`dapi node patch`](../node/patch.md) assigns the same props on existing nodes.
 
@@ -16,16 +16,19 @@ The pipeline is driven by two commands: [`dapi mount`](../mount.md) renders the 
 | [roots.md](./roots.md) | Root elements, `key` identity, canvas placement |
 | [elements.md](./elements.md) | Element-to-node mapping, coordinates and sizing, the shared property table |
 | [scene.md](./scene.md), [group.md](./group.md), [rect.md](./rect.md), [text.md](./text.md), [video.md](./video.md), [image.md](./image.md), [audio.md](./audio.md) | Per-element props |
-| [paints.md](./paints.md) | `<solidPaint>`, gradients, `<colorStop>` |
+| [paints.md](./paints.md) | `<SolidPaint>`, gradients, `<ColorStop>` |
+| [html-paint.md](./html-paint.md) | `<Html>`: reactive HTML children drawn into the box |
+| [surface-paint.md](./surface-paint.md) | `<Surface>`: a ref-provided canvas you draw into, sampled every frame |
 | [media.md](./media.md) | `src` resolution (paths, URLs, asset ids, `AssetRef`) |
 | [timing.md](./timing.md) | `start` / `end` / `sourceIn` / `sourceOut`, time formats |
 | [keyframes.md](./keyframes.md) | Keyframe animation and easing |
+| [animations.md](./animations.md) | The `animations` prop: preset in/out animations |
 | [transitions.md](./transitions.md) | The `transition` prop on sequence clips |
-| [sequences.md](./sequences.md) | `<sequence>` sequential placement |
+| [sequences.md](./sequences.md) | `<Sequence>` sequential placement |
 | [audio-sync.md](./audio-sync.md) | `syncTo` audio alignment |
-| [captions.md](./captions.md) | `<captions>` and style presets |
+| [captions.md](./captions.md) | `<Captions>` and style presets |
 | [generate.md](./generate.md) | Declarative AI asset generation (`generate.*`) |
-| [lifecycle.md](./lifecycle.md) | One-shot render lifecycle |
+| [lifecycle.md](./lifecycle.md) | Mount lifecycle: always live, persisted + re-executed, `useTicker` |
 | [errors.md](./errors.md) | Where each pipeline stage fails and with what effect |
 
 ## Pipeline
@@ -63,7 +66,7 @@ const TITLES = [
 
 function Title(props: { text: string; start: Time; end: Time }) {
   return (
-    <text
+    <Text
       textAlign="center"
       textBaseline="middle"
       fill="#FFFFFF"
@@ -75,31 +78,31 @@ function Title(props: { text: string; start: Time; end: Time }) {
       end={props.end}
     >
       {props.text}
-    </text>
+    </Text>
   );
 }
 
 export default function Project() {
   return (
-    <scene key="my-first-scene" name="MyFirstScene" fill="black" width={1920} height={1080}>
-      <sequence>
-        <video src={heroMotion} start={0} end={5} transition={{ type: "dissolve" }} />
-        <video src="/Movies/video.mp4" start={5} end={10} sourceIn={12} />
-      </sequence>
+    <Scene key="my-first-scene" name="MyFirstScene" fill="black" width={1920} height={1080}>
+      <Sequence>
+        <Video src={heroMotion} start={0} end={5} transition={{ type: "dissolve" }} />
+        <Video src="/Movies/video.mp4" start={5} end={10} sourceIn={12} />
+      </Sequence>
 
-      <image src={hero} x={40} y={40} width={200} height={112} />
+      <Image src={hero} x={40} y={40} width={200} height={112} />
 
       <For each={TITLES}>{(t) => <Title {...t} />}</For>
 
-      <audio
+      <Audio
         src="https://my.videoarchive.com/audio/video-xyz.wav"
         sourceIn={6}
         sourceOut={16}
         volume={-6}
       />
 
-      <captions />
-    </scene>
+      <Captions />
+    </Scene>
   );
 }
 ```

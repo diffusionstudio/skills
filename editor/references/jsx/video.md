@@ -1,9 +1,9 @@
-# `<video>`
+# `<Video>`
 
 A video clip. `src` resolves to a video asset (see [media.md](./media.md)); when timing is omitted, the node fits its natural duration (see [timing.md](./timing.md)).
 
 ```tsx
-<video src="/Movies/main.mp4" start={0} sourceIn={1} sourceOut={13} volume={-3} />
+<Video src="/Movies/main.mp4" start={0} sourceIn={1} sourceOut={13} volume={-3} />
 ```
 
 ## Props
