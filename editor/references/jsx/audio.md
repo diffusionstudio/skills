@@ -16,3 +16,4 @@ An audio clip: no visual output, no spatial props; carries volume. When timing i
 | `volume` | `Animatable<number>` | `0` | Decibels: `0` = unity, negative attenuates (`-6` ≈ half as loud), `-Infinity` = silence. Not linear. |
 | `muted` | `boolean` | `false` | Excludes the node's audio from the mix; independent of `volume`. |
 | `syncTo` | `string` | none | Key of another element carrying audio; derives `start` by audio alignment (see [audio-sync.md](./audio-sync.md)). Mutually exclusive with `start`. |
+| `animations` | `AnimationSpec[]` | none | Preset in/out animations (see [animations.md](./animations.md)); only `"gain"` is audible. |

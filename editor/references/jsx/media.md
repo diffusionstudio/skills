@@ -8,3 +8,5 @@
 - **`AssetRef`**: the value returned by a `generate.*` declaration (see [generate.md](./generate.md)). The node is inserted immediately as a placeholder and its paint is attached once the asset has generated.
 
 In [`dapi node patch`](../node/patch.md), `src` takes a path, URL, or asset id; `generate.*` declarations are JSX-only.
+
+To read a source's raw bytes inside an effect (rather than mount it as a node), pass the same input to [`useFile`](./lifecycle.md#usefile), which resolves it to a `File`.
