@@ -7,48 +7,49 @@ description: >-
   task.
 ---
 
-# Video editing with Diffusion Studio
+The CLI is self-describing and ships its own API reference. Use `dapi --help`, `dapi <group> --help`, and `dapi <group> <command> --help` to enumerate every command, argument, and option, and treat live help as authoritative rather than working from memory.
 
-`dapi` is the CLI that drives a running Diffusion Studio editor over a local socket.
-You build and edit a video composition entirely through these commands.
+# Footage analysis
 
-## Discover the CLI; don't work from memory
-
-The CLI is self-describing and ships its own API reference, use `dapi --help`, `dapi <group> --help`, 
-and `dapi <group> <command> --help` enumerate every command, argument, and option.
-
-## Workflow
-
-### In depth footage analysis
-
-Analysis is audio-first: the soundtrack usually carries more meaning than the pixels, so lead with it and sample the video against what you hear.
+How to understand source material before editing it. Inspect only the modalities the decision turns on — speech, action, music, graphics, or atmosphere may lead, so there is no fixed priority. Sample the picture against what the audio tells you.
 
 1. **Probe first.** `dapi media probe <id|path>` reports the container and its tracks, telling you up front whether the file has a video track, an audio track, or both. Everything after branches on that.
-2. **Get the lay of the land.** Render a `dapi media waveform` (audio) and a `dapi media filmstrip` (video) for a fast, cheap overview of where the loud and quiet stretches and the visual scene changes fall.
-3. **Listen to the audio.** Run `dapi media listen` with a prompt tailored to the context (what you actually need to know), and explicitly ask the model to include timestamps in its answer. See `references/listen-prompts.md` for prompt patterns.
-4. **Transcribe speech.** If the audio contains speech, also run `dapi media transcribe`: its word-level timestamps are far more precise than a listen summary.
+2. **Get the lay of the land.** Render a `dapi media waveform` (audio) and a `dapi media filmstrip` (video) for a fast, cheap overview of where the loud and quiet stretches and the visual scene changes fall. A filmstrip shows coarse structure and scene state, not crop, framing, readability, or an exact cut frame — grab a specific frame for any of those.
+3. **Listen to the audio.** Run `dapi media listen` with a prompt tailored to the context (what you actually need to know), and explicitly ask the model to include timestamps in its answer. See [listen-prompts.md](references/listen-prompts.md) for prompt patterns.
+4. **Transcribe speech.** For speech, `dapi media transcribe` prints word-level start/end times directly and takes `--start`/`--end` to scope a range — read any segment straight from it.
 5. **Sample the video against the audio.** Use `dapi media grab` to pull frames. When the audio has already pointed you at specific moments, feed those timestamps straight in from the transcript or listen output, e.g. `-t '00:32' '00:45' ...`. When you need a visual pass without such cues, reach for `--auto`: it scans the footage and keeps only the frames where the picture settles into a new visual state, dropping near-duplicates.
 
-Because audio usually matters more than the visuals, you can often stop early: for a lot of footage the filmstrip alone is enough to grasp the video side, and a full frame-by-frame pass with `grab` adds little.
+## Best practices
 
-### Assemble an edit
+- Wrap entities in `<sequence>` tags wherever they support it — A-roll, B-roll, and other clips belong in sequences so the timeline stays structured rather than a flat, messy pile. (`<html>` does not support sequences.)
+- Use the built-in tags for the media a composition is made of (audio, video, images, captions).
+- For anything 3D, use Three.js drawn into a `<surface>` tag.
+- For motion graphics, overlays and UI-heavy graphics, use the `<html>` tag.
+- Add auto captions last, after everything else is assembled, so they transcribe the finished audio at its final placement.
 
-Build the composition incrementally, verifying as you go. The JSX syntax that `mount` and `insert` consume is specified in `references/jsx/` (start with `references/jsx/README.md`).
+### Video editing guidelines
 
-1. **Write the brief first.** Capture the edit as a markdown file: It is the plan every mount works toward and the thing to check the result against.
-2. **Lay down the A-roll.** Assemble the primary footage as JSX and `dapi mount` it. Get the spine of the edit right before anything else.
-3. **Layer the rest on top.** Once the A-roll holds, add B-roll and secondary assets (sound effects, captions, overlays) with further mounts or `dapi node insert`.
-4. **Verify every change.** After each `mount` or `insert`, run `dapi node capture` to see what the viewer actually gets, and reconcile it against the brief before moving on.
+- Write the brief first. For anything nontrivial, capture the edit as a markdown file: it is the plan every mount works toward and the thing to check the result against.
+- Lay down the A-roll. Assemble the primary footage as JSX and `dapi mount` it. Get the spine of the edit right before anything else.
+- Layer the rest on top. Once the A-roll holds, add B-roll and secondary assets (sound effects, captions, overlays) with further mounts or `dapi node insert`.
 
-JSX best practices:
+# Verification
 
-- **Wrap entities in sequences** so the timeline stays structured and readable rather than a flat pile of clips.
-- **Give every entity an explicit width and height** rather than relying on implicit sizing.
+How to confirm a change actually produced what you intended. A clean `mount` or `insert` does not guarantee a correct-looking frame — verify the composited result, not just that the command succeeded.
 
-## Guides
+- After each `mount` or `insert`, `dapi node capture` the composited **scene** (capture the scene id, not the isolated node) to see what the viewer actually gets.
+- Reconcile the captured frame against the brief before moving on. Check framing, crop, readability, hierarchy, and timing at the intended delivery size.
+- Verify after every stage, not only at the end — build the composition incrementally so a problem is caught next to the change that caused it. See [compositing.md](references/compositing.md).
+- Fix the largest viewer-facing problem before polishing details, and recheck related moments after structural changes, since pacing, continuity, emphasis, and meaning are relational.
+- Use `screenshot` or `logs` to debug issues
 
-| Task | File | Covers |
-| ---- | ---- | ------ |
-| Install `dapi` | `references/installation.md` | Getting the CLI on PATH: Homebrew (macOS) or from source |
-| Prompt `media listen` | `references/listen-prompts.md` | Prompt patterns for audio analysis: summaries, moment lookups, music, timestamp format |
-| Write JSX compositions | `references/jsx/README.md` | The JSX syntax `mount` and `node insert` consume: elements, sequences, timing, generation |
+## Examples
+
+| Area | File |
+| ---- | ---- |
+| Video editing | [references/examples/video-editing.md](references/examples/video-editing.md) |
+| Motion graphics | [references/examples/motion-graphics.md](references/examples/motion-graphics.md) |
+
+---
+
+Supporting references: [references/installation.md](references/installation.md) (getting the CLI on PATH), [references/jsx/README.md](references/jsx/README.md) (the full JSX syntax that `mount` and `node insert` consume).

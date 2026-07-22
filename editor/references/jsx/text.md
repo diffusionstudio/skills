@@ -22,3 +22,5 @@ All [common props](./elements.md#common-props), plus:
 | `fill` | `string` | white | The glyph color; any CSS color, alpha ignored (use `opacity`). Shorthand for a solid paint child (see [paints.md](./paints.md)); animate it by declaring the paint explicitly. |
 | `textAlign` | `"left" \| "center" \| "right"` | `"left"` | Horizontal alignment of glyphs within the box. |
 | `textBaseline` | `"top" \| "middle" \| "bottom"` | `"top"` | Vertical alignment within the box. |
+
+The text-only [animation types](./animations.md) (`"appearWord"`, `"appearChar"`, `"scramble"`) animate the glyphs themselves.

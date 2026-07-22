@@ -4,9 +4,9 @@
 
 ```tsx
 <sequence>
-  <video src="/Movies/intro.mp4" start={0}  end={12} transition={{ type: "fadeToBlack", duration: "20f" }} />
-  <video src="/Movies/main.mp4"  start={12} end={24} transition={{}} />  {/* dissolve, 1s */}
-  <video src="/Movies/outro.mp4" start={24} end={30} />
+  <video src="/Movies/intro.mp4" width={1920} height={1080} start={0} end={12} transition={{ type: "fadeToBlack", duration: "20f" }} />
+  <video src="/Movies/main.mp4" width={1920} height={1080} start={12} end={24} transition={{}} />  {/* dissolve, 1s */}
+  <video src="/Movies/outro.mp4" width={1920} height={1080} start={24} end={30} />
 </sequence>
 ```
 

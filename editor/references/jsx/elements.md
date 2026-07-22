@@ -1,6 +1,6 @@
 # Element reference
 
-Lowercase intrinsic elements map 1:1 onto internal node types:
+camelCase composition elements map 1:1 onto internal node types. Lowercase DOM vocabulary is valid only inside [`<html>`](./html-paint.md) content.
 
 | Element | Internal node | Notes |
 | ------- | ------------- | ----- |
@@ -16,14 +16,16 @@ Lowercase intrinsic elements map 1:1 onto internal node types:
 | [`<solidPaint>`](./paints.md) | **Solid paint** | Paint child. |
 | [`<linearGradientPaint>` / `<radialGradientPaint>`](./paints.md) | **Gradient paint** | Paint child; takes `<colorStop>` children. |
 | [`<colorStop>`](./paints.md) | **Gradient color stop** | Valid only inside gradient paints. |
+| [`<html>`](./html-paint.md) | **Geometry with Html paint** | Children are real, reactive HTML drawn into the box by the browser (html-in-canvas, flagged Chromium API). `<htmlPaint>` is the paint child form. |
+| [`<surface>`](./surface-paint.md) | **Geometry with Surface paint** | `ref` hands you a canvas to draw with any context type (2d, webgl, webgpu); sampled every frame. `<surfacePaint>` is the paint child form. |
 
-User-defined components are ordinary Solid components; they compose intrinsics and carry no runtime cost. Only intrinsic elements produce entities.
+User-defined components are ordinary Solid components; they compose the elements above and carry no runtime cost. Only the elements above produce entities.
 
 ## Coordinates and sizing
 
 - Coordinates are **pixels relative to the parent's box**, origin top-left. No percentages, no layout keywords; explicit numbers until the layout engine lands.
 - **Every element's box defaults to its parent's box**: `x` and `y` default to `0`, `width` and `height` default to the parent's size (the JSX analog of `position: absolute; inset: 0`). The scene's box is its required `width`×`height`.
-- How media pixels map into the box is controlled by `objectFit`, never by the box itself. A generated asset's placeholder therefore always has a definite size, even before the asset exists.
+- How media pixels map into the box is controlled by `objectFit` (default `"cover"`), never by the box itself. A generated asset's placeholder therefore always has a definite size, even before the asset exists.
 
 ## Common props
 
@@ -34,12 +36,14 @@ All visual elements accept:
 | `key` | `string` | none | Stable identity across mounts; **required** on document roots (see [roots.md](./roots.md)). |
 | `name` | `string` | none | Human-readable node name. |
 | `x`, `y` | `Animatable<number>` | `0` | Position relative to the parent, px. |
+| `offsetX`, `offsetY` | `Animatable<number>` | `0` | Render-time translation on top of `x`/`y`, px; moves the drawn content without changing the layout box. Subpixel values are kept. |
 | `width`, `height` | `Animatable<number>` | parent size | Box size, px. |
 | `rotation` | `Animatable<number>` | `0` | Rotation in degrees. |
 | `opacity` | `Animatable<number>` | `1` | `0`-`1`. |
 | `cornerRadius` | `Animatable<number>` | `0` | Uniform corner radius, px. |
 | `start`, `end`, `sourceIn`, `sourceOut` | `Time` | see [timing.md](./timing.md) | Temporal placement. |
 | `transition` | `TransitionSpec \| null` | none | Transition into the next clip; direct children of `<sequence>` only (see [transitions.md](./transitions.md)). |
+| `animations` | `AnimationSpec[]` | none | Preset in/out animations over the clip's head and tail (see [animations.md](./animations.md)). |
 
 `Animatable` props also take a keyframe list; see [keyframes.md](./keyframes.md).
 

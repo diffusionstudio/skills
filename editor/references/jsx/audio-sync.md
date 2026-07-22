@@ -4,7 +4,7 @@
 
 ```tsx
 <scene key="talk" width={1920} height={1080}>
-  <video key="camera" src="/Movies/take-3.mp4" sourceOut={45} muted />
+  <video key="camera" src="/Movies/take-3.mp4" width={1920} height={1080} sourceOut={45} muted />
   <audio src="/Movies/lav.wav" syncTo="camera" />
 </scene>
 ```
