@@ -12,6 +12,7 @@ Timing splits the two independent questions a clip answers: **where it sits on t
 ## Semantics
 
 - `start` / `end` place the clip on the parent timeline. `sourceIn` / `sourceOut` select which part of the source plays. On-timeline duration always equals the played source length, so `end - start == sourceOut - sourceIn`.
+- **Trimming the source is not the same as moving the clip.** To drop part of the source you must move `sourceIn` / `sourceOut`; changing `start` alone only slides the clip along the timeline while the full source keeps playing. If the source is meant to stay aligned with something else in the scene (synced audio, a transcript, another track), advance `start` and `sourceIn` **together** — moving one without the other offsets the content instead of trimming it.
 - **`end` and `sourceOut` are two spellings of the same out edge** — the clip's end in timeline time (`end`) versus source time (`sourceOut`). Set one; the last one set wins.
 - Sourceless nodes (`<rect>`, `<group>`, `<text>`) have no footage to trim, so you place them with `start` / `end` alone.
 - Instead of setting `start`, a media node can derive its placement from another node's audio with `syncTo` (see [audio-sync.md](./audio-sync.md)).

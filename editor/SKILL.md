@@ -12,15 +12,15 @@ The CLI is self-describing and ships its own API reference. Use `dapi --help`, `
 
 ## Reference files
 
-Read the file that matches the work in front of you; each is authoritative for its area.
+**Read each reference file when you reach its stage** Each file is authoritative for its area and encodes the intended approach, so read it before running any `dapi` command in that area rather than working from memory.
 
-| Area | File | Covers |
+| Stage | File | Covers |
 | ---- | ---- | ------ |
-| Analyze footage | [references/footage-analysis.md](references/footage-analysis.md) | Probing, waveforms/filmstrips, listening, transcription, and frame sampling to understand source material |
-| Composite the edit | [references/compositing.md](references/compositing.md) | How `dapi mount` and `dapi node insert` build a composition, and the JSX best practices for structuring it |
-| Make editing decisions | [references/editing-guidelines.md](references/editing-guidelines.md) | High-level editorial judgment: structure, pace, layer necessity, sound, source integrity, and viewer review |
-| Create motion graphics | [references/motion-graphics.md](references/motion-graphics.md) | High-level building blocks for overlays, titles, animated UI, 3D, effects, and on-screen text |
-| Verify changes | [references/verification.md](references/verification.md) | Capturing the composited scene and reconciling each change against the brief |
+| 1. Analyze footage | [references/footage-analysis.md](references/footage-analysis.md) | Probing, waveforms/filmstrips, listening, transcription, and frame sampling to understand source material |
+| 2a. Decide a video edit | [references/editing-guidelines.md](references/editing-guidelines.md) | High-level editorial judgment: structure, pace, layer necessity, sound, source integrity, and viewer review |
+| 2b. Decide motion graphics | [references/motion-graphics.md](references/motion-graphics.md) | High-level building blocks for overlays, titles, animated UI, 3D, effects, and on-screen text |
+| 3. Composite | [references/compositing.md](references/compositing.md) | How `dapi mount` and `dapi node insert` build a composition, and the JSX best practices for structuring it |
+| 4. Verify changes | [references/verification.md](references/verification.md) | Capturing the composited scene and reconciling each change against the brief |
 
 Supporting references: [references/installation.md](references/installation.md) (getting the CLI on PATH), [references/listen-prompts.md](references/listen-prompts.md) (prompt patterns for `media listen`), and [references/jsx/README.md](references/jsx/README.md) (the full JSX syntax that `mount` and `node insert` consume).
 

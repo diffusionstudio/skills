@@ -18,9 +18,18 @@ Transcripts are **cached**: every transcript asset records a fingerprint of the 
 | `colors` | `string[]` | preset defaults | Fills the preset's color slots in order; any CSS color, alpha ignored. Ignored by presets without slots. |
 | `verticalAlign` | `"top" \| "center" \| "bottom"` | preset default | Vertical placement of the caption block: anchored to the top or bottom safe margin (100 px), or centered. Horizontal placement stays with the preset. |
 | `offsetX`, `offsetY` | `Animatable<number>` | `0` | Render-time nudge in px on top of the preset placement; subpixel values are kept. A slide animation drives the same channel and wins while it plays. |
-| `start`, `end`, `sourceIn`, `sourceOut` | `Time` | full transcript | Trim which stretch of the transcript is captioned, using the same [timing](./timing.md) semantics as media nodes. See below. |
+| `start`, `end`, `sourceIn`, `sourceOut` | `Time` | full transcript | Trim which stretch of the transcript is captioned, using the same [timing](./timing.md) semantics as media nodes. Set the source window (`sourceIn`/`sourceOut`) and timeline placement (`start`/`end`) together — see [Trimming](#trimming). |
 
 The preset positions the caption block; `verticalAlign` overrides only its vertical anchor (`whisper` and `cascade` default to `bottom`, all other presets to `center`), and `offsetX`/`offsetY` nudge the drawn result from there.
+
+## Trimming
+
+Captions carry the same [timing](./timing.md) props as media nodes, and the transcript is source content that must stay aligned to the audio — so advance `start` and `sourceIn` together (and `end`/`sourceOut`), never `start` alone. To show only from 15 s onward, set both `sourceIn={15}` and `start={15}`. One node can't skip a gap, so to blank captions out for a middle stretch — e.g. under an overlay — use two nodes that meet at the gap:
+
+```tsx
+<captions start={0} end={15} sourceIn={0} sourceOut={15} />   // before the overlay
+<captions start={20} sourceIn={20} />                         // after the overlay
+```
 
 ## Presets
 
