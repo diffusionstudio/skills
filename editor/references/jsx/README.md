@@ -65,24 +65,6 @@ const TITLES = [
   { text: "Chapter One", start: 6, end: 9 },
 ];
 
-function Title(props: { text: string; start: Time; end: Time }) {
-  return (
-    <text
-      textAlign="center"
-      textBaseline="middle"
-      fill="#FFFFFF"
-      fontSize={128}
-      fontWeight="bold"
-      height={1080}
-      width={1920}
-      start={props.start}
-      end={props.end}
-    >
-      {props.text}
-    </text>
-  );
-}
-
 export default function Project() {
   return (
     <scene key="my-first-scene" name="MyFirstScene" fill="black" width={1920} height={1080}>
@@ -93,16 +75,12 @@ export default function Project() {
 
       <image src={hero} x={40} y={40} width={200} height={112} />
 
-      <For each={TITLES}>{(t) => <Title {...t} />}</For>
-
       <audio
         src="https://my.videoarchive.com/audio/video-xyz.wav"
         sourceIn={6}
         sourceOut={16}
         volume={-6}
       />
-
-      <captions />
     </scene>
   );
 }
