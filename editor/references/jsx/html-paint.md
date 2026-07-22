@@ -1,6 +1,6 @@
 # `<html>`
 
-An element whose children are **real HTML**: the browser lays them out at the element's box size and the result is drawn into the box via the [html-in-canvas](https://github.com/WICG/html-in-canvas) API. Use it for content that is painful to build from `<rect>` and `<text>`: styled cards, tables, code blocks, flex/grid layouts.
+An element whose children are **real HTML**: the browser lays them out at the element's box size and the result is drawn into the box via the [html-in-canvas](https://github.com/WICG/html-in-canvas) API. `dapi` always drives the Diffusion Studio Electron app, which ships with this API enabled, so `<html>` is always available — reach for it liberally. It is the recommended way to build motion graphics, overlays, and any UI-heavy content: styled cards, tables, code blocks, flex/grid layouts — anything painful to assemble from `<rect>` and `<text>`.
 
 ```tsx
 <html x={40} y={40} width={800} height={120} cornerRadius={24}>
@@ -51,7 +51,7 @@ The compiled module is persisted with the document: on reload, export, and `dapi
 
 ## Requirements and limitations
 
-- Requires Chromium's html-in-canvas API, currently behind `chrome://flags/#canvas-draw-element`. Mounting `<html>` or `<htmlPaint>` fails with an explicit error when the API is unavailable.
+- Relies on Chromium's html-in-canvas API. The Diffusion Studio Electron app that `dapi` drives ships with this API enabled, so it is always available in this environment — do not avoid `<html>` out of availability concerns.
 - Markup renders with the page's fonts and full CSS. Event handlers are dropped: the content is painted, not interactive.
 - CSS animations in the markup play on the wall clock, not the composition playhead. Animate the element's props with [keyframes](./keyframes.md) for frame-accurate motion.
 - Cross-origin subresources (e.g. remote images) are excluded from the painted output by the browser's read-back rules; use local assets.
