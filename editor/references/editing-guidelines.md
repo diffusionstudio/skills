@@ -2,6 +2,12 @@
 
 Use these guidelines after understanding the request and material. Specifications, references, and evidence set the direction; use this file to resolve editorial choices left open.
 
+## Building the edit
+
+1. **Write the brief first.** For anything nontrivial, capture the edit as a markdown file: it is the plan every mount works toward and the thing to check the result against.
+2. **Lay down the A-roll.** Assemble the primary footage as JSX and `dapi mount` it. Get the spine of the edit right before anything else.
+3. **Layer the rest on top.** Once the A-roll holds, add B-roll and secondary assets (sound effects, captions, overlays) with further mounts or `dapi node insert`.
+
 ## 1. Resolve priorities
 
 Start with the intended viewer outcome: what should the viewer understand, feel, notice, trust, or do? Follow explicit specifications, references, and established style unless technically impossible or materially misleading.
@@ -37,10 +43,6 @@ Cut or change emphasis when meaning, action, attention, emotion, or rhythm calls
 Judge the source moment, crop, placement, surrounding layers, and assigned meaning together. Preserve the subject and context needed for its role, verify visible or audible content supports the intended claim, and judge hierarchy at delivery size through the relevant interval. If it fails, reconsider the moment, framing, timing, or layout.
 
 Treat captions as edited language and composition, not merely successful transcription. Group words into meaningful spoken units and align changes with meaning, phrasing, emphasis, comprehension, and readable timing. Judge readability, placement, and repetition against titles, source text, speech, subject, and focal hierarchy. Repetition remains valid when it supports comprehension, accessibility, emphasis, rhythm, or requested style; it is harmful when it adds no distinct function and competes with the intended focal priority.
-
-Default to the `"classic"` caption preset — it reads cleanly across almost any footage. Only reach for another preset when the brief calls for a specific look (e.g. `spotlight`/`guinea` for punchy word-by-word highlighting, `whisper` for understated subtitles, `stark` for a blended-in title treatment).
-
-Never stack a text overlay on top of captions. Styled rich-text overlays — titles, key phrases, callouts built with `<html>` — and the running caption track compete for the same reading attention and clutter the frame when they coincide. Wherever an overlay appears, trim the captions (`start`/`end`, `sourceIn`/`sourceOut`) so the transcript is absent for that stretch and the overlay owns the moment. The two should hand off in time, not overlap.
 
 In factual, testimonial, autobiographical, documentary, or product-claim work, do not present generated material as recorded evidence of an event, result, reaction, or product behavior. Clearly frame or disclose synthetic illustration or reconstruction when a reasonable viewer could mistake it for source footage. In fictional or expressive work, judge generated media by the brief and internal coherence rather than documentary realism.
 
