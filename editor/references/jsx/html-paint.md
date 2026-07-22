@@ -21,6 +21,14 @@ An element whose children are **real HTML**: the browser lays them out at the el
 </rect>
 ```
 
+A [`<scene>`](./scene.md) is a filled visual element too, so an `<htmlPaint>` can sit directly on it: the paint fills the whole composition box and the scene becomes a **pure HTML scene**, laid out entirely with real HTML and CSS:
+
+```tsx
+<scene key="dashboard" name="Dashboard" width={1920} height={1080}>
+  <htmlPaint />
+</scene>
+```
+
 
 ## Reactivity
 
