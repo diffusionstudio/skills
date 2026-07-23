@@ -1,6 +1,6 @@
 # Examples
 
-Editing guidelines grouped by area and concrete editing style
+Read only the example that clearly matches the task. Make sure you have sufficient context before deciding on any of the following editing styles.
 
 ## Video editing
 

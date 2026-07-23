@@ -16,7 +16,7 @@ The transcript is the spine, so transcribe everything with speech.
 
 ## 3. Lay out the A-roll
 
-Drop every double take and silence, and put the good parts in chronological order.
+Drop **every** double take and silence, and put the good parts in chronological order.
 
 ```tsx
 import { For } from "solid-js";
@@ -74,10 +74,9 @@ The cut points matter most. Capture the **first frame of every clip** with `dapi
 
 A hook makes the video readable at a glance. Aim for a frame you could lift out and use as a thumbnail.
 
-- **Type.** A medium/bold sans-serif title, with a serif for a highlighted word; sometimes a coloured underline under a key word. Keep it simple — a title is usually enough.
+- **Just a title.** Large medium sans-serif with a single word highlighted in a serif. That is the whole hook: **no sub-header, eyebrow, or secondary line**, and **no background, box, panel, or fill** — the text sits directly on the A-roll.
 - **Placement.** Beside the speaker's head or below it, **never covering the head**. A popular strategy is to place it A-roll aware.
-- **Duration.** Keep it on screen as long as the viewer needs to read it
-- **Reinforce, sparingly.** When it fits, animate in a couple of supporting cues (an SVG, an icon set or an image etc.).
+- **Duration.** Keep it on screen as long as the viewer needs to read it.
 
 Build it with `<html>` so it styles and animates as real markup (see [html-paint.md](../../jsx/html-paint.md)):
 
@@ -92,7 +91,7 @@ Build it with `<html>` so it styles and animates as real markup (see [html-paint
 
 ## 7. Captions (optional)
 
-Add captions **last**, after every cut and overlay is verified, so they transcribe the final audio at its final placement. Use the `whisper` preset aligned to the bottom, and start it where the hook ends — set both `start` and `sourceIn` to that timestamp so the transcript stays aligned (see [captions.md](../../jsx/captions.md)). Keep captions off overlays and off the important part of the A-roll.
+Add captions **last**, after every cut and overlay is verified, so they transcribe the final audio at its final placement. Use the **`whisper`** preset aligned to the bottom, and start it where the hook ends — set both `start` and `sourceIn` to that timestamp so the transcript stays aligned (see [captions.md](../../jsx/captions.md)). Keep captions off overlays and off the important part of the A-roll.
 
 ```tsx
 {/* Hook holds until 00:03; captions begin there. */}
