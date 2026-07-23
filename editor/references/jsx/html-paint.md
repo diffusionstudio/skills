@@ -3,7 +3,7 @@
 An element whose children are **real HTML**: the browser lays them out at the element's box size and the result is drawn into the box via the [html-in-canvas](https://github.com/WICG/html-in-canvas) API. `dapi` always drives the Diffusion Studio Electron app, which ships with this API enabled, so `<html>` is always available — reach for it liberally. It is the recommended way to build motion graphics, overlays, and any UI-heavy content: styled cards, tables, code blocks, flex/grid layouts — anything painful to assemble from `<rect>` and `<text>`.
 
 ```tsx
-<html x={40} y={40} width={800} height={120} cornerRadius={24}>
+<html x={40} y={40} width={800} height={120} cornerRadius={24} end={32}>
   <div style="display:flex;align-items:center;gap:16px;height:100%;
               background:#111;color:#fff;font:500 40px Inter;padding:0 32px;">
     <span style="color:#7c9cff;">01</span> Introduction
@@ -19,14 +19,6 @@ An element whose children are **real HTML**: the browser lays them out at the el
     <div style="font:500 40px Inter;color:#fff;">Introduction</div>
   </htmlPaint>
 </rect>
-```
-
-A [`<scene>`](./scene.md) is a filled visual element too, so an `<htmlPaint>` can sit directly on it: the paint fills the whole composition box and the scene becomes a **pure HTML scene**, laid out entirely with real HTML and CSS:
-
-```tsx
-<scene key="dashboard" name="Dashboard" width={1920} height={1080}>
-  <htmlPaint />
-</scene>
 ```
 
 
@@ -65,3 +57,4 @@ The compiled module is persisted with the document: on reload, export, and `dapi
 - Cross-origin subresources (e.g. remote images) are excluded from the painted output by the browser's read-back rules; use local assets.
 - `<audio>` and `<video>` tags are rejected: media doesn't play under a paint host. Use the [`<audio>`](./audio.md) and [`<video>`](./video.md) composition elements, which own playback and the timeline.
 - A DOM `<canvas>` is likewise unavailable: its pixels don't survive the html-in-canvas rasterization. Use [`<surface>`](./surface-paint.md) for hand-drawn graphics.
+- **`<html>` is sourceless, so with no `end` it defaults to a 16-second duration and disappears after 16 s** — a silent cutoff with no error. A ticker-driven motion-graphics `<html>` that must span the whole composition needs an explicit `end` (`<html start={0} end={TOTAL}>…`). See [timing.md](./timing.md#semantics).
