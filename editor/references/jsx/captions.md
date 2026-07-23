@@ -3,7 +3,7 @@
 `<captions />` inside a scene transcribes that scene's audio into a caption node: a styled, timed transcript, produced on import. To caption an already-open scene, insert one with [`dapi node insert`](../node/insert.md).
 
 ```tsx
-<captions preset="spotlight" colors={["#FF0055"]} verticalAlign="bottom" />
+<captions />
 ```
 
 Transcription is **asynchronous and non-blocking**: the caption node is inserted at commit and its transcript attaches once ready. Because it reads the scene's audio, it runs **after** any generated assets in the scene have landed and after [audio sync](./audio-sync.md) has resolved; captioning a generated `voice`/`audio` track transcribes the finished audio at its final placement. The scene must contain an unmuted audio or video source; otherwise the caption node is left empty.
@@ -37,10 +37,10 @@ Captions carry the same [timing](./timing.md) props as media nodes, and the tran
 
 | Preset | Style | Color slots (defaults) |
 | ------ | ----- | ---------------------- |
-| `"classic"` (default) | Centered lowercase text with a soft drop shadow, a few words at a time. | none |
-| `"cascade"` | Light text in the lower left; words appear progressively as they are spoken. | none |
-| `"spotlight"` | Bold italic centered line; the spoken word lights up in the highlight color. | 1: highlight (`#24D5FF`) |
-| `"whisper"` | Small, wide, understated line shown in ~2 s phrases. | none |
+| `"classic"` (default) | Simple one word captions, first choice for vertical content | none |
+| `"whisper"` | Small, wide, understated line shown in ~2 s phrases, first choice for landscape content | none |
+| `"cascade"` | Light text in the lower left; words appear progressively as they are spoken | none |
+| `"spotlight"` | Bold italic centered line; the spoken word lights up in the highlight color | 1: highlight (`#24D5FF`) |
 | `"paper"` | Centered two-line block; the line being spoken is emphasized with a heavier weight. | none |
 | `"guinea"` | Uppercase display text; the spoken word enlarges and cycles through the three colors. | 3: `#F55353`, `#FEB139`, `#F6F54D` |
 | `"stark"` | Heavy uppercase text blended into the footage with a difference blend. | none |
