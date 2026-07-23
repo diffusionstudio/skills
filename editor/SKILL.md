@@ -13,11 +13,11 @@ The CLI is self-describing and ships its own API reference. Use `dapi --help`, `
 
 How to understand source material before editing it. Inspect only the modalities the decision turns on — speech, action, music, graphics, or atmosphere may lead, so there is no fixed priority. Sample the picture against what the audio tells you.
 
-1. **Probe first.** `dapi media probe <id|path>` reports the container and its tracks, telling you up front whether the file has a video track, an audio track, or both. Everything after branches on that.
-2. **Get the lay of the land.** Render a `dapi media waveform` (audio) and a `dapi media filmstrip` (video) for a fast, cheap overview of where the loud and quiet stretches and the visual scene changes fall. A filmstrip shows coarse structure and scene state, not crop, framing, readability, or an exact cut frame — grab a specific frame for any of those.
-3. **Listen to the audio.** Run `dapi media listen` with a prompt tailored to the context (what you actually need to know), and explicitly ask the model to include timestamps in its answer. See [listen-prompts.md](references/listen-prompts.md) for prompt patterns.
-4. **Transcribe speech.** For speech, `dapi media transcribe` prints word-level start/end times directly and takes `--start`/`--end` to scope a range — read any segment straight from it.
-5. **Sample the video against the audio.** Use `dapi media grab` to pull frames. When the audio has already pointed you at specific moments, feed those timestamps straight in from the transcript or listen output, e.g. `-t '00:32' '00:45' ...`. When you need a visual pass without such cues, reach for `--auto`: it scans the footage and keeps only the frames where the picture settles into a new visual state, dropping near-duplicates.
+- **Always probe first.** `dapi media probe <id|path>` reports the container and its tracks, telling you up front whether the file has a video track, an audio track, or both. Everything after branches on that.
+- **Get the lay of the land.** Render a `dapi media waveform` (audio) and a `dapi media filmstrip` (video) for a fast, cheap overview of where the loud and quiet stretches and the visual scene changes fall. A filmstrip shows coarse structure and scene state, not crop, framing, readability, or an exact cut frame.
+- **Listen to the audio.** Run `dapi media listen` with a prompt tailored to the context (what you actually need to know), and explicitly ask the model to include timestamps in its answer. See [listen-prompts.md](references/listen-prompts.md) for prompt patterns.
+- **Transcribe speech.** For speech, `dapi media transcribe` prints word-level start/end times directly and takes `--start`/`--end` to scope a range — read any segment straight from it.
+- **Sample the video against the audio.** Use `dapi media grab` to pull frames. When the audio has already pointed you at specific moments, feed those timestamps straight in from the transcript or listen output, e.g. `-t '00:32' '00:45' ...`. When you need a visual pass without such cues, reach for `--auto`: it scans the footage and keeps only the frames where the picture settles into a new visual state, dropping near-duplicates.
 
 ## Best practices
 
@@ -43,13 +43,6 @@ How to confirm a change actually produced what you intended. A clean `mount` or 
 - Fix the largest viewer-facing problem before polishing details, and recheck related moments after structural changes, since pacing, continuity, emphasis, and meaning are relational.
 - Use `screenshot` or `logs` to debug issues
 
-## Examples
-
-| Area | File |
-| ---- | ---- |
-| Video editing | [references/examples/video-editing.md](references/examples/video-editing.md) |
-| Motion graphics | [references/examples/motion-graphics.md](references/examples/motion-graphics.md) |
-
 ---
 
-Supporting references: [references/installation.md](references/installation.md) (getting the CLI on PATH), [references/jsx/README.md](references/jsx/README.md) (the full JSX syntax that `mount` and `node insert` consume).
+Supporting references: [references/installation.md](references/installation.md) (getting the CLI on PATH), [references/jsx/README.md](references/jsx/README.md) (the full JSX syntax that `mount` and `node insert` consume), [references/examples/examples.md](references/examples/examples.md) (worked examples for video editing and motion graphics).
