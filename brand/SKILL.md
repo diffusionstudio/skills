@@ -1,46 +1,34 @@
 ---
 name: brand
 description: >-
-  Diffusion Studio's source of truth for visual identity, product language, motion, sound,
-  reusable media elements, compositions, and brand assets. Use for Diffusion Studio videos,
-  graphics, scripts, voiceovers, marketing copy, templates, asset selection, and brand review.
+  Diffusion Studio's brand system and source of truth for consistent content,
+  media, and assets. Use when creating, editing, or reviewing Diffusion
+  Studio-branded work.
 ---
 
 # Diffusion Studio brand
 
-Apply the brand system to the requested work. Use the `editor` skill for Diffusion Studio
-workflow, JSX, and `dapi` mechanics.
+Use the references as the source of truth. Reuse the brand library before
+creating new work.
 
 ## Read the relevant references
 
-| Work | Read |
+| Task | Read |
 | --- | --- |
-| Graphic, still, or visual review | `references/design.md` |
-| Marketing copy, product text, script, or voiceover | `references/voice.md` |
+| Visual design or graphics | `references/design.md` |
+| Copy or writing | `references/voice.md` |
 | Video | `references/design.md`, `references/video.md`, `references/library.md` |
-| Reusable brand asset or source file | `references/library.md` and the reference for its medium |
+| Assets, components, or compositions | `references/library.md` and the reference for its medium |
 
-Add `references/voice.md` whenever the work contains words. Read each selected file in full.
+Combine rows when work spans more than one area. Read each selected file in full.
 
-## Work from the source of truth
+## Apply the system
 
-1. Follow the request for subject, format, and goal.
-2. Apply the selected references for brand choices.
-3. Check `references/library.md` before creating an asset, element, or composition.
-4. Reuse the closest item and change its content inputs. Do not redraw an existing brand asset.
-5. Use the `editor` skill to build and verify video work.
-6. Report any missing asset, undefined rule, or deliberate exception.
+1. Check `references/library.md` before creating a brand asset, component, or composition.
+2. Reuse the closest existing item and change its content or inputs.
+3. Use relative paths to bundled assets instead of external file-share links.
+4. Do not invent product facts, claims, assets, or brand rules.
+5. Report missing inputs, deliberate exceptions, and reusable work that should join the library.
 
-Do not invent a required product fact, claim, asset, or brand rule. Continue with safe parts of
-the work when a gap does not block them.
-
-## Use bundled files
-
-Treat files under `assets/` as production resources. Keep reusable brand files here and keep
-one-off footage, narration, and project media with their project. Use relative paths in this
-skill instead of external file-share links.
-
-Video elements do not own a `<scene>`. Compositions own the scene, timing, and editable inputs.
-A composition can serve as a template without a separate template copy.
-
-When a visual rule changes, update its Diffusion Studio token or element in the same revision.
+Use the `editor` skill for video execution and verification. This skill decides
+the brand choices.
