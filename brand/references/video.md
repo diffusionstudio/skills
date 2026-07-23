@@ -1,9 +1,9 @@
 # Diffusion Studio video guide
 
 Define how the brand behaves over time. Use `design.md` for visual rules, `voice.md` for words,
-`library.md` for reusable source, and the `editor` skill for JSX and `dapi` mechanics.
+and `library.md` for reusable source.
 
-Work at 30 fps. Use frames when a timing value must stay tied to that rate.
+Work at 30 fps.
 
 ## Scene and media structure
 
@@ -69,8 +69,9 @@ to read without racing the voice. Use the visual treatment in `design.md`.
 
 ## Sound
 
+Use audio supplied for the project or approved in `library.md`.
+
 Give speech priority. Use one clear source for product audio when several copies of the same
 capture appear on screen; mute the rest.
 
-No music, sound effect, recurring voiceover, or approved level has been supplied. Do not add or
-invent one. Keep source and usage rights with every future audio library entry.
+No house mix level has been supplied. Do not invent one.

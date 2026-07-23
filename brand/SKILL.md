@@ -20,7 +20,7 @@ creating new work.
 | Video | `references/design.md`, `references/video.md`, `references/library.md` |
 | Assets, components, or compositions | `references/library.md` and the reference for its medium |
 
-Combine rows when work spans more than one area. Read each selected file in full.
+When work spans multiple rows, use each relevant reference.
 
 ## Apply the system
 

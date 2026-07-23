@@ -1,18 +1,17 @@
-# Diffusion Studio voice guide
+# Diffusion Studio language and voice guide
 
-Define what Diffusion Studio says and how it says it. Apply this guide to titles, labels,
-scripts, captions, calls to action, product descriptions, and voiceovers.
+Use this guide for what Diffusion Studio says and how it says it. Apply it to titles, labels,
+scripts, captions, calls to action, and product descriptions.
 
-## How we describe Diffusion Studio
+## Approved product language
 
-Use the product name exactly: `Diffusion Studio`.
+| Name | Copy | Use |
+| --- | --- | --- |
+| Product name | `Diffusion Studio` | Every product reference |
+| One-line description | The video editor for teams creating with agents. | Short introductions and summaries |
 
-**One-line description**
-
-The video editor for teams creating with agents.
-
-Keep `video editor`, `teams`, and `agents` when rewriting this idea. Do not broaden a product
-claim beyond what the request or supplied evidence supports.
+Keep `video editor`, `teams`, and `agents` when adapting the one-line description. Do not broaden
+a product claim beyond what the request or supplied evidence supports.
 
 ## Writing
 
@@ -40,9 +39,7 @@ has approved and proved the claim.
 Write a direct action that matches the destination. Name the action rather than promising an
 outcome. Keep it short enough to work without punctuation.
 
-## Voiceovers
+## Spoken copy
 
-Reuse a recording from `assets/audio/voiceovers/` only when its words and delivery fit. Keep
-one-off narration with its project.
-
-No house voice, delivery guide, or recurring recording has been supplied. Do not invent one.
+Apply the same writing and tone rules to scripts and narration. No house delivery or
+pronunciation guide has been supplied. Do not invent one.

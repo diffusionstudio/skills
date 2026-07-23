@@ -1,7 +1,6 @@
 # Diffusion Studio visual guide
 
-Define color, type, identity, imagery, layout, safe areas, and captions. Use `video.md` for
-motion and sound, `voice.md` for words, and `library.md` for reusable files.
+Define color, type, identity, imagery, layout, safe areas, and captions. Use `video.md` for motion and sound, `voice.md` for words, and `library.md` for reusable files.
 
 Scale every pixel value below from a short edge of 1080.
 
@@ -44,16 +43,13 @@ Use `Geist`. Use `Geist Mono` for code and figures. Do not use italic.
 | Lower-third name | 48 | 500 | 28 characters |
 | Lower-third detail | 30 | 400 | 40 characters |
 | Label | 24 | 500 | 16 characters |
-| Code | 30 | 400 | 48 characters per line |
 
 Rewrite copy that exceeds a limit. Do not shrink the type. Confirm that Geist and Geist Mono
 are available before final output; no font files are bundled yet.
 
 ## Logo and icon
 
-Use the white wordmark or white icon from `assets/identity/` on a dark, quiet background. Use
-the wordmark when the name must be clear. Use the icon only when the product is already named
-or the small space cannot hold the wordmark.
+Use `assets/logos/logo-white.svg` or `assets/logos/icon-white.svg` on a dark, quiet background. Use the wordmark when the name must be clear. Use the icon only when the product is already named or the small space cannot hold the wordmark.
 
 Do not tint, outline, stretch, crop, rotate, rebuild, or place either mark over busy footage.
 No dark mark, minimum size, clear-space rule, or video-scale logo bug has been supplied. Do not
@@ -73,6 +69,8 @@ invent one.
 Use a margin of 64 and a gap of 40. Use other spacing in multiples of 8: 16 between a label and
 value, 24 between lines in one block, and 40 between separate blocks.
 
+Use a corner radius of 24 on framed media panels. Do not round full-frame media.
+
 Left-align copy and anchor it low. Center copy only when it stands alone on a plain background.
 Use at most two text elements in one shot: a primary line and its qualifier.
 
@@ -83,14 +81,12 @@ Use these media forms:
 - **Four-up:** a set of equal details that remain legible at delivery size.
 
 Keep two-up panels square when the source allows it. Place them side by side in 16:9 and 1:1,
-and stack them in 9:16. Use a centered 2×2 grid for four-up. Use `assets/video/elements/media-grid.tsx`
-for the tested geometry.
+and stack them in 9:16. Use a centered 2×2 grid for four-up. Use
+`assets/components/media-grid.tsx` for the tested geometry.
 
 ### 9:16 text safe area
 
-At 1080×1920, keep readable content inside `x 64–900`, `y 200–1520`. The right 180 is the
-platform action rail and the bottom 400 is the caption reserve. Graphics may cross these
-bounds; text may not.
+At 1080×1920, keep readable content inside `x 64–900`, `y 200–1520`. The right 180 is the platform action rail and the bottom 400 is the caption reserve. Graphics may cross these bounds; text may not.
 
 ## Captions
 
@@ -99,5 +95,5 @@ exposes color slots. On 9:16, do not add another bottom offset to the preset.
 
 ## Known gaps
 
-The brand has no bundled fonts, dark logo, approved video logo bug, image library, or measured
-minimum logo size. Name the gap when a task depends on one.
+The brand has no bundled fonts, dark logo, approved video logo bug, image library, shared code
+text size, or measured minimum logo size. Name the gap when a task depends on one.
