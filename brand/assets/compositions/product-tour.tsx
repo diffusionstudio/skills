@@ -1,6 +1,6 @@
-import { LowerThird } from "../elements/lower-third";
-import { MediaGrid } from "../elements/media-grid";
-import { colors } from "../tokens";
+import { LowerThird } from "../components/lower-third";
+import { MediaGrid } from "../components/media-grid";
+import { colors } from "../components/tokens";
 
 // Use 1920×1080, 1080×1920, or 1080×1080.
 const WIDTH = 1920;

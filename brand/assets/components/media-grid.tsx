@@ -1,5 +1,5 @@
 import type { Fit, Time } from "@diffusionstudio/jsx";
-import { layoutMetrics } from "../tokens";
+import { layoutMetrics } from "./tokens";
 
 export type MediaGridItem = {
   name: string;

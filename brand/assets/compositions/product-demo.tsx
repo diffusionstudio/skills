@@ -1,5 +1,5 @@
-import { LowerThird } from "../elements/lower-third";
-import { colors } from "../tokens";
+import { LowerThird } from "../components/lower-third";
+import { colors } from "../components/tokens";
 
 const WIDTH = 1080;
 const HEIGHT = 1920;

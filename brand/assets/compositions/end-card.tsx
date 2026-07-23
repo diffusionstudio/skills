@@ -1,5 +1,5 @@
-import { TitleCard } from "../elements/title-card";
-import { colors } from "../tokens";
+import { TitleCard } from "../components/title-card";
+import { colors } from "../components/tokens";
 
 const WIDTH = 1080;
 const HEIGHT = 1920;

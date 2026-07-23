@@ -1,5 +1,5 @@
 import type { Time } from "@diffusionstudio/jsx";
-import { colors, fonts, frameMetrics, typography } from "../tokens";
+import { colors, fonts, frameMetrics, typography } from "./tokens";
 
 export type CalloutProps = {
   width: number;
