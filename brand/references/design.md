@@ -1,9 +1,10 @@
 # Diffusion Studio — visual guide
 
-Color, type, logo, layout, safe areas, captions, worked examples, and open placeholders.
-Applies to stills and video alike.
+Color, type, logo, layout, safe areas, captions, and open placeholders. Applies to stills and
+video alike.
 
-Motion, cuts, and sound are in `video.md`. `dapi` mechanics are in the `editor` skill.
+Motion, cuts, and sound are in `video.md`. Copy rules are in `voice.md`. Reusable layouts are
+listed in `library.md`. `dapi` mechanics are in the `editor` skill.
 
 Aspect ratio follows the request. Every value below is given at **short edge 1080** and
 scales linearly with the short edge.
@@ -42,9 +43,7 @@ Build emphasis from weight, size, or a `#161616` surface.
 | Label | 24 | 500 | 16 chars |
 | Code — `Geist Mono` | 30 | 400 | 48 per line |
 
-Cut every word that can go, take the short word over the long one and the active voice over
-the passive, and never use a figure of speech you are used to seeing in print. Copy that
-overruns a cap gets rewritten, not shrunk.
+Copy that overruns a cap gets rewritten, not shrunk. Follow `voice.md` when writing it.
 
 `<text>` carries no stroke and no shadow. Text over footage needs a `#161616` panel behind it.
 
@@ -75,55 +74,14 @@ text may not. Every other aspect ratio uses the margin alone.
 `colors`. On 9:16 do not bottom-anchor — the preset's 100 px bottom margin lands the block
 inside the platform reserve.
 
-## Examples
+## Library
 
-Static geometry at 1080×1920. `video.md` covers how these enter and leave.
-
-### Title card
-
-```tsx
-<scene key="intro" name="Intro" width={1080} height={1920} fill="#000000">
-  <text name="Title" start={0} end={4}
-    x={64} y={1140} width={836} height={240} textAlign="left" textBaseline="bottom"
-    fontFamily="Geist" fontSize={96} fontWeight={600} fill="#F8F8F8">
-    Timeline, rebuilt
-  </text>
-  <text name="Subtitle" start={0} end={4}
-    x={64} y={1404} width={836} height={80} textAlign="left" textBaseline="top"
-    fontFamily="Geist" fontSize={60} fontWeight={400} fill="#A4A4A4">
-    Every clip, one gesture
-  </text>
-</scene>
-```
-
-Left edge 64, right edge 900. Title glyphs land at 1380, subtitle starts 24 below, and the
-block closes at 1484 — inside the read limit.
-
-### Lower third over product footage
-
-```tsx
-<scene key="feature" name="Feature" width={1080} height={1920} fill="#000000">
-  <video src="/Movies/capture.mp4" width={1080} height={1920} start={0} end={6} />
-  <rect x={0} y={1348} width={1080} height={172} fill="#161616" />
-  <text name="Name" start={0} end={6}
-    x={64} y={1380} width={836} height={60} textAlign="left" textBaseline="bottom"
-    fontFamily="Geist" fontSize={48} fontWeight={500} fill="#F8F8F8">
-    Shader paint
-  </text>
-  <text name="Detail" start={0} end={6}
-    x={64} y={1456} width={836} height={40} textAlign="left" textBaseline="top"
-    fontFamily="Geist" fontSize={30} fontWeight={400} fill="#A4A4A4">
-    Live GLSL on any layer
-  </text>
-</scene>
-```
-
-The panel carries the text over moving footage. Name and detail sit 16 apart; the panel pads
-32 above the name box and closes on 1520, the read limit.
+Use `references/library.md` to choose a ready-made title card, lower third, callout, or full
+composition. Keep the rules here and the reusable source in `assets/`.
 
 ## Placeholders
 
 | Item | Status | Replace with |
 | ---- | ------ | ------------ |
 | Logo bug | omitted | a video-scale asset, then its slot and timing |
-| Endcard | omitted | a composition and the CTA string |
+| Endcard | example only | an approved composition and CTA string |
