@@ -1,50 +1,46 @@
 ---
 name: brand
 description: >-
-  Diffusion Studio's brand system: visual design, voice, motion, sound, reusable components,
-  compositions, and approved assets. Use for every Diffusion Studio video, graphic, script,
-  voiceover, or reusable branded element, and when reviewing work for brand consistency.
+  Diffusion Studio's source of truth for visual identity, product language, motion, sound,
+  reusable media elements, compositions, and brand assets. Use for Diffusion Studio videos,
+  graphics, scripts, voiceovers, marketing copy, templates, asset selection, and brand review.
 ---
 
-# Diffusion Studio — brand
+# Diffusion Studio brand
 
-Defines what the output looks like, not how to produce it.
+Apply the brand system to the requested work. Use the `editor` skill for Diffusion Studio
+workflow, JSX, and `dapi` mechanics.
 
-## Which files to read
+## Read the relevant references
 
-| Producing | Read |
-| --------- | ---- |
-| Any branded still or graphic | `references/design.md`; add `references/voice.md` when writing copy |
-| Video | `references/video.md` |
-| Script or voiceover | `references/voice.md` |
-| Reusable element, composition, logo, font, or audio | `references/library.md` |
-| A branded video | `references/design.md`, `references/video.md`, and `references/library.md`; add `references/voice.md` when writing copy |
+| Work | Read |
+| --- | --- |
+| Graphic, still, or visual review | `references/design.md` |
+| Marketing copy, product text, script, or voiceover | `references/voice.md` |
+| Video | `references/design.md`, `references/video.md`, `references/library.md` |
+| Reusable brand asset or source file | `references/library.md` and the reference for its medium |
 
-Read each listed file in full before composing anything. Read only the rows that apply. Get
-the workflow, editorial judgment, and `dapi` mechanics from the `editor` skill.
+Add `references/voice.md` whenever the work contains words. Read each selected file in full.
 
-## Precedence
+## Work from the source of truth
 
-1. **The request** decides content and structure — what the piece says and shows.
-2. **These files** decide how it looks and moves. An explicit instruction in the request
-   overrides them; an unstated preference does not. When an instruction makes you break a
-   rule, name the rule you broke.
-3. **`editor`** decides mechanics. Where it describes a capability these files restrict,
-   the restriction holds.
-4. **Missing values** are not yours to fill. Name what is missing and stop.
+1. Follow the request for subject, format, and goal.
+2. Apply the selected references for brand choices.
+3. Check `references/library.md` before creating an asset, element, or composition.
+4. Reuse the closest item and change its content inputs. Do not redraw an existing brand asset.
+5. Use the `editor` skill to build and verify video work.
+6. Report any missing asset, undefined rule, or deliberate exception.
 
-## Assets
+Do not invent a required product fact, claim, asset, or brand rule. Continue with safe parts of
+the work when a gap does not block them.
 
-Use `assets/` only when the task needs a brand asset. List file names in the relevant asset
-folder first, choose likely candidates by name, and inspect only the files needed. Use
-existing assets rather than recreating them. Skip `dapi asset add` when the file is already
-in the project library.
+## Use bundled files
 
-Check `references/library.md` before building a branded element. Reuse a listed component or
-composition when it fits. These source files form a skill library, not an in-app component
-system. Import or copy only what the current project needs.
+Treat files under `assets/` as production resources. Keep reusable brand files here and keep
+one-off footage, narration, and project media with their project. Use relative paths in this
+skill instead of external file-share links.
 
-## Placeholders
+Video elements do not own a `<scene>`. Compositions own the scene, timing, and editable inputs.
+A composition can serve as a template without a separate template copy.
 
-Entries marked PLACEHOLDER are provisional. Apply them, then report every one you relied on
-so it gets reviewed instead of hardening into a rule.
+When a visual rule changes, update its Diffusion Studio token or element in the same revision.

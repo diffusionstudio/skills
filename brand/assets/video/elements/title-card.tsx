@@ -1,10 +1,11 @@
-import { colors, fonts, frameMetrics, typography } from "./tokens";
+import type { Time } from "@diffusionstudio/jsx";
+import { colors, fonts, frameMetrics, typography } from "../tokens";
 
 export type TitleCardProps = {
   width: number;
   height: number;
-  start: number;
-  end: number;
+  start: Time;
+  end: Time;
   title: string;
   subtitle?: string;
 };

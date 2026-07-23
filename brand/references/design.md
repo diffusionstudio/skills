@@ -1,87 +1,103 @@
-# Diffusion Studio — visual guide
+# Diffusion Studio visual guide
 
-Color, type, logo, layout, safe areas, captions, and open placeholders. Applies to stills and
-video alike.
+Define color, type, identity, imagery, layout, safe areas, and captions. Use `video.md` for
+motion and sound, `voice.md` for words, and `library.md` for reusable files.
 
-Motion, cuts, and sound are in `video.md`. Copy rules are in `voice.md`. Reusable layouts are
-listed in `library.md`. `dapi` mechanics are in the `editor` skill.
+Scale every pixel value below from a short edge of 1080.
 
-Aspect ratio follows the request. Every value below is given at **short edge 1080** and
-scales linearly with the short edge.
+## Visual principles
+
+- Build structure with scale, weight, spacing, and luminance.
+- Keep the frame near-achromatic. Use color only when it carries meaning.
+- Show the product clearly. Do not decorate over controls or content the viewer must read.
+- Prefer one clear focal point to several equal points.
 
 ## Color
 
-Near-achromatic. Structure runs on luminance; color is an event, not a layer.
+Use these hex values in Diffusion Studio source.
 
-| Role | Hex | Source |
-| ---- | --- | ------ |
-| Background | `#000000` | `oklch(0% 0 0)` |
-| Surface | `#161616` | `oklch(20% 0 0)` |
-| Text | `#F8F8F8` | `oklch(98% 0 0)` |
-| Text, secondary | `#A4A4A4` | `oklch(72% 0 0)` |
-| Brand red | `#F43535` | rarely present |
+| Role | Value |
+| --- | --- |
+| Background | `#000000` |
+| Surface | `#161616` |
+| Text | `#F8F8F8` |
+| Text, secondary | `#A4A4A4` |
+| Brand red | `#F43535` |
 
-Default to leaving red out — it lives on the app icon. At most one element carries it, never
-a title and never a fill. The app's destructive state is `#E62D2D`, so red beside product UI
-reads as an error.
+Default to leaving red out. It lives on the app icon. At most one element may carry it. Never
+use it for a title or a large fill. The app's destructive state is `#E62D2D`, so red beside
+product UI may read as an error.
 
-`#008CFF` is the product blue. It appears only where real product UI is on screen. Never use
-it as an accent.
+`#008CFF` is the product blue. Use it only when it already appears in real product UI. Never
+use it as a brand accent.
 
-Build emphasis from weight, size, or a `#161616` surface.
+Place text on `#000000` or `#161616`. Do not rely on a shadow or stroke for contrast.
 
-## Type
+## Typography
 
-`Geist`. `Geist Mono` for code and figures. No italic is installed.
+Use `Geist`. Use `Geist Mono` for code and figures. Do not use italic.
 
-| Role | Size | Weight | Cap |
-| ---- | ---- | ------ | --- |
-| Title | 96 | 600 | 32 chars |
-| Subtitle | 60 | 400 | 64 chars |
-| Lower third, name | 48 | 500 | 28 chars |
-| Lower third, detail | 30 | 400 | 40 chars |
-| Label | 24 | 500 | 16 chars |
-| Code — `Geist Mono` | 30 | 400 | 48 per line |
+| Role | Size | Weight | Copy limit |
+| --- | ---: | ---: | ---: |
+| Title | 96 | 600 | 32 characters |
+| Subtitle | 60 | 400 | 64 characters |
+| Lower-third name | 48 | 500 | 28 characters |
+| Lower-third detail | 30 | 400 | 40 characters |
+| Label | 24 | 500 | 16 characters |
+| Code | 30 | 400 | 48 characters per line |
 
-Copy that overruns a cap gets rewritten, not shrunk. Follow `voice.md` when writing it.
+Rewrite copy that exceeds a limit. Do not shrink the type. Confirm that Geist and Geist Mono
+are available before final output; no font files are bundled yet.
 
-`<text>` carries no stroke and no shadow. Text over footage needs a `#161616` panel behind it.
+## Logo and icon
 
-## Logo
+Use the white wordmark or white icon from `assets/identity/` on a dark, quiet background. Use
+the wordmark when the name must be clear. Use the icon only when the product is already named
+or the small space cannot hold the wordmark.
 
-`#F8F8F8` on dark, `#030303` on light. Never red, never tinted, never over a busy frame.
+Do not tint, outline, stretch, crop, rotate, rebuild, or place either mark over busy footage.
+No dark mark, minimum size, clear-space rule, or video-scale logo bug has been supplied. Do not
+invent one.
 
-Logo bug: PLACEHOLDER — no video-scale asset exists. Omit it and say you did.
+## Product imagery
 
-## Layout
+- Show real product UI. Do not reconstruct or recolor it.
+- Use `contain` when viewers must read the whole interface.
+- Use `cover` only when the crop cannot hide a control, label, or result needed for the point.
+- Keep product captures sharp and at their native aspect ratio.
+- Use a plain surface around captures instead of stretching them to fill a frame.
+- Add photography or illustration only when the request or library supplies a suitable asset.
 
-- **Margin** 64 from every edge.
-- **Anchor low.** Text bottom-aligns in the lower third. Left-align it; center only when
-  text stands alone on a plain background.
-- **Two text elements at most** — a primary and its qualifier. A third means two shots.
-- **Spacing** in multiples of 8: 16 between a label and its value, 24 between stacked lines
-  of one block, 40 between separate blocks.
+## Layout and aspect ratios
 
-### Safe area — 9:16 only
+Use a margin of 64 and a gap of 40. Use other spacing in multiples of 8: 16 between a label and
+value, 24 between lines in one block, and 40 between separate blocks.
 
-At 1080×1920 keep anything that must be read inside `x 64–900`, `y 200–1520`. The right 180
-is the platform's action rail, the bottom 400 its captions. Graphics may cross these bounds;
-text may not. Every other aspect ratio uses the margin alone.
+Left-align copy and anchor it low. Center copy only when it stands alone on a plain background.
+Use at most two text elements in one shot: a primary line and its qualifier.
+
+Use these media forms:
+
+- **Full frame:** one product view or one dominant subject.
+- **Two-up:** two states, inputs, speakers, or before-and-after views.
+- **Four-up:** a set of equal details that remain legible at delivery size.
+
+Keep two-up panels square when the source allows it. Place them side by side in 16:9 and 1:1,
+and stack them in 9:16. Use a centered 2×2 grid for four-up. Use `assets/video/elements/media-grid.tsx`
+for the tested geometry.
+
+### 9:16 text safe area
+
+At 1080×1920, keep readable content inside `x 64–900`, `y 200–1520`. The right 180 is the
+platform action rail and the bottom 400 is the caption reserve. Graphics may cross these
+bounds; text may not.
 
 ## Captions
 
-`stark` on 9:16 output, `cascade` on everything else. Neither exposes color slots, so pass no
-`colors`. On 9:16 do not bottom-anchor — the preset's 100 px bottom margin lands the block
-inside the platform reserve.
+Use `stark` for 9:16 output and `cascade` for other ratios. Pass no `colors`; neither preset
+exposes color slots. On 9:16, do not add another bottom offset to the preset.
 
-## Library
+## Known gaps
 
-Use `references/library.md` to choose a ready-made title card, lower third, callout, or full
-composition. Keep the rules here and the reusable source in `assets/`.
-
-## Placeholders
-
-| Item | Status | Replace with |
-| ---- | ------ | ------------ |
-| Logo bug | omitted | a video-scale asset, then its slot and timing |
-| Endcard | example only | an approved composition and CTA string |
+The brand has no bundled fonts, dark logo, approved video logo bug, image library, or measured
+minimum logo size. Name the gap when a task depends on one.

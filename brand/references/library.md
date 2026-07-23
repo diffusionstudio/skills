@@ -1,51 +1,46 @@
-# Diffusion Studio — brand library
+# Diffusion Studio brand library
 
-Choose existing source and assets before making new ones. Components contain reusable layout;
-compositions contain full scenes. The files support manual and agent-led work but do not add a
-component system to the Diffusion Studio app.
+Use this catalog before making a new brand file. References own brand decisions; assets apply
+them. Keep one-off project media with its project.
 
-All TSX examples use Solid components and the JSX contract from the `editor` skill. Import or
-copy only the files needed by the current project.
+## Diffusion Studio source
 
-## Shared source
+| File | Use | Inputs and limits |
+| --- | --- | --- |
+| `assets/video/tokens.ts` | Apply brand color, type, spacing, and safe areas in JSX | Keep it in sync with `design.md` |
+| `assets/video/elements/title-card.tsx` | Add a title and optional qualifier | Follow title and subtitle limits in `design.md` |
+| `assets/video/elements/lower-third.tsx` | Add a name and detail over footage | Keep both lines inside the text safe area |
+| `assets/video/elements/callout.tsx` | Add a short label and value | Use for one fact, not a paragraph |
+| `assets/video/elements/media-grid.tsx` | Place one, two, or four media sources | Supports full, landscape, portrait, and square geometry |
 
-| Source | Use |
-| ------ | --- |
-| `assets/components/tokens.ts` | Color, type, spacing, safe-area, and short-edge scaling values |
-| `assets/components/index.ts` | Exports every approved or provisional component |
-
-## Components
-
-| Component | Status | Use | Required content |
-| --------- | ------ | --- | ---------------- |
-| `TitleCard` | ready | A title and optional qualifier on a plain background | `title`; optional `subtitle` |
-| `LowerThird` | ready | A name and detail over footage | `name`, `detail` |
-| `Callout` | PLACEHOLDER | A short label and value over footage | `label`, `value` |
-
-Read the matching file in `assets/components/` for its props. Keep components free of
-`<scene>` so they can sit inside any composition. Keep content within the caps in `design.md`.
+Elements do not own a `<scene>`. Read the matching source for its props and copy only the files
+the project needs.
 
 ## Compositions
 
-| File | Status | Use |
-| ---- | ------ | --- |
-| `assets/compositions/end-card.tsx` | PLACEHOLDER | Full end-card example; replace its title and CTA before use |
-| `assets/compositions/product-demo.tsx` | PLACEHOLDER | Full product-footage example; replace its media path and copy before use |
+| File | Use | Replace before mounting |
+| --- | --- | --- |
+| `assets/video/compositions/product-demo.tsx` | A single product capture with a lower third | Media source, name, and detail |
+| `assets/video/compositions/product-tour.tsx` | Full frame to two-up to four-up and back | Media sources and copy |
+| `assets/video/compositions/end-card.tsx` | A plain branded end card | Title and call to action |
 
-Compositions own the scene, media, and timing. Review every PLACEHOLDER before mounting.
+Compositions own `<scene>`, timing, and editable inputs. They are starting points, not a second
+component system in the Diffusion Studio app.
 
-## Brand assets
+## Identity assets
 
-| Folder | Status |
-| ------ | ------ |
-| `assets/logos/` | White wordmark and icon available |
-| `assets/fonts/` | PLACEHOLDER — no font files bundled; use installed Geist and Geist Mono |
-| `assets/audio/music/` | PLACEHOLDER — no licensed music available |
-| `assets/audio/sfx/` | PLACEHOLDER — no approved recurring sound effects available |
-| `assets/audio/voiceovers/` | PLACEHOLDER — no approved recurring voiceovers available |
+| File | Use |
+| --- | --- |
+| `assets/identity/logos/logo-white.svg` | Wordmark on a dark, quiet background |
+| `assets/identity/icons/icon-white.svg` | Product icon when the name is already clear |
 
-## Adding to the library
+No dark mark or font file is bundled.
 
-Add a component after it has a clear repeated use. Give it one job and a small prop set. Add a
-composition when the whole scene repeats. Put final media in the matching asset folder and add
-it to this catalog. Do not turn a one-off choice into a brand rule without review.
+## Imagery and audio
+
+No reusable image, music, sound-effect, or voiceover file is bundled. Do not replace a missing
+asset with an unlicensed or unrelated file.
+
+When adding media, record its source and usage rights in this catalog. Add a reusable item only
+after it has a clear repeated use. Give an element one job and a small input set. Add a
+composition when the scene flow repeats. Do not add a one-off choice as a brand rule.

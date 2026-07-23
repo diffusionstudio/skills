@@ -24,12 +24,24 @@ export const spacing = {
   stackedLines: 24,
   separateBlocks: 40,
   margin: 64,
+  mediaGap: 40,
+  mediaCornerRadius: 24,
 } as const;
 
-export function frameMetrics(width: number, height: number) {
+export function layoutMetrics(width: number, height: number) {
   const scale = Math.min(width, height) / 1080;
+
+  return {
+    scale,
+    margin: spacing.margin * scale,
+    gap: spacing.mediaGap * scale,
+    cornerRadius: spacing.mediaCornerRadius * scale,
+  };
+}
+
+export function frameMetrics(width: number, height: number) {
+  const { scale, margin } = layoutMetrics(width, height);
   const isNineBySixteen = Math.abs(width / height - 9 / 16) < 0.02;
-  const margin = spacing.margin * scale;
 
   return {
     scale,

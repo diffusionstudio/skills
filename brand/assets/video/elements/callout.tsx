@@ -1,15 +1,15 @@
-import { colors, fonts, frameMetrics, typography } from "./tokens";
+import type { Time } from "@diffusionstudio/jsx";
+import { colors, fonts, frameMetrics, typography } from "../tokens";
 
 export type CalloutProps = {
   width: number;
   height: number;
-  start: number;
-  end: number;
+  start: Time;
+  end: Time;
   label: string;
   value: string;
 };
 
-// PLACEHOLDER: Review this layout before treating it as a brand standard.
 export function Callout(props: CalloutProps) {
   const frame = frameMetrics(props.width, props.height);
   const panelWidth = Math.min(560 * frame.scale, frame.right - frame.left);
