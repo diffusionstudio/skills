@@ -2,7 +2,7 @@
 
 The JSX API defines the code contract for injecting content into the editor via the CLI. Compositions are authored as **Solid components** that a custom renderer (built on `solid-js/universal`, Solid's equivalent of React's reconciler) mounts **directly into the editor's ECS**. Every JSX element becomes an entity; every prop is a component write. There is no hidden DOM, no CSS resolution, and no measuring pass.
 
-A project is structured like a SolidJS app: a **root** is established on the canvas (typically a scene, identified by its key and created if absent) and the project's component tree renders into it. **All positioning is explicit** (`x`, `y`, `width`, `height` in pixels).
+A project is structured like a SolidJS app: a **root** is established on the canvas (typically a scene, identified by its `scene` property and created if absent) and the project's component tree renders into it. **All positioning is explicit** (`x`, `y`, `width`, `height` in pixels).
 
 The markup is **pseudo-SVG**: elements like `<rect>`, `<text>`, `<linearGradientPaint>`, and `<colorStop>` mirror SVG's shape-and-paint model, but the tags and props are the editor's own (see [elements.md](./elements.md)), not the SVG spec.
 
@@ -67,7 +67,7 @@ const TITLES = [
 
 export default function Project() {
   return (
-    <scene key="my-first-scene" name="MyFirstScene" fill="black" width={1920} height={1080}>
+    <rect scene="my-first-scene" name="MyFirstScene" fill="black" width={1920} height={1080}>
       <sequence>
         <video src={heroMotion} width={1920} height={1080} start={0} end={5} transition={{ type: "dissolve" }} />
         <video src="/Movies/video.mp4" width={1920} height={1080} start={5} end={10} sourceIn={12} />
@@ -81,7 +81,7 @@ export default function Project() {
         sourceOut={16}
         volume={-6}
       />
-    </scene>
+    </rect>
   );
 }
 ```

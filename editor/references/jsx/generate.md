@@ -22,10 +22,10 @@ const heroMotion = generate.video({
 
 export default function Project() {
   return (
-    <scene key="intro" name="Intro" width={1920} height={1080}>
+    <rect scene="intro" name="Intro" width={1920} height={1080}>
       <video src={heroMotion} width={1920} height={1080} start={0} end={5} />
       <image src={hero} x={40} y={40} width={200} height={112} />
-    </scene>
+    </rect>
   );
 }
 ```
