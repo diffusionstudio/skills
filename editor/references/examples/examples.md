@@ -6,6 +6,6 @@ Read only the example that clearly matches the task. Make sure you have sufficie
 
 - [Long-form talking head](./video-editing/talking-head.md)
 
-## Motion graphics
+## Prompts
 
-- [Lower third](./motion-graphics/lower-third.md)
+- [Writing prompts for `dapi media listen`](./prompts/media-listen.md)
