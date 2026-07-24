@@ -1,6 +1,6 @@
 # Element reference
 
-camelCase composition elements map 1:1 onto internal node types. Lowercase DOM vocabulary is valid only inside [`<html>`](./html-paint.md) content.
+camelCase composition elements map 1:1 onto internal node types. Lowercase DOM vocabulary is valid only inside [`<html>`](./html.md) content.
 
 | Element | Internal node | Notes |
 | ------- | ------------- | ----- |
@@ -15,7 +15,7 @@ camelCase composition elements map 1:1 onto internal node types. Lowercase DOM v
 | [`<solidPaint>`](./paints.md) | **Solid paint** | Paint child. |
 | [`<linearGradientPaint>` / `<radialGradientPaint>`](./paints.md) | **Gradient paint** | Paint child; takes `<colorStop>` children. |
 | [`<colorStop>`](./paints.md) | **Gradient color stop** | Valid only inside gradient paints. |
-| [`<html>`](./html-paint.md) | **Geometry with Html paint** | Children are real, reactive HTML drawn into the box by the browser (html-in-canvas, flagged Chromium API). `<htmlPaint>` is the paint child form. |
+| [`<html>`](./html.md) | **Geometry with Html paint** | Children are real, reactive HTML drawn into the box by the browser (html-in-canvas, flagged Chromium API). `<htmlPaint>` is the paint child form. |
 | [`<surface>`](./surface-paint.md) | **Geometry with Surface paint** | `ref` hands you a canvas to draw with any context type (2d, webgl, webgpu); sampled every frame. `<surfacePaint>` is the paint child form. |
 
 Any rectangle geometry above (`<rect>`, `<video>`, `<image>`, `<html>`, `<surface>`) becomes a **scene** (the composition root) when given a `scene` identity: it then clips its children to `width`×`height` and is valid only at the document top level. See [scene.md](./scene.md).
