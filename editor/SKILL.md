@@ -26,6 +26,8 @@ How to understand source material before editing it. Inspect only the modalities
 - For anything 3D, use Three.js drawn into a `<surface>` tag.
 - For motion graphics, overlays and UI-heavy graphics, use the `<html>` tag.
 - Add auto captions last, after everything else is assembled, so they transcribe the finished audio at its final placement.
+- Open the application in the background for tasks that don't require an editing ui
+- Only render (export) the result when prompted
 
 ### Video editing guidelines
 

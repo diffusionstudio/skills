@@ -78,7 +78,7 @@ A hook makes the video readable at a glance. Aim for a frame you could lift out 
 - **Placement.** Beside the speaker's head or below it, **never covering the head**. A popular strategy is to place it A-roll aware.
 - **Duration.** Keep it on screen as long as the viewer needs to read it.
 
-Build it with `<html>` so it styles and animates as real markup (see [html-paint.md](../../jsx/html-paint.md)):
+Build it with `<html>` so it styles and animates as real markup (see [html.md](../../jsx/paint.md)):
 
 ```tsx
 <html x={80} y={1240} width={920} height={260} start={0} end={3}>

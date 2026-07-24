@@ -1,11 +1,10 @@
 # Element reference
 
-camelCase composition elements map 1:1 onto internal node types. Lowercase DOM vocabulary is valid only inside [`<html>`](./html-paint.md) content.
+camelCase composition elements map 1:1 onto internal node types. Lowercase DOM vocabulary is valid only inside [`<html>`](./html.md) content.
 
 | Element | Internal node | Notes |
 | ------- | ------------- | ----- |
-| [`<scene>`](./scene.md) | **Geometry with Scene tag** | Clips its children to `width`×`height`. Document root only. |
-| [`<group>`](./group.md) | **Geometry with Group tag** | Container with a transform; auto-fits its size from its children. Takes no `fill` or explicit size. |
+| [`<group>`](./group.md) | **Container with Group tag** | Container with a transform; auto-fits its size from its children. Takes no `fill` or explicit size. |
 | [`<rect>`](./rect.md) | **Geometry with Solid paint** | A filled rectangle; takes only paint children. |
 | [`<video>`](./video.md) | **Geometry with Video paint** | `src` resolves to a video asset. |
 | [`<image>`](./image.md) | **Geometry with Image paint** | `src` resolves to an image asset. |
@@ -16,8 +15,10 @@ camelCase composition elements map 1:1 onto internal node types. Lowercase DOM v
 | [`<solidPaint>`](./paints.md) | **Solid paint** | Paint child. |
 | [`<linearGradientPaint>` / `<radialGradientPaint>`](./paints.md) | **Gradient paint** | Paint child; takes `<colorStop>` children. |
 | [`<colorStop>`](./paints.md) | **Gradient color stop** | Valid only inside gradient paints. |
-| [`<html>`](./html-paint.md) | **Geometry with Html paint** | Children are real, reactive HTML drawn into the box by the browser (html-in-canvas, flagged Chromium API). `<htmlPaint>` is the paint child form. |
+| [`<html>`](./html.md) | **Geometry with Html paint** | Children are real, reactive HTML drawn into the box by the browser (html-in-canvas, flagged Chromium API). `<htmlPaint>` is the paint child form. |
 | [`<surface>`](./surface-paint.md) | **Geometry with Surface paint** | `ref` hands you a canvas to draw with any context type (2d, webgl, webgpu); sampled every frame. `<surfacePaint>` is the paint child form. |
+
+Any rectangle geometry above (`<rect>`, `<video>`, `<image>`, `<html>`, `<surface>`) becomes a **scene** (the composition root) when given a `scene` identity: it then clips its children to `width`×`height` and is valid only at the document top level. See [scene.md](./scene.md).
 
 User-defined components are ordinary Solid components; they compose the elements above and carry no runtime cost. Only the elements above produce entities.
 
@@ -33,7 +34,8 @@ All visual elements accept:
 
 | Prop | Type | Default | Meaning |
 | ---- | ---- | ------- | ------- |
-| `key` | `string` | none | Stable identity across mounts; **required** on document roots (see [roots.md](./roots.md)). |
+| `key` | `string` | none | A within-render label so another node can reference this one (e.g. [`syncTo`](./audio-sync.md)); |
+| `scene` | `string` | none | Promotes a rectangle geometry to a scene, the only mountable root, and is its identity across mounts (see [scene.md](./scene.md)). |
 | `name` | `string` | none | Human-readable node name. |
 | `x`, `y` | `Animatable<number>` | `0` | Position relative to the parent, px. |
 | `offsetX`, `offsetY` | `Animatable<number>` | `0` | Render-time translation on top of `x`/`y`, px; moves the drawn content without changing the layout box. Subpixel values are kept. |

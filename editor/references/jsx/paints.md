@@ -11,7 +11,7 @@ Internally a node's fill is not a property but a **paint child**: a sub-entity a
 </rect>
 ```
 
-Paint elements are valid inside any filled visual element (`<rect>`, `<scene>`, `<text>`, `<video>`, `<image>`); a `<group>` has no fill of its own, so it takes none. Multiple paints stack in document order; later paints render on top, and a paint child on a `<video>`/`<image>` draws over the media paint created by `src`.
+Paint elements are valid inside any filled visual element (`<rect>`, `<text>`, `<video>`, `<image>`, and a scene root); a `<group>` has no fill of its own, so it takes none. Multiple paints stack in document order; later paints render on top, and a paint child on a `<video>`/`<image>` draws over the media paint created by `src`.
 
 | Element | Props | Meaning |
 | ------- | ----- | ------- |
@@ -19,7 +19,7 @@ Paint elements are valid inside any filled visual element (`<rect>`, `<scene>`, 
 | `<linearGradientPaint>` | `rotation`, `opacity` | Linear gradient across the parent's box; `rotation` in degrees, `0` = left to right. |
 | `<radialGradientPaint>` | `rotation`, `opacity` | Radial gradient centered in the parent's box. |
 | `<colorStop>` | `offset` (**required**, `0`-`1`), `color` (**required**), `opacity` | Gradient color stop. Valid only inside gradient paints, which take no other children. |
-| [`<htmlPaint>`](./html-paint.md) | `opacity`, HTML children | Reactive HTML laid out and drawn into the parent's box (flagged Chromium API). `<html>` is shorthand for a `<rect>` carrying one. |
+| [`<htmlPaint>`](./html.md) | `opacity`, HTML children | Reactive HTML laid out and drawn into the parent's box (flagged Chromium API). `<html>` is shorthand for a `<rect>` carrying one. |
 | [`<surfacePaint>`](./surface-paint.md) | `opacity`, `ref` (**required**) | A canvas your `ref` callback draws into (any context type), sampled into the parent's box every frame. `<surface>` is shorthand for a `<rect>` carrying one. |
 | [`<shaderPaint>`](./shader-paint.md) | `opacity`, `wgsl` (**required**), `uniforms` | A WGSL fragment shader applied to the video/image paint directly below it (that media renders only through the shader's output), or run procedurally when there is none. |
 
