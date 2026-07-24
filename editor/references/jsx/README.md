@@ -16,6 +16,7 @@ The pipeline is driven by two commands: [`dapi mount`](../mount.md) renders the 
 | [roots.md](./roots.md) | Root elements, `key` identity, canvas placement |
 | [elements.md](./elements.md) | Element-to-node mapping, coordinates and sizing, the shared property table |
 | [scene.md](./scene.md), [group.md](./group.md), [rect.md](./rect.md), [text.md](./text.md), [video.md](./video.md), [image.md](./image.md), [audio.md](./audio.md) | Per-element props |
+| [fonts.md](./fonts.md) | Fonts for `<text>` and HTML: local families, `dapi fonts` |
 | [paints.md](./paints.md) | `<solidPaint>`, gradients, `<colorStop>` |
 | [html.md](./html.md) | `<html>`: reactive HTML children drawn into the box |
 | [surface-paint.md](./surface-paint.md) | `<surface>`: a ref-provided canvas you draw into, sampled every frame |

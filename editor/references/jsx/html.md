@@ -23,8 +23,8 @@ export default function Intro() {
   return (
     <rect scene="intro" width={800} height={120}>
       <html x={50} y={5} width={700} height={110} cornerRadius={24} end={32}>
-        <div style="display:flex;align-items:center;gap:16px;height:100%;
-                    background:#111;color:#fff;font:500 40px Inter;padding:0 32px;">
+        <div style={`display:flex;align-items:center;gap:16px;height:100%;
+                     background:#111;color:#fff;font:500 40px Inter;padding:0 32px;`}>
           <span ref={index} style="color:#7c9cff;">01</span>
           <span ref={label}>Introduction</span>
         </div>
@@ -34,6 +34,8 @@ export default function Intro() {
 }
 ```
 
+Prefer this timeline over hand-animating styles: keep the markup static and let the paused anime.js timeline own every moving value, so one `seek` keeps the whole host frame-accurate. A static `style` may be a plain string, but one spanning multiple lines has to be a template literal in braces (`style={`…`}`), as above. Reach for a derived style only for values the timeline does not drive, and write it as a **style object** (`style={{ color: c() }}`) rather than interpolating the signal into a style string, so each property updates independently.
+
 The `<html>` box carries all [common props](./elements.md#common-props). Its paint child form, [`<htmlPaint>`](./paints.md), draws the same reactive HTML onto any existing filled geometry; `<html>` is just a `<rect>` that carries one.
 
 ## As a scene (full-frame HTML)
@@ -42,8 +44,8 @@ Give `<html>` a [`scene`](./scene.md) identity and it becomes the mount root:
 
 ```tsx
 <html scene="landing" name="Landing" width={1920} height={1080} end={5}>
-  <div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;
-              background:#0b0d12;color:#fff;font:800 120px Inter;">
+  <div style={`width:100%;height:100%;display:flex;align-items:center;justify-content:center;
+               background:#0b0d12;color:#fff;font:800 120px Inter;`}>
     Hello
   </div>
 </html>
@@ -51,18 +53,9 @@ Give `<html>` a [`scene`](./scene.md) identity and it becomes the mount root:
 
 This also works for other rectangular geometry tags.
 
-## Minimize hosts
 
-Each `<html>` is a separate dom layout and read-back per frame. **When pieces share a span, author them as one host, laid out with CSS inside a single `<html>`, not scattered across siblings:**
+Each `<html>` is a separate dom layout and read-back per frame, so prefer fewer, larger hosts. When pieces share a span, it is usually nicer to lay them out with CSS inside one `<html>` than to reach for a separate host per piece.
 
-```tsx
-// Avoid this
-<html …>…header…</html>
-<html …>…body…</html>
-<html …>…footer…</html>
-```
-
-Split into separate hosts only when the pieces differ meaningful in timing, or must interleave in draw order with non-HTML elements.
 
 ## Reactivity
 
@@ -94,5 +87,5 @@ The compiled module is persisted with the document: on reload, export, and `dapi
 ## Requirements and limitations
 
 - `<audio>` and `<video>` tags are rejected: media doesn't play under a paint host. Use the [`<audio>`](./audio.md) and [`<video>`](./video.md) composition elements, which own playback and the timeline.
-- Cross-origin subresources (e.g. remote images) are excluded from the painted output by the browser's read-back rules; use local assets.
+- Cross-origin subresources (e.g. remote images, remote web fonts) are excluded from the painted output by the browser's read-back rules; use local assets and locally installed fonts (see [fonts.md](./fonts.md)).
 - **`<html>` is sourceless, so with no `end` it defaults to a 16-second duration and disappears after 16 s** — a silent cutoff with no error.
