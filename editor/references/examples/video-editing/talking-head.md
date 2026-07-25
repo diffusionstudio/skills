@@ -41,7 +41,7 @@ const aRoll = takes.map((t) => {
 
 export default function Project() {
   return (
-    <scene key="talking-head" name="TalkingHead" width={1080} height={1920} fill="black">
+    <rect scene="talking-head" name="TalkingHead" width={1080} height={1920} fill="black">
       <sequence name="A-roll">
         <For each={aRoll}>
           {(clip) => (
@@ -50,7 +50,7 @@ export default function Project() {
           )}
         </For>
       </sequence>
-    </scene>
+    </rect>
   );
 }
 ```

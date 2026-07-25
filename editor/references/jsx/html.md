@@ -38,25 +38,6 @@ Prefer this timeline over hand-animating styles: keep the markup static and let 
 
 The `<html>` box carries all [common props](./elements.md#common-props). Its paint child form, [`<htmlPaint>`](./paints.md), draws the same reactive HTML onto any existing filled geometry; `<html>` is just a `<rect>` that carries one.
 
-## As a scene (full-frame HTML)
-
-Give `<html>` a [`scene`](./scene.md) identity and it becomes the mount root:
-
-```tsx
-<html scene="landing" name="Landing" width={1920} height={1080} end={5}>
-  <div style={`width:100%;height:100%;display:flex;align-items:center;justify-content:center;
-               background:#0b0d12;color:#fff;font:800 120px Inter;`}>
-    Hello
-  </div>
-</html>
-```
-
-This also works for other rectangular geometry tags.
-
-
-Each `<html>` is a separate dom layout and read-back per frame, so prefer fewer, larger hosts. When pieces share a span, it is usually nicer to lay them out with CSS inside one `<html>` than to reach for a separate host per piece.
-
-
 ## Reactivity
 
 The children are part of the project's Solid graph: signals in attributes and text update the live DOM, and the drawn content follows on the next frame. A [`dapi mount`](../mount.md) stays live, so the graph keeps running and `useTicker` or timers can drive the markup:
