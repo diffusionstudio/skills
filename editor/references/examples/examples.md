@@ -5,6 +5,7 @@ Read the example(s) that clearly match your context.
 ## Video editing
 
 - [Long-form talking head](./video-editing/talking-head.md)
+- [Podcast clipping](./video-editing/podcast-clip.md)
 
 ## Prompts
 
