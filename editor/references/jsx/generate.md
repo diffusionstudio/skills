@@ -66,6 +66,7 @@ generate.voice(opts: {
 generate.audio(opts: {
   prompt: string;                  // required
   model?: string;                  // default: first model from `dapi models audio`
+  duration?: number;               // seconds; default 30 for music, the model's own default for sfx
 }): AssetRef;
 ```
 

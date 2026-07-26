@@ -17,6 +17,7 @@ Transcripts are **cached**: every transcript asset records a fingerprint of the 
 | `preset` | see below | `"classic"` | Caption style preset. |
 | `colors` | `string[]` | preset defaults | Fills the preset's color slots in order; any CSS color, alpha ignored. Ignored by presets without slots. |
 | `verticalAlign` | `"top" \| "center" \| "bottom"` | preset default | Vertical placement of the caption block: anchored to the top or bottom safe margin (100 px), or centered. Horizontal placement stays with the preset. |
+| `seed` | `number` | none | Joins the transcript cache key: a value unused for this audio transcribes the scene again instead of reusing the cached transcript (it costs credits). Reusing a value replays that take from cache. |
 | `offsetX`, `offsetY` | `Animatable<number>` | `0` | Render-time nudge in px on top of the preset placement; subpixel values are kept. A slide animation drives the same channel and wins while it plays. |
 | `start`, `end`, `sourceIn`, `sourceOut` | `Time` | full transcript | Trim which stretch of the transcript is captioned, using the same [timing](./timing.md) semantics as media nodes. Set the source window (`sourceIn`/`sourceOut`) and timeline placement (`start`/`end`) together — see [Trimming](#trimming). |
 
