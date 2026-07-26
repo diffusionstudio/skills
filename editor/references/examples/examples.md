@@ -1,11 +1,16 @@
 # Examples
 
-Read only the example that clearly matches the task. Make sure you have sufficient context before deciding on any of the following editing styles.
+Read the example(s) that clearly match your context.
 
 ## Video editing
 
 - [Long-form talking head](./video-editing/talking-head.md)
+- [Podcast clipping](./video-editing/podcast-clip.md)
 
-## Motion graphics
+## Prompts
 
-- [Lower third](./motion-graphics/lower-third.md)
+- [Writing prompts for `dapi media listen`](./prompts/media-listen.md)
+
+## JSX
+
+- [Basics on how to structure a composition](./code/basics.jsx)

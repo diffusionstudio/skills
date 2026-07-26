@@ -15,7 +15,7 @@ All [common props](./elements.md#common-props), plus:
 | Prop | Type | Default | Meaning |
 | ---- | ---- | ------- | ------- |
 | children | `string` (or expressions resolving to strings) | **required** | The text content. |
-| `fontFamily` | `string` | editor default | A family available on the machine ([`dapi fonts`](../fonts.md)). |
+| `fontFamily` | `string` | editor default | A family available on the machine ([`dapi fonts`](../fonts.md)); see [fonts.md](./fonts.md). |
 | `fontSize` | `number` | editor default | Px. |
 | `fontWeight` | `number \| "normal" \| "bold"` | `"normal"` | CSS weights `100`-`900`. |
 | `fontStyle` | `"normal" \| "italic"` | `"normal"` | |

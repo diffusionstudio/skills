@@ -5,9 +5,9 @@ The entry file is a standard Solid component module:
 ```tsx
 export default function Project() {
   return (
-    <scene key="intro" name="Intro" fill="black" width={1920} height={1080}>
+    <rect scene="intro" name="Intro" fill="black" width={1920} height={1080}>
       {/* ... */}
-    </scene>
+    </rect>
   );
 }
 ```

@@ -21,7 +21,7 @@ An element backed by a **canvas you draw yourself**. The `ref` callback receives
 - The ref runs **once**, when the paint materializes, inside the mount's reactive owner — `createEffect`, `onCleanup`, and [`useTicker`](./lifecycle.md) all work inside it.
 - **Callback form only** (`ref={(el) => ...}`). Variable refs (`let el; <surface ref={el} />`) receive a renderer-internal node, not the canvas.
 - The bitmap is allocated at the element's box size (in composition pixels) **before the ref runs**; after that the engine never touches it — the bitmap belongs to your code. Resize it yourself (`el.width = ...`, or an external renderer's own API) for higher resolution; the bitmap is stretched into the box every frame either way, so an animated box scales pixels rather than re-rasterizing.
-- Unlike [`<html>`](./html-paint.md) no flagged browser API is needed, and the sampled pixels render in exports.
+- Unlike [`<html>`](./html.md) no flagged browser API is needed, and the sampled pixels render in exports.
 
 ## Reactivity
 
@@ -87,4 +87,4 @@ The compiled module is persisted with the document, so the drawing is reproducib
 
 - Duplicating or copy-pasting a mounted surface yields a static copy (the drawing does not re-run for the copy); re-mount to get a fresh animated instance.
 - Only the `ref` attribute form on the element itself is routed; refs inside spread props are not.
-- A real DOM `<canvas>` is not available inside [`<html>`](./html-paint.md) content — its pixels don't survive the html-in-canvas rasterization. Use `<surface>` for hand-drawn graphics instead.
+- A real DOM `<canvas>` is not available inside [`<html>`](./html.md) content — its pixels don't survive the html-in-canvas rasterization. Use `<surface>` for hand-drawn graphics instead.

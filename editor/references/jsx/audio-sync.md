@@ -3,10 +3,10 @@
 `syncTo` places a node in time by listening instead of arithmetic: the node's audio is cross-correlated against another node's audio, and its `start` is computed so the two recordings coincide on the timeline. It replaces manual offset measurement for multi-recorder material: a lav or voice track against camera audio, two cameras on the same take, two microphones in one room.
 
 ```tsx
-<scene key="talk" width={1920} height={1080}>
+<rect scene="talk" width={1920} height={1080}>
   <video key="camera" src="/Movies/take-3.mp4" width={1920} height={1080} sourceOut={45} muted />
   <audio src="/Movies/lav.wav" syncTo="camera" />
-</scene>
+</rect>
 ```
 
 ## Semantics
