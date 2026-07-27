@@ -32,6 +32,16 @@ How to understand source material before editing it. Inspect only the modalities
 
 ### Video editing guidelines
 
+- Direct like a film director. Think in the language of cinematography and let it guide the frame. Keep the subject as the anchor. The story should work with your eyes closed. Complete the thought, not just the sentence. Story over compression.
+- Think in temporal beats. Give each moment its own temporal grammar, derived from the story. Structure information through framing, timing, and sequence. Let composition create hierarchy and separation before adding visual structure. 
+- Separate what the source contains from what the audience needs to see. Let only story-bearing information enter the frame.
+- Video is its own medium, not a website, poster, presentation slide, or UI. When user or brand guidance comes from another medium, preserve its intent and function, not its form. Re derive it through video and cinematography, and reflect that translation in the brief when useful.
+- Use the least structure needed for clarity. Default to the plainest choice. Its budget is 0. Chrome, scaffolding, ornament, graphic devices, lines and text all spend from it. Every addition costs attention and complexity.
+- A video is watched, not read. Let visuals and voice carry context. Text should punctuate, not explain.
+- Let every shot, media, element and moment feel intentional. Use it to deepen the story, guide attention, or expand imagination. Let information participate in the action rather than merely occupy the screen. Never add something merely to fill space.
+- Give every visual cinematic life through technique, framing, focus, movement, timing, audio, pace, emotion, tension, and breathing room.
+- Let emotion and rhythm shape the pace. Make room to pause and breathe, or let momentum flow. When it serves the story, shape pacing as a curve between them.
+- Choose easing from the intended weight, energy, and continuity of the action.
 - Write the brief first. For anything nontrivial, capture the edit as a markdown file: it is the plan every mount works toward and the thing to check the result against.
 - Lay down the A-roll. Assemble the primary footage as JSX and `dapi mount` it. Get the spine of the edit right before anything else.
 - Layer the rest on top. Once the A-roll holds, add B-roll and secondary assets (sound effects, captions, overlays) with further mounts or `dapi node insert`.
@@ -41,7 +51,7 @@ How to understand source material before editing it. Inspect only the modalities
 How to confirm a change actually produced what you intended. A clean `mount` or `insert` does not guarantee a correct-looking frame — verify the composited result, not just that the command succeeded.
 
 - After each `mount` or `insert`, `dapi node capture` the composited **scene** (capture the scene id, not the isolated node) to see what the viewer actually gets.
-- Reconcile the captured frame against the brief before moving on. Check framing, crop, readability, hierarchy, and timing at the intended delivery size.
+- Reconcile the captured frame against the brief before moving on, and the brief itself against these guidelines. Check framing, crop, readability, hierarchy, and timing at the intended delivery size.
 - Verify after every stage, not only at the end — build the composition incrementally so a problem is caught next to the change that caused it.
 - Fix the largest viewer-facing problem before polishing details, and recheck related moments after structural changes, since pacing, continuity, emphasis, and meaning are relational.
 - Use `screenshot` or `logs` to debug issues
