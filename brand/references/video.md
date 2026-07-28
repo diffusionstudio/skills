@@ -44,9 +44,6 @@ readable before it settles.
 
 Use one flourish per beat. Treat a busy scene as a layout problem.
 
-Do not simulate a camera move on a static shot, screen recording, or still image. Apply a
-push-in, drift, or pan only to footage already moving in the same direction.
-
 ## Cuts and transitions
 
 | Method | Use |
