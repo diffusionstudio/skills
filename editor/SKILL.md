@@ -43,7 +43,7 @@ How to understand source material before editing it. Inspect only the modalities
 - Let visuals, sound, and voice carry context; let text punctuate rather than explain. Do not add copy, eyebrows, labels, underlines, or brand color highlights unless the brief or explicit video guidance calls for them; examples alone are not instructions.
 - Choose easing from the intended weight, energy, and continuity of the action.
 
-### Video editing guidelines
+### Video editing guideline
 
 - Write the brief first. For anything nontrivial, capture the edit as a markdown file: it is the plan every mount works toward and the thing to check the result against.
 - Lay down the A-roll. Assemble the primary footage as JSX and `dapi mount` it. Get the spine of the edit right before anything else.
