@@ -32,15 +32,14 @@ How to understand source material before editing it. Inspect only the modalities
 
 ### Video editing guidelines
 
-- Direct like a film director. Think in the language of cinematography and let it guide the frame. Keep the subject as the anchor. The story should work with your eyes closed. Complete the thought, not just the sentence. Story over compression.
-- Think in temporal beats. Give each moment its own temporal grammar, derived from the story. Structure information through framing, timing, and sequence. Let composition create hierarchy and separation before adding visual structure. 
-- Separate what the source contains from what the audience needs to see. Let only story-bearing information enter the frame.
-- Video is its own medium, not a website, poster, presentation slide, or UI. When user or brand guidance comes from another medium, preserve its intent and function, not its form. Re derive it through video and cinematography, and reflect that translation in the brief when useful.
-- Use the least structure needed for clarity. Default to the plainest choice. Its budget is 0. Chrome, scaffolding, ornament, graphic devices, lines and text all spend from it. Every addition costs attention and complexity.
-- A video is watched, not read. Let visuals and voice carry context. Text should punctuate, not explain.
-- Let every shot, media, element and moment feel intentional. Use it to deepen the story, guide attention, or expand imagination. Let information participate in the action rather than merely occupy the screen. Never add something merely to fill space.
-- Give every visual cinematic life through technique, framing, focus, movement, timing, audio, pace, emotion, tension, and breathing room.
-- Let emotion and rhythm shape the pace. Make room to pause and breathe, or let momentum flow. When it serves the story, shape pacing as a curve between them.
+- Direct like a film director. Focus on cinematography. Keep the subject as the anchor. The story should work with your eyes closed. Complete the thought, not just the sentence. Story over compression.
+- Think in temporal beats and grammar. Structure information through framing, timing, and sequence. Let composition create hierarchy and separation before adding visual structure. 
+- Use the least structure needed for clarity; let content work before decoration. Default to the plainest choice. Its budget is `0`. Chrome, scaffolding, and ornament all spend from it. Every addition adds attention cost and complexity.
+- Video is its own medium, not a website, poster, presentation slide, or UI. A video is watched, not read. Let visuals and voice carry context. Text should punctuate, not explain. Prefer to not add eyebrows, descriptions, labels, or supporting copy.
+- When user or brand guidance comes from another medium, preserve its intent, not its form. Re derive it through video and cinematography. Show only what the audience needs to see. Let nothing enter the frame unless it helps tell the story.
+- Facts constrain what may be said, not how it must be shown. Separate source meaning from source presentation; re-author hierarchy, grouping, and emphasis for the film.
+- Let every shot, media, element and moment feel intentional. Use it to deepen the story, guide attention, or expand imagination. Never add something merely to fill space or occupy the screen.
+- Give every visual cinematic life through technique, framing, focus, movement, timing, audio, pace, emotion, and tension. Let emotion and rhythm shape the pace. Make room to pause and breathe, or let momentum flow. Shape pacing as a curve between them.
 - Choose easing from the intended weight, energy, and continuity of the action.
 - Write the brief first. For anything nontrivial, capture the edit as a markdown file: it is the plan every mount works toward and the thing to check the result against.
 - Lay down the A-roll. Assemble the primary footage as JSX and `dapi mount` it. Get the spine of the edit right before anything else.
