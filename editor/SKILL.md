@@ -30,17 +30,21 @@ How to understand source material before editing it. Inspect only the modalities
 - Only render (export) the result when prompted
 - Start with a fresh project
 
-### Video editing guidelines
+### Directing
 
-- Direct like a film director. Focus on cinematography. Keep the subject as the anchor. The story should work with your eyes closed. Complete the thought, not just the sentence. Story over compression.
-- Think in temporal beats and grammar. Structure information through framing, timing, and sequence. Let composition create hierarchy and separation before adding visual structure. 
-- Use the least structure needed for clarity; let content work before decoration. Default to the plainest choice. Its budget is `0`. Chrome, scaffolding, and ornament all spend from it. Every addition adds attention cost and complexity.
-- Video is its own medium, not a website, poster, presentation slide, or UI. A video is watched, not read. Let visuals and voice carry context. Text should punctuate, not explain. Prefer to not add eyebrows, descriptions, labels, or supporting copy.
-- When user or brand guidance comes from another medium, preserve its intent, not its form. Re derive it through video and cinematography. Show only what the audience needs to see. Let nothing enter the frame unless it helps tell the story.
-- Facts constrain what may be said, not how it must be shown. Separate source meaning from source presentation; re-author hierarchy, grouping, and emphasis for the film.
-- Let every shot, media, element and moment feel intentional. Use it to deepen the story, guide attention, or expand imagination. Never add something merely to fill space or occupy the screen.
-- Give every visual cinematic life through technique, framing, focus, movement, timing, audio, pace, emotion, and tension. Let emotion and rhythm shape the pace. Make room to pause and breathe, or let momentum flow. Shape pacing as a curve between them.
+- Direct like a film director. Anchor each beat in the person, action, or idea that carries it. Let sound and image share the story: every shot must reveal, clarify, contrast, or deepen the beat, and may continue only while it still does that work. At each shift in beat or topic, make a new visual decision—cut, reframe, or hold only when the hold adds meaning, tension, or continuity. Complete the thought, not just the sentence. Story over compression.
+- Give every chosen element cinematic life through framing, focus, movement, stillness, timing, sound, pace, emotion, and tension.
+- For dialogue-led edits, hide the picture and confirm that the speech carries the core thought; then restore it and confirm that each visual adds meaning, preserves continuity, or supports a needed transition rather than merely filling the frame.
+
+### Composition
+
+- Chrome, scaffolding, and ornament all draw from a visual budget whose default balance is `0`; prefer not to use them. A cut, hold, or change of size can separate two ideas as clearly as a divider without adding visual clutter. An element earns its place by deepening the story, guiding attention, or expanding imagination, never by filling space.
+- Video is its own medium, with its own rules; it is not a website, poster, slide, or UI. It is watched, not read.
+- Let visuals, sound, and voice carry context; let text punctuate rather than explain. Do not add copy, eyebrows, labels, underlines, or brand color highlights unless the brief or explicit video guidance calls for them; examples alone are not instructions.
 - Choose easing from the intended weight, energy, and continuity of the action.
+
+### Video editing guideline
+
 - Write the brief first. For anything nontrivial, capture the edit as a markdown file: it is the plan every mount works toward and the thing to check the result against.
 - Lay down the A-roll. Assemble the primary footage as JSX and `dapi mount` it. Get the spine of the edit right before anything else.
 - Layer the rest on top. Once the A-roll holds, add B-roll and secondary assets (sound effects, captions, overlays) with further mounts or `dapi node insert`.
@@ -50,7 +54,7 @@ How to understand source material before editing it. Inspect only the modalities
 How to confirm a change actually produced what you intended. A clean `mount` or `insert` does not guarantee a correct-looking frame — verify the composited result, not just that the command succeeded.
 
 - After each `mount` or `insert`, `dapi node capture` the composited **scene** (capture the scene id, not the isolated node) to see what the viewer actually gets.
-- Reconcile the captured frame against the brief before moving on, and the brief itself against these guidelines. Check framing, crop, readability, hierarchy, and timing at the intended delivery size.
+- Reconcile captured frames with the brief, and the brief with these guidelines. At the intended delivery size, check framing, crop, readability, and hierarchy. Review the scene in motion across every story-beat change and through the start, middle, and end of any long-held visual. Ask, “Why this image now?” Keep it only when the answer is specific to that moment.
 - Verify after every stage, not only at the end — build the composition incrementally so a problem is caught next to the change that caused it.
 - Fix the largest viewer-facing problem before polishing details, and recheck related moments after structural changes, since pacing, continuity, emphasis, and meaning are relational.
 - Use `screenshot` or `logs` to debug issues
