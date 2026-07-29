@@ -19,24 +19,13 @@ How to understand source material before editing it. Inspect only the modalities
 - **Transcribe speech.** For speech, `dapi media transcribe` prints the full transcript with word-level start/end times directly — read any segment straight from it.
 - **Sample the video against the audio.** Use `dapi media grab` to pull frames. When the audio has already pointed you at specific moments, feed those timestamps straight in from the transcript or listen output, e.g. `-t '00:32' '00:45' ...`. When you need a visual pass without such cues, reach for `--auto`: it scans the footage and keeps only the frames where the picture settles into a new visual state, dropping near-duplicates.
 
-## Best practices
-
-- Wrap entities in `<sequence>` tags wherever the parent tag supports it — A-roll, B-roll, and other clips belong in sequences so the timeline stays structured rather than a flat, messy pile. (`<html>` does not support sequences.)
-- Use the built-in tags for the media a composition is made of (audio, video, images, captions).
-- For anything 3D, use Three.js drawn into a `<surface>` tag.
-- For motion graphics, overlays and UI-heavy graphics, use the `<html>` tag.
-- Add auto captions last, after everything else is assembled, so they transcribe the finished audio at its final placement.
-- Open the application in the background for tasks that don't require an editing UI.
-- Only render (export) the result when prompted.
-- Start with a fresh project.
-
-### Editing workflow
+# Editing workflow
 
 - Write the brief first. For anything nontrivial, capture the edit as a markdown file: it is the plan every mount works toward and the thing to check the result against.
 - Lay down the A-roll. Assemble the primary footage as JSX and `dapi mount` it. Get the spine of the edit right before anything else.
 - Layer the rest on top. Once the A-roll holds, add B-roll and secondary assets (sound effects, captions, overlays) with further mounts or `dapi node insert`.
 
-### Compositing
+# Compositing
 
 - Chrome, scaffolding, and ornament all draw from a visual budget whose default balance is `0`; prefer not to use them. A cut, hold, or change of size can separate two ideas as clearly as a divider without adding visual clutter. An element earns its place by deepening the story, guiding attention, or expanding imagination, never by filling space.
 - Video is its own medium, with its own rules; it is not a website, poster, slide, or UI. It is watched, not read.
@@ -53,6 +42,17 @@ How to confirm a change actually produced what you intended. A clean `mount` or 
 - Fix the largest viewer-facing problem before polishing details, and recheck related moments after structural changes, since pacing, continuity, emphasis, and meaning are relational.
 - Use `screenshot` or `logs` to debug issues.
 - DO NOT export/render the scene for visual confirmation — `dapi node capture` is equivalent to a render but far more efficient. Rendering to a video should be a user-triggered action unless explicitly requested in the prompt.
+
+# Best practices
+
+- Wrap entities in `<sequence>` tags wherever the parent tag supports it — A-roll, B-roll, and other clips belong in sequences so the timeline stays structured rather than a flat, messy pile. (`<html>` does not support sequences.)
+- Use the built-in tags for the media a composition is made of (audio, video, images, captions).
+- For anything 3D, use Three.js drawn into a `<surface>` tag.
+- For motion graphics, overlays and UI-heavy graphics, use the `<html>` tag.
+- Add auto captions last, after everything else is assembled, so they transcribe the finished audio at its final placement.
+- Open the application in the background for tasks that don't require an editing UI.
+- Only render (export) the result when prompted.
+- Start with a fresh project.
 
 # Docs
 
