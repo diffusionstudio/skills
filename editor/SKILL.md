@@ -39,6 +39,7 @@ How to confirm a change actually produced what you intended. A clean `mount` or 
 - Use `dapi node capture` to see what the viewer actually gets.
 - Reconcile captured frames with the brief, and the brief with these guidelines.
 - Verify after every stage, not only at the end — build the composition incrementally so a problem is caught next to the change that caused it.
+- Scale verification to the change. A small or incremental tweak the user asked for needs no visual confirmation so the user gets the result back fast and can keep iterating.
 - Fix the largest viewer-facing problem before polishing details, and recheck related moments after structural changes, since pacing, continuity, emphasis, and meaning are relational.
 - Use `screenshot` or `logs` to debug issues.
 - DO NOT export/render the scene for visual confirmation — `dapi node capture` is equivalent to a render but far more efficient. Rendering to a video should be a user-triggered action unless explicitly requested in the prompt.
