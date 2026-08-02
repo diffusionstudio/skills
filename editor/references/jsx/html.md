@@ -51,6 +51,10 @@ setInterval(() => setCount((c) => c + 1), 1000);
 </html>
 ```
 
+## Images
+
+`<img>` takes the same sources as a composition [`src`](./media.md): a path, an asset id, a URL, or a [`generate.*`](./generate.md) ref. The host resolves them exactly as it does for [`<image>`](./image.md)
+
 ## Props
 
 `<html>` takes all [common props](./elements.md#common-props). `<htmlPaint>` takes:
@@ -68,5 +72,4 @@ The compiled module is persisted with the document: on reload, export, and `dapi
 ## Requirements and limitations
 
 - `<audio>` and `<video>` tags are rejected: media doesn't play under a paint host. Use the [`<audio>`](./audio.md) and [`<video>`](./video.md) composition elements, which own playback and the timeline.
-- Cross-origin subresources (e.g. remote images, remote web fonts) are excluded from the painted output by the browser's read-back rules; use local assets and locally installed fonts (see [fonts.md](./fonts.md)).
 - **`<html>` is sourceless, so with no `end` it defaults to a 16-second duration and disappears after 16 s** — a silent cutoff with no error.
