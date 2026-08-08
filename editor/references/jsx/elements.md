@@ -18,7 +18,7 @@ camelCase composition elements map 1:1 onto internal node types. Lowercase DOM v
 | [`<html>`](./html.md) | **Geometry with Html paint** | Children are real, reactive HTML drawn into the box by the browser (html-in-canvas, flagged Chromium API). `<htmlPaint>` is the paint child form. |
 | [`<surface>`](./surface-paint.md) | **Geometry with Surface paint** | `ref` hands you a canvas to draw with any context type (2d, webgl, webgpu); sampled every frame. `<surfacePaint>` is the paint child form. |
 
-Any rectangle geometry above (`<rect>`, `<video>`, `<image>`, `<html>`, `<surface>`) becomes a **scene** (the composition root) when given a `scene` identity: it then clips its children to `width`×`height` and is valid only at the document top level. See [scene.md](./scene.md).
+A `<rect>` becomes a **scene** (the composition root) when given a `scene` identity: it then clips its children to `width`×`height` and is valid only at the document top level. See [scene.md](./scene.md).
 
 User-defined components are ordinary Solid components; they compose the elements above and carry no runtime cost. Only the elements above produce entities.
 
@@ -35,7 +35,7 @@ All visual elements accept:
 | Prop | Type | Default | Meaning |
 | ---- | ---- | ------- | ------- |
 | `key` | `string` | none | A within-render label so another node can reference this one (e.g. [`syncTo`](./audio-sync.md)); |
-| `scene` | `string` | none | Promotes a rectangle geometry to a scene, the only mountable root, and is its identity across mounts (see [scene.md](./scene.md)). |
+| `scene` | `string` | none | Promotes a `<rect>` to a scene, the only mountable root, and is its identity across mounts (see [scene.md](./scene.md)). |
 | `name` | `string` | none | Human-readable node name. |
 | `x`, `y` | `Animatable<number>` | `0` | Position relative to the parent, px. |
 | `offsetX`, `offsetY` | `Animatable<number>` | `0` | Render-time translation on top of `x`/`y`, px; moves the drawn content without changing the layout box. Subpixel values are kept. |

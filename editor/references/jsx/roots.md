@@ -1,6 +1,6 @@
 # Roots
 
-A mount renders one or more root elements (a fragment of roots is allowed) and **refreshes the document**: like reloading a webpage, re-running a mount rebuilds its roots in place instead of accumulating copies; a rendered root with no existing node to replace is created. **Only a [scene](./scene.md) is mountable as a root** (a rectangle geometry promoted with the `scene` property); every top-level element declares its identity with `scene`.
+A mount renders one or more root elements (a fragment of roots is allowed) and **refreshes the document**: like reloading a webpage, re-running a mount rebuilds its roots in place instead of accumulating copies; a rendered root with no existing node to replace is created. **Only a [scene](./scene.md) is mountable as a root** (a `<rect>` promoted with the `scene` property); every top-level element declares its identity with `scene`.
 
 | Identity | Contract |
 | -------- | -------- |
