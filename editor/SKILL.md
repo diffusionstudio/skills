@@ -69,6 +69,12 @@ Read worked example(s) that match your context.
 - [Long-form talking head](references/examples/video-editing/talking-head.md)
 - [Podcast clipping](references/examples/video-editing/podcast-clip.md)
 
+## Templates
+
+Complete compositions with fixed styling and swappable content.
+
+- [GitHub star-milestone celebration](references/examples/templates/github-stargazers/README.md)
+
 ## Prompts
 
 - [Writing prompts for `dapi media listen`](references/examples/prompts/media-listen.md)
