@@ -50,6 +50,7 @@ How to confirm a change actually produced what you intended. A clean `mount` or 
 - Use the built-in tags for the media a composition is made of (audio, video, images, captions).
 - For anything 3D, use Three.js drawn into a `<surface>` tag.
 - For motion graphics, overlays and UI-heavy graphics, the `<html>` tag driven by a paused [anime.js](https://animejs.com) timeline
+- Before animating anything, read the [cubic-bezier easings example](references/examples/code/easings.jsx) and choose easings deliberately — default or linear easing is what makes motion read as a slideshow.
 - Add auto captions last, after everything else is assembled, so they transcribe the finished audio at its final placement.
 - Open the application in the background for tasks that don't require an editing UI.
 - Only render (export) the result when prompted.
