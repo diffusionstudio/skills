@@ -49,7 +49,7 @@ How to confirm a change actually produced what you intended. A clean `mount` or 
 - Wrap entities in `<sequence>` tags wherever the parent tag supports it — A-roll, B-roll, and other clips belong in sequences so the timeline stays structured rather than a flat, messy pile. (`<html>` does not support sequences.)
 - Use the built-in tags for the media a composition is made of (audio, video, images, captions).
 - For anything 3D, use Three.js drawn into a `<surface>` tag.
-- For motion graphics, overlays and UI-heavy graphics, the `<html>` tag driven by a paused [anime.js](https://animejs.com) timeline
+- For motion graphics, overlays and UI-heavy graphics, the `<html>` tag driven by a paused [GSAP](https://gsap.com) timeline
 - Before animating anything, read the [cubic-bezier easings example](references/examples/code/easings.jsx) and choose easings deliberately — default or linear easing is what makes motion read as a slideshow.
 - Add auto captions last, after everything else is assembled, so they transcribe the finished audio at its final placement.
 - Open the application in the background for tasks that don't require an editing UI.
@@ -84,9 +84,9 @@ Complete compositions with fixed styling and swappable content.
 
 - [Basics on how to structure a composition](references/examples/code/basics.jsx)
 - [Driving values from composition time with `useTicker`](references/examples/code/ticker.jsx)
-- [Animating with an anime.js timeline](references/examples/code/anime-timeline.jsx)
+- [Animating with a GSAP timeline](references/examples/code/gsap-timeline.jsx)
 - [Six go-to cubic-bezier easings, compared side by side](references/examples/code/easings.jsx)
-- [Animating an `<html>` overlay in a canvas scene with an anime.js timeline](references/examples/code/html-overlay.jsx)
+- [Animating an `<html>` overlay in a canvas scene with a GSAP timeline](references/examples/code/html-overlay.jsx)
 - [Applying a WGSL shader to a video with shader paint](references/examples/code/shader-paint.jsx)
 - [Rendering a custom WebGPU pass into a `<canvas>`](references/examples/code/webgpu.jsx)
 - [Rendering a Three.js scene into a `<canvas>`](references/examples/code/three.jsx)

@@ -1,5 +1,5 @@
-import { createEffect, createSignal } from "solid-js";
-import { createTimeline } from "animejs";
+import { createEffect, createSignal, onMount } from "solid-js";
+import { gsap } from "gsap";
 import { useTicker } from "@diffusionstudio/jsx";
 
 const PROMPT = "Cut a 30 second teaser from these clips, punchy captions, synthwave score";
@@ -14,14 +14,21 @@ export default function PromptBox() {
   const typing = { chars: 0 };
   let cursor;
   let send;
+  let tl;
 
-  const tl = createTimeline({ autoplay: false })
-    .add(typing, { chars: PROMPT.length, duration: 6200, ease: "linear", modifier: Math.round }, 600)
-    .add(cursor, { opacity: [0.9, 0], duration: 500, loop: 13, alternate: true, ease: "steps(1)" }, 600)
-    .add(send, { scale: [0.6, 1], opacity: [0, 1], duration: 400, ease: "outBack" }, 6600);
+  // GSAP resolves targets when a tween is created, and refs are only assigned
+  // during render — build the timeline in onMount, after they exist.
+  onMount(() => {
+    // lazy: false — the paint snapshot samples right after seek(), so a
+    // tween's first write must not be deferred to the end of the tick
+    tl = gsap.timeline({ paused: true, defaults: { lazy: false } })
+      .to(typing, { chars: PROMPT.length, duration: 6.2, ease: "none", snap: "chars" }, 0.6)
+      .fromTo(cursor, { opacity: 0.9 }, { opacity: 0, duration: 0.5, repeat: 13, yoyo: true, ease: "steps(1)" }, 0.6)
+      .fromTo(send, { scale: 0.6, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.4, ease: "back.out" }, 6.6);
+  });
 
   createEffect(() => {
-    tl.seek(time() * 1000);
+    tl.seek(time());
     setChars(typing.chars);
   });
 

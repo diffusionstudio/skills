@@ -3,8 +3,11 @@
 // Edit only the CONTENT block; everything below it is fixed styling.
 import { For, createEffect, createMemo, createSignal } from "solid-js";
 import { createStore } from "solid-js/store";
-import { createTimeline, cubicBezier } from "animejs";
+import { gsap } from "gsap";
+import { CustomEase } from "gsap/CustomEase";
 import { useTicker, useFile } from "@diffusionstudio/jsx";
+
+gsap.registerPlugin(CustomEase);
 import { FIRST, LAST } from "./stargazers.js";
 
 // ── CONTENT — swap these for your repo ──────────────────────────────────────
@@ -38,22 +41,26 @@ const ROW_WIDTH = TOTAL * AVATAR + (TOTAL - 1) * GAP;
 // End state: last avatar's right edge sits on the right margin
 const SCROLL = ROW_WIDTH - (W - 2 * MARGIN);
 
-// Timing (ms): five staggered slide-ins; the scroll (and with it the profiles)
+// Timing (s): five staggered slide-ins; the scroll (and with it the profiles)
 // starts together with the footer's entrance.
-const ENTER_MS = 450;
-const STAGGER = 80;
+const ENTER = 0.45;
+const STAGGER = 0.08;
 const SCROLL_START = 3 * STAGGER;
-const SCROLL_MS = 8400;
+const SCROLL_DUR = 8.4;
 const DURATION = 10; // s
 const RISE = 60;
 // Strip starts fully off-screen right; the scroll itself is its entrance
 const X_START = MARGIN - W;
 
+// Eases: CustomEase.create returns the ease as a pure function, so the same
+// curve drives the timeline and the closed-form mirror below.
+const ENTER_EASE = CustomEase.create("enter", "0.22,1,0.36,1");
+const SCROLL_EASE = CustomEase.create("scroll", "0.16,1,0.3,1");
+
 // Closed-form scroll position, mirrors the timeline's row tween — the strip
 // surface reads it directly each frame.
-const SCROLL_EASE = cubicBezier(0.16, 1, 0.3, 1);
-const xAt = (tms) => {
-  const p = Math.min(Math.max((tms - SCROLL_START) / SCROLL_MS, 0), 1);
+const xAt = (t) => {
+  const p = Math.min(Math.max((t - SCROLL_START) / SCROLL_DUR, 0), 1);
   return X_START + (SCROLL - X_START) * SCROLL_EASE(p);
 };
 
@@ -125,17 +132,18 @@ export default function GithubStargazers() {
     row: { ...row },
   });
 
-  const enter = cubicBezier(0.22, 1, 0.36, 1);
-  const tl = createTimeline({ autoplay: false })
-    .add(logo, { opacity: 1, y: 0, duration: ENTER_MS, ease: enter }, 0)
-    .add(owner, { opacity: 1, y: 0, duration: ENTER_MS, ease: enter }, STAGGER)
-    .add(repo, { opacity: 1, y: 0, duration: ENTER_MS, ease: enter }, 2 * STAGGER)
-    .add(num, { opacity: 1, y: 0, duration: ENTER_MS, ease: enter }, 3 * STAGGER)
-    .add(word, { opacity: 1, y: 0, duration: ENTER_MS, ease: enter }, 4 * STAGGER)
-    .add(row, { x: SCROLL, duration: SCROLL_MS, ease: cubicBezier(0.16, 1, 0.3, 1) }, SCROLL_START);
+  // lazy: false — the store copy below reads the targets synchronously after
+  // seek(), so a tween's first write must not be deferred to the end of the tick
+  const tl = gsap.timeline({ paused: true, defaults: { lazy: false } })
+    .to(logo, { opacity: 1, y: 0, duration: ENTER, ease: ENTER_EASE }, 0)
+    .to(owner, { opacity: 1, y: 0, duration: ENTER, ease: ENTER_EASE }, STAGGER)
+    .to(repo, { opacity: 1, y: 0, duration: ENTER, ease: ENTER_EASE }, 2 * STAGGER)
+    .to(num, { opacity: 1, y: 0, duration: ENTER, ease: ENTER_EASE }, 3 * STAGGER)
+    .to(word, { opacity: 1, y: 0, duration: ENTER, ease: ENTER_EASE }, 4 * STAGGER)
+    .to(row, { x: SCROLL, duration: SCROLL_DUR, ease: SCROLL_EASE }, SCROLL_START);
 
   createEffect(() => {
-    tl.seek(Math.min(time() * 1000, tl.duration));
+    tl.seek(Math.min(time(), tl.duration()));
     setV("logo", { ...logo });
     setV("owner", { ...owner });
     setV("repo", { ...repo });
@@ -171,8 +179,7 @@ export default function GithubStargazers() {
     const star = new Path2D(STAR_PATH);
     createEffect(() => {
       loaded(); // redraw as avatars finish decoding
-      const tms = time() * 1000;
-      const x = xAt(tms);
+      const x = xAt(time());
       ctx.clearRect(0, 0, el.width, el.height);
       const kStart = Math.max(0, Math.floor((x - MARGIN - AVATAR) / PITCH));
       const kEnd = Math.min(TOTAL - 1, Math.ceil((x + W - MARGIN) / PITCH));
