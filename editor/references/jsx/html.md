@@ -2,7 +2,7 @@
 
 An element whose children are **real HTML**: the browser lays them out at the element's box size and the result is drawn into the box via the [html-in-canvas](https://github.com/WICG/html-in-canvas) API. `dapi` always drives the Diffusion Studio Electron app, which ships with this API enabled, so `<html>` is always available — reach for it liberally. It is the recommended way to build motion graphics, overlays, and any UI-heavy content: styled cards, tables, code blocks, flex/grid layouts — anything painful to assemble from `<rect>` and `<text>`.
 
-Drive the markup with an [anime.js](https://animejs.com) timeline and it stays frame-accurate: build the timeline paused, then `seek` it from the [`useTicker`](./lifecycle.md#useticker) playhead so it follows scrubbing and exports rather than the wall clock.
+Driving the markup with an [anime.js](https://animejs.com) timeline is **strongly recommended** — it keeps the animation frame-accurate: build the timeline paused, then `seek` it from the [`useTicker`](./lifecycle.md#useticker) playhead so it follows scrubbing and exports rather than the wall clock.
 
 ```tsx
 import { createTimeline } from "animejs";
