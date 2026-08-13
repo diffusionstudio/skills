@@ -84,6 +84,7 @@ Complete compositions with fixed styling and swappable content.
 - [Basics on how to structure a composition](references/examples/code/basics.jsx)
 - [Driving values from composition time with `useTicker`](references/examples/code/ticker.jsx)
 - [Animating with an anime.js timeline](references/examples/code/anime-timeline.jsx)
+- [Six go-to cubic-bezier easings, compared side by side](references/examples/code/easings.jsx)
 - [Animating an `<html>` overlay in a canvas scene with an anime.js timeline](references/examples/code/html-overlay.jsx)
 - [Applying a WGSL shader to a video with shader paint](references/examples/code/shader-paint.jsx)
 - [Rendering a custom WebGPU pass into a `<canvas>`](references/examples/code/webgpu.jsx)
