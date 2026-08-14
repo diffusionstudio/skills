@@ -66,7 +66,7 @@ Worth knowing before touching the internals:
 - The strip is a virtualized canvas: a `<surface>` draws only the on-screen
   slice each frame, so item count barely matters.
 - The scroll position is a closed-form function of composition time (`xAt`),
-  mirrored by the anime.js timeline. The counter derives from the same eased
+  mirrored by the GSAP timeline. The counter derives from the same eased
   position — the number of avatars fully entered — so it lands on the
   milestone exactly when the strip lands, with no separate tween to drift.
 - Confetti parameters come from a seeded PRNG and the motion is pure
