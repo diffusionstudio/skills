@@ -41,6 +41,7 @@ How to understand source material before editing it. Inspect only the modalities
 
 How to confirm a change actually produced what you intended. A clean save does not guarantee a correct-looking composition.
 
+- Run `dapi check <id>` first. It catches black frames, clips that never become visible, zero-duration or fully transparent nodes, and assets that failed to load or generate.
 - Use `dapi capture <id>` to see what the viewer actually gets.
 - Reconcile captured frames with the brief, and the brief with these guidelines.
 - Verify after every stage, not only at the end — build the composition incrementally so a problem is caught next to the change that caused it.

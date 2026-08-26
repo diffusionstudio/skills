@@ -70,7 +70,9 @@ Save the file — the app recompiles and re-renders it — and get the spine rig
 
 ## 5. Verification
 
-The cut points matter most. Capture the **first frame of every clip** with `dapi capture <sceneId> -t ...` at each clip's `start`, and check the cut didn't land on a bad frame — motion blur is the usual tell; nudge `sourceIn` a few frames to a settled one. Reconcile against the brief, and re-check neighbouring cuts after any structural change.
+Run `dapi check <sceneId>` first: on a long timeline of many clips, a `sourceOut`/`start` that don't meet leaves a gap no sampled frame would land on, and the check names those spans outright.
+
+Then the cut points, which matter most. Capture the **first frame of every clip** with `dapi capture <sceneId> -t ...` at each clip's `start`, and check the cut didn't land on a bad frame — motion blur is the usual tell; nudge `sourceIn` a few frames to a settled one. Reconcile against the brief, and re-check neighbouring cuts after any structural change.
 
 ## 6. Visual hook (optional)
 
