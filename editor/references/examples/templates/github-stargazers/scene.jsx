@@ -1,20 +1,20 @@
 // GitHub star-milestone celebration — see README.md next to this file for the
 // full workflow (fetching stargazers, downloading avatars, verification).
 // Edit only the CONTENT block; everything below it is fixed styling.
-import { For, createEffect, createMemo, createSignal } from "solid-js";
+import { For, createEffect, createMemo } from "solid-js";
 import { createStore } from "solid-js/store";
 import { createTimeline, cubicBezier } from "animejs";
-import { useTicker, useFile } from "@diffusionstudio/jsx";
+import { useTicker } from "@diffusionstudio/jsx";
 import { FIRST, LAST } from "./stargazers.js";
 
 // ── CONTENT — swap these for your repo ──────────────────────────────────────
 const OWNER = "diffusionstudio";
 const REPO = "lottie";
 const MILESTONE = 5000; // star count the scroll lands on
-// Org avatar and stargazer avatars, resolved by the editor (see README.md —
-// keep them in folders inside the project directory you `dapi open`).
-const ORG_LOGO = "/Movies/github-stargazers/logo.png";
-const AVATAR_DIR = "/Movies/github-stargazers/avatars"; // <login>.png per stargazer
+// Org avatar and stargazer avatars, as library paths — drop the files under
+// the project's `assets/` folder and they resolve by that path (see README.md).
+const ORG_LOGO = "logo.png";
+const AVATAR_DIR = "avatars"; // <login>.png per stargazer
 // ────────────────────────────────────────────────────────────────────────────
 
 // GitHub light-mode palette (deliberate brand exception: the scene replicates GitHub UI)
@@ -50,7 +50,7 @@ const RISE = 60;
 const X_START = MARGIN - W;
 
 // Closed-form scroll position, mirrors the timeline's row tween — the strip
-// surface reads it directly each frame.
+// strip reads it directly each frame.
 const SCROLL_EASE = cubicBezier(0.16, 1, 0.3, 1);
 const xAt = (tms) => {
   const p = Math.min(Math.max((tms - SCROLL_START) / SCROLL_MS, 0), 1);
@@ -150,221 +150,197 @@ export default function GithubStargazers() {
     return Math.max(0, Math.min(TOTAL, entered));
   };
 
-  // Avatar pixels come from the project's avatars folder; useFile resolves
-  // each path through the host, exactly as a node src would.
-  const [loaded, setLoaded] = createSignal(0);
-  const bitmaps = new Map(); // login -> ImageBitmap
-  for (const login of new Set(items)) {
-    const [file] = useFile(`${AVATAR_DIR}/${login}.png`);
-    createEffect(() => {
-      const f = file();
-      if (!f) return;
-      createImageBitmap(f).then((bmp) => {
-        bitmaps.set(login, bmp);
-        setLoaded((n) => n + 1);
-      });
-    });
-  }
+  // The strip is virtualized: only the handful of avatars overlapping the frame
+  // is rendered, addressed by index from the same closed-form scroll position
+  // the timeline tweens, so it stays exact under scrubbing and export.
+  const visible = createMemo(() => {
+    const x = xAt(time() * 1000);
+    const kStart = Math.max(0, Math.floor((x - MARGIN - AVATAR) / PITCH));
+    const kEnd = Math.min(TOTAL - 1, Math.ceil((x + W - MARGIN) / PITCH));
+    const slice = [];
+    for (let k = kStart; k <= kEnd; k++) {
+      const left = MARGIN + k * PITCH - x;
+      if (left > W + 20 || left + AVATAR < -20) continue;
+      slice.push({ k, login: items[k], left });
+    }
+    return slice;
+  });
 
-  const drawStargazers = (el) => {
-    const ctx = el.getContext("2d");
-    const star = new Path2D(STAR_PATH);
-    createEffect(() => {
-      loaded(); // redraw as avatars finish decoding
-      const tms = time() * 1000;
-      const x = xAt(tms);
-      ctx.clearRect(0, 0, el.width, el.height);
-      const kStart = Math.max(0, Math.floor((x - MARGIN - AVATAR) / PITCH));
-      const kEnd = Math.min(TOTAL - 1, Math.ceil((x + W - MARGIN) / PITCH));
-      for (let k = kStart; k <= kEnd; k++) {
-        const img = bitmaps.get(items[k]);
-        const left = MARGIN + k * PITCH - x;
-        if (left > W + 20 || left + AVATAR < -20) continue;
-        const cx = left + AVATAR / 2;
-        ctx.save();
-        ctx.shadowColor = "rgba(31,35,40,0.16)";
-        ctx.shadowBlur = 28;
-        ctx.shadowOffsetY = 12;
-        ctx.beginPath();
-        ctx.arc(cx, AVATAR / 2, AVATAR / 2, 0, 2 * Math.PI);
-        ctx.fillStyle = "#ffffff";
-        ctx.fill();
-        ctx.restore();
-        if (img) {
-          ctx.save();
-          ctx.beginPath();
-          ctx.arc(cx, AVATAR / 2, AVATAR / 2, 0, 2 * Math.PI);
-          ctx.clip();
-          ctx.drawImage(img, left, 0, AVATAR, AVATAR);
-          ctx.restore();
-        }
-        ctx.beginPath();
-        ctx.arc(cx, AVATAR / 2, AVATAR / 2 - 0.5, 0, 2 * Math.PI);
-        ctx.strokeStyle = "rgba(0,0,0,0.06)";
-        ctx.lineWidth = 1;
-        ctx.stroke();
-        ctx.save();
-        ctx.translate(cx - 28, AVATAR + 20);
-        ctx.scale(3.5, 3.5);
-        ctx.fillStyle = STAR_YELLOW;
-        ctx.fill(star);
-        ctx.restore();
-      }
-      // Edge feather: erase to transparent at the frame edges
-      ctx.save();
-      ctx.globalCompositeOperation = "destination-out";
-      let g = ctx.createLinearGradient(0, 0, FEATHER, 0);
-      g.addColorStop(0, "rgba(0,0,0,1)");
-      g.addColorStop(1, "rgba(0,0,0,0)");
-      ctx.fillStyle = g;
-      ctx.fillRect(0, 0, FEATHER, el.height);
-      g = ctx.createLinearGradient(W, 0, W - FEATHER, 0);
-      g.addColorStop(0, "rgba(0,0,0,1)");
-      g.addColorStop(1, "rgba(0,0,0,0)");
-      ctx.fillStyle = g;
-      ctx.fillRect(W - FEATHER, 0, FEATHER, el.height);
-      ctx.restore();
-    });
-  };
 
   return (
-    <rect scene="github-stargazers" name="GitHub stargazers" width={W} height={H} fill="#ffffff">
-      {/* Stargazer strip: drawn into a canvas surface, below the html layer */}
-      <surface
-        x={0}
-        y={340}
-        width={W}
-        height={AVATAR + 20 + 56}
-        end={DURATION}
-        name="Stargazers"
-        ref={drawStargazers}
-      />
-
-      {/* Single html layer: header, counter, and confetti */}
-      <html x={0} y={0} width={W} height={H} end={DURATION} name="UI">
-        <div
-          style={`position:relative;width:${W}px;height:${H}px;
-                overflow:hidden;font-family:Inter;`}
-        >
-          {/* Repo header, GitHub style */}
+    <stage background="#161616" camera={[0.3, 0, 0, 0.3, 85, 150]}>
+      <scene name="GitHub stargazers" width={W} height={H} fill="#ffffff" active>
+        <html x={0} y={0} width={W} height={H} end={DURATION} name="UI">
           <div
-            style={{
-              position: "absolute",
-              left: `${HEADER_LEFT}px`,
-              top: `${HEADER_TOP}px`,
-              display: "flex",
-              "align-items": "center",
-              gap: "40px",
-            }}
+            style={`position:relative;width:${W}px;height:${H}px;
+                  overflow:hidden;font-family:Inter;`}
           >
-            <img
-              src={ORG_LOGO}
-              width="135"
-              height="135"
+            {/* Stargazer strip, beneath the UI: the visible slice only */}
+            <div style={`position:absolute;left:0;top:340px;width:${W}px;height:${AVATAR + 20 + 56}px;`}>
+              <For each={visible()}>
+                {(item) => (
+                  <div
+                    style={{
+                      position: "absolute",
+                      left: "0",
+                      top: "0",
+                      transform: `translateX(${item.left}px)`,
+                    }}
+                  >
+                    <img
+                      src={`${AVATAR_DIR}/${item.login}.png`}
+                      style={{
+                        width: `${AVATAR}px`,
+                        height: `${AVATAR}px`,
+                        "border-radius": "50%",
+                        background: "#ffffff",
+                        border: "1px solid rgba(0,0,0,0.06)",
+                        "box-shadow": "0 12px 28px rgba(31,35,40,0.16)",
+                      }}
+                    />
+                    <svg
+                      viewBox="0 0 16 16"
+                      width="56"
+                      height="56"
+                      style={`display:block;margin:20px auto 0;fill:${STAR_YELLOW};`}
+                    >
+                      <path d={STAR_PATH} />
+                    </svg>
+                  </div>
+                )}
+              </For>
+
+              {/* Edge feather: the scene's white background, faded over the ends */}
+              <div
+                style={`position:absolute;left:0;top:0;width:${FEATHER}px;height:100%;
+                      background:linear-gradient(90deg,#ffffff,rgba(255,255,255,0));`}
+              />
+              <div
+                style={`position:absolute;right:0;top:0;width:${FEATHER}px;height:100%;
+                      background:linear-gradient(270deg,#ffffff,rgba(255,255,255,0));`}
+              />
+            </div>
+
+            {/* Repo header, GitHub style */}
+            <div
               style={{
-                width: "135px",
-                height: "135px",
-                "border-radius": "36px",
-                opacity: v.logo.opacity,
-                transform: `translateY(${v.logo.y}px)`,
+                position: "absolute",
+                left: `${HEADER_LEFT}px`,
+                top: `${HEADER_TOP}px`,
+                display: "flex",
+                "align-items": "center",
+                gap: "40px",
               }}
-            />
-            <div style="font-size:96px;line-height:1;display:flex;align-items:baseline;">
+            >
+              <img
+                src={ORG_LOGO}
+                width="135"
+                height="135"
+                style={{
+                  width: "135px",
+                  height: "135px",
+                  "border-radius": "36px",
+                  opacity: v.logo.opacity,
+                  transform: `translateY(${v.logo.y}px)`,
+                }}
+              />
+              <div style="font-size:96px;line-height:1;display:flex;align-items:baseline;">
+                <span
+                  style={{
+                    color: INK,
+                    "font-weight": "400",
+                    opacity: v.owner.opacity,
+                    transform: `translateY(${v.owner.y}px)`,
+                  }}
+                >
+                  {OWNER}<span style="color:#b1bac4;"> / </span>
+                </span>
+                <span
+                  style={{
+                    color: INK,
+                    "font-weight": "700",
+                    "margin-left": "0.27em",
+                    opacity: v.repo.opacity,
+                    transform: `translateY(${v.repo.y}px)`,
+                  }}
+                >
+                  {REPO}
+                </span>
+              </div>
+            </div>
+
+            {/* Star counter */}
+            <div
+              style={{
+                position: "absolute",
+                right: `${COUNTER_RIGHT}px`,
+                bottom: `${COUNTER_BOTTOM}px`,
+                display: "flex",
+                "align-items": "baseline",
+                gap: "56px",
+              }}
+            >
               <span
                 style={{
+                  "font-family": "Inter",
+                  "font-size": "200px",
+                  "font-weight": "700",
+                  "line-height": "1",
                   color: INK,
-                  "font-weight": "400",
-                  opacity: v.owner.opacity,
-                  transform: `translateY(${v.owner.y}px)`,
+                  "font-variant-numeric": "tabular-nums",
+                  opacity: v.num.opacity,
+                  transform: `translateY(${v.num.y}px)`,
                 }}
               >
-                {OWNER}<span style="color:#b1bac4;"> / </span>
+                {count().toLocaleString("en-US")}
               </span>
               <span
                 style={{
+                  "font-size": "200px",
+                  "font-weight": "400",
+                  "line-height": "1",
                   color: INK,
-                  "font-weight": "700",
-                  "margin-left": "0.27em",
-                  opacity: v.repo.opacity,
-                  transform: `translateY(${v.repo.y}px)`,
+                  opacity: v.word.opacity,
+                  transform: `translateY(${v.word.y}px)`,
                 }}
               >
-                {REPO}
+                stars
               </span>
             </div>
-          </div>
 
-          {/* Star counter */}
-          <div
-            style={{
-              position: "absolute",
-              right: `${COUNTER_RIGHT}px`,
-              bottom: `${COUNTER_BOTTOM}px`,
-              display: "flex",
-              "align-items": "baseline",
-              gap: "56px",
-            }}
-          >
-            <span
-              style={{
-                "font-family": "Inter",
-                "font-size": "200px",
-                "font-weight": "700",
-                "line-height": "1",
-                color: INK,
-                "font-variant-numeric": "tabular-nums",
-                opacity: v.num.opacity,
-                transform: `translateY(${v.num.y}px)`,
+            {/* Confetti overlay: time-driven ballistics, fires at the milestone landing */}
+            <For each={CONFETTI}>
+              {(p) => {
+                const t = createMemo(() => Math.max(0, time() - CONFETTI_T0 - p.delay));
+                const opacity = createMemo(() => {
+                  const tv = time() - CONFETTI_T0 - p.delay;
+                  if (tv <= 0) return 0;
+                  const y = p.y0 + p.vy * tv + 0.5 * GRAVITY * tv * tv;
+                  if (y > H + 40) return 0;
+                  return tv > 0.9 ? Math.max(0, 1 - (tv - 0.9) / 0.4) : 1;
+                });
+                return (
+                  <div
+                    style={{
+                      position: "absolute",
+                      left: "0",
+                      top: "0",
+                      width: `${p.w}px`,
+                      height: `${p.h}px`,
+                      "border-radius": p.round ? "50%" : "2px",
+                      background: p.color,
+                      opacity: opacity(),
+                      transform: `translate(${p.x0 + p.vx * t()}px, ${p.y0 + p.vy * t() + 0.5 * GRAVITY * t() * t()}px)
+                                rotate(${p.r0 + p.vr * t()}deg)
+                                scaleY(${0.35 + 0.65 * Math.abs(Math.cos(t() * 9 + p.r0))})`,
+                    }}
+                  />
+                );
               }}
-            >
-              {count().toLocaleString("en-US")}
-            </span>
-            <span
-              style={{
-                "font-size": "200px",
-                "font-weight": "400",
-                "line-height": "1",
-                color: INK,
-                opacity: v.word.opacity,
-                transform: `translateY(${v.word.y}px)`,
-              }}
-            >
-              stars
-            </span>
+            </For>
           </div>
-
-          {/* Confetti overlay: time-driven ballistics, fires at the milestone landing */}
-          <For each={CONFETTI}>
-            {(p) => {
-              const t = createMemo(() => Math.max(0, time() - CONFETTI_T0 - p.delay));
-              const opacity = createMemo(() => {
-                const tv = time() - CONFETTI_T0 - p.delay;
-                if (tv <= 0) return 0;
-                const y = p.y0 + p.vy * tv + 0.5 * GRAVITY * tv * tv;
-                if (y > H + 40) return 0;
-                return tv > 0.9 ? Math.max(0, 1 - (tv - 0.9) / 0.4) : 1;
-              });
-              return (
-                <div
-                  style={{
-                    position: "absolute",
-                    left: "0",
-                    top: "0",
-                    width: `${p.w}px`,
-                    height: `${p.h}px`,
-                    "border-radius": p.round ? "50%" : "2px",
-                    background: p.color,
-                    opacity: opacity(),
-                    transform: `translate(${p.x0 + p.vx * t()}px, ${p.y0 + p.vy * t() + 0.5 * GRAVITY * t() * t()}px)
-                              rotate(${p.r0 + p.vr * t()}deg)
-                              scaleY(${0.35 + 0.65 * Math.abs(Math.cos(t() * 9 + p.r0))})`,
-                  }}
-                />
-              );
-            }}
-          </For>
-        </div>
-      </html>
-    </rect>
+        </html>
+      </scene>
+    </stage>
   );
 }

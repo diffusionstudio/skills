@@ -41,23 +41,25 @@ const aRoll = takes.map((t) => {
 
 export default function Project() {
   return (
-    <rect scene="talking-head" name="TalkingHead" width={1080} height={1920} fill="black">
-      <sequence name="A-roll">
-        <For each={aRoll}>
-          {(clip) => (
-            <video src={clip.src} width={1080} height={1920}
-              start={clip.start} sourceIn={clip.sourceIn} sourceOut={clip.sourceOut} />
-          )}
-        </For>
-      </sequence>
-    </rect>
+    <stage camera={[0.25, 0, 0, 0.25, 235, 70]}>
+      <scene name="Talking head" width={1080} height={1920} fill="black" active>
+        <sequence name="A-roll">
+          <For each={aRoll}>
+            {(clip) => (
+              <video src={clip.src} width={1080} height={1920}
+                start={clip.start} sourceIn={clip.sourceIn} sourceOut={clip.sourceOut} />
+            )}
+          </For>
+        </sequence>
+      </scene>
+    </stage>
   );
 }
 ```
 
 The silence you *keep* between sentences lives inside the clips, not in a timeline gap — a gap in a sequence freezes or blanks the frame. Carry a pause by extending a clip's `sourceOut` (or opening the next `sourceIn`) into the real silence, and keep the timeline gapless.
 
-`dapi mount` the A-roll and get the spine right before layering anything on top.
+Save the file — the app recompiles and re-renders it — and get the spine right before layering anything on top.
 
 ## 4. Cut points
 
@@ -68,7 +70,7 @@ The silence you *keep* between sentences lives inside the clips, not in a timeli
 
 ## 5. Verification
 
-The cut points matter most. Capture the **first frame of every clip** with `dapi node capture <sceneId> -t ...` at each clip's `start`, and check the cut didn't land on a bad frame — motion blur is the usual tell; nudge `sourceIn` a few frames to a settled one. Reconcile against the brief, and re-check neighbouring cuts after any structural change.
+The cut points matter most. Capture the **first frame of every clip** with `dapi capture <sceneId> -t ...` at each clip's `start`, and check the cut didn't land on a bad frame — motion blur is the usual tell; nudge `sourceIn` a few frames to a settled one. Reconcile against the brief, and re-check neighbouring cuts after any structural change.
 
 ## 6. Visual hook (optional)
 
@@ -78,7 +80,7 @@ A hook makes the video readable at a glance. Aim for a frame you could lift out 
 - **Placement.** Beside the speaker's head or below it, **never covering the head**. A popular strategy is to place it A-roll aware.
 - **Duration.** Keep it on screen as long as the viewer needs to read it.
 
-Build it with `<html>` so it styles and animates as real markup (see [html.md](../../jsx/paint.md)):
+Build it with `<html>` so it styles and animates as real markup (see `reference/jsx/html.md` in the project's docs):
 
 ```tsx
 <html x={80} y={1240} width={920} height={260} start={0} end={3}>
@@ -91,7 +93,7 @@ Build it with `<html>` so it styles and animates as real markup (see [html.md](.
 
 ## 7. Captions (optional)
 
-Add captions **last**, after every cut and overlay is verified, so they transcribe the final audio at its final placement. Use the **`whisper`** preset aligned to the bottom, and start it where the hook ends — set both `start` and `sourceIn` to that timestamp so the transcript stays aligned (see [captions.md](../../jsx/captions.md)). Keep captions off overlays and off the important part of the A-roll.
+Add captions **last**, after every cut and overlay is verified, so they transcribe the final audio at its final placement. Use the **`whisper`** preset aligned to the bottom, and start it where the hook ends — set both `start` and `sourceIn` to that timestamp so the transcript stays aligned (see `reference/jsx/captions.md` in the project's docs). Keep captions off overlays and off the important part of the A-roll.
 
 ```tsx
 {/* Hook holds until 00:03; captions begin there. */}

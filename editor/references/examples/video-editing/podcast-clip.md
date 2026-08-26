@@ -10,6 +10,10 @@ Write the brief first: the source URL or file, how many clips are wanted, the ta
 
 Download the audio track alone. It is a fraction of the bytes, and the best moments are found without visuals.
 
+```bash
+dapi fetch <url> -a -o podcast.m4a
+```
+
 ## 3. Segment the audio
 
 A three-hour track is too long for one analysis pass, so split it into segments and analyze each. Segments are **windows**, not files: `listen -s/-e` takes the range directly, and the timestamps it returns are relative to `-s`. Pick one of three ways to choose the boundaries:
@@ -56,17 +60,19 @@ const NODE_W = NODE_H * (1920 / 1080); // source aspect, scaled to scene height 
 
 export default function Project() {
   return (
-    <rect scene="podcast-clip" name="PodcastClip" width={SCENE_W} height={1920} fill="black">
-      <sequence name="A-roll">
-        <video src={raw} width={NODE_W} height={NODE_H} x={(SCENE_W - NODE_W) / 2}
-          start={0} sourceIn={IN} sourceOut={OUT} />
-      </sequence>
-    </rect>
+    <stage camera={[0.25, 0, 0, 0.25, 235, 70]}>
+      <scene name="Podcast clip" width={SCENE_W} height={1920} fill="black" active>
+        <sequence name="A-roll">
+          <video src={raw} width={NODE_W} height={NODE_H} x={(SCENE_W - NODE_W) / 2}
+            start={0} sourceIn={IN} sourceOut={OUT} />
+        </sequence>
+      </scene>
+    </stage>
   );
 }
 ```
 
-`dapi mount` this and get the trim right before framing or captions.
+Save the file and get the trim right before framing or captions — `dapi capture <sceneId> -t 0` on the in-point and the out-point is the check.
 
 ## 7. Frame the active speaker (optional if necessary)
 
@@ -91,7 +97,7 @@ const speakerX = () =>
 ```
 
 
-## 9. Captions
+## 8. Captions
 
 Add captions last, after the trim and framing are verified. Use the **`classic`** preset centred — it is the first choice for vertical content.
 
@@ -105,4 +111,4 @@ If the caption block lands on the speakers' faces, push it off with `offsetY` ra
 <captions preset="classic" verticalAlign="center" offsetY={420} />
 ```
 
-Capture a frame per caption line and check readability at delivery size — a caption over a mouth is worse than no caption.
+Capture a frame per caption line with `dapi capture` and check readability at delivery size — a caption over a mouth is worse than no caption.

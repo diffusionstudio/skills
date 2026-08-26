@@ -9,11 +9,13 @@ milestone as the last avatar (the actual milestone stargazer) settles on the
 right margin and confetti fires.
 
 The styling is fixed; only the content is swapped per repo. [scene.jsx](scene.jsx)
-is the complete composition — edit the `CONTENT` block at the top (`OWNER`,
-`REPO`, `MILESTONE`, `ORG_LOGO`, `AVATAR_DIR`) and provide the data described
-below, then `dapi mount scene.jsx`. Everything below that block — GitHub's
-light palette (a deliberate brand exception, since the scene reproduces
-GitHub's own interface), the geometry, easings, and confetti — stays as is.
+is the complete composition — copy it into a project folder as the entry file,
+edit the `CONTENT` block at the top (`OWNER`, `REPO`, `MILESTONE`, `ORG_LOGO`,
+`AVATAR_DIR`), provide the data described below, and `dapi open` the folder.
+The source is the document, so saving the file is what re-renders it.
+Everything below that block — GitHub's light palette (a deliberate brand
+exception, since the scene reproduces GitHub's own interface), the geometry,
+easings, and confetti — stays as is.
 
 ## 1. Fetch the stargazers
 
@@ -43,28 +45,30 @@ Save each fetched user's avatar as `avatars/<login>.png` (the API's
 `avatar_url` with `&s=460` appended — avatars display at 224 px, so 460 px
 stays sharp), plus the org's avatar as the logo.
 
-The profile images must be available to the editor: keep them in a folder
-inside the project directory and open the project from there with `dapi open`,
-so the whole folder of icons comes along with it. The scene then resolves each
-file by path (`useFile`, see [lifecycle.md](../../../jsx/lifecycle.md#usefile))
-— point `AVATAR_DIR` and `ORG_LOGO` at those paths.
+The profile images have to be in the project's library, which means putting
+them under its `assets/` folder — the app picks up what lands there and the
+library path is where the file sits under it (see
+`reference/jsx/media.md` in the project's docs, under "Adding an asset"). The scene names each avatar
+by that path, so `AVATAR_DIR` is `"avatars"` and `ORG_LOGO` is `"logo.png"`.
 
 ```
 github-stargazers/
-├── scene.jsx
+├── index.tsx         # scene.jsx, copied in as the entry file
 ├── stargazers.js
-├── logo.png          # org avatar
-└── avatars/
-    ├── kartikk-k.png
-    └── …
+└── assets/
+    ├── logo.png      # org avatar
+    └── avatars/
+        ├── kartikk-k.png
+        └── …
 ```
 
 ## 3. How the scene holds up at 5,000 items
 
 Worth knowing before touching the internals:
 
-- The strip is a virtualized canvas: a `<surface>` draws only the on-screen
-  slice each frame, so item count barely matters.
+- The strip is virtualized: a memo derived from the playhead yields only the
+  handful of avatars overlapping the frame, so item count barely matters. Each
+  is a real `<img>` inside the `<html>` layer, resolved by library path.
 - The scroll position is a closed-form function of composition time (`xAt`),
   mirrored by the anime.js timeline. The counter derives from the same eased
   position — the number of avatars fully entered — so it lands on the
@@ -72,12 +76,12 @@ Worth knowing before touching the internals:
 - Confetti parameters come from a seeded PRNG and the motion is pure
   ballistics evaluated from `time()`, so scrubbing and export reproduce the
   identical burst.
-- The strip's edges are feathered by erasing with `destination-out`
-  gradients, so avatars dissolve at the frame edges instead of clipping.
+- The strip's edges are feathered by two white-to-transparent gradients laid
+  over the ends, so avatars dissolve at the frame edges instead of clipping.
 
 ## 4. Verify
 
-Capture three moments with `dapi node capture`: t = 0 (header entrance
+Capture three moments with `dapi capture`: t = 0 (header entrance
 starting, strip still off-screen), mid-scroll (~4 s, the deliberate
 high-speed blur), and the final frame — last avatars settled, counter reading
 the milestone, confetti in the air.

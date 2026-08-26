@@ -19,11 +19,15 @@ How to understand source material before editing it. Inspect only the modalities
 - **Transcribe speech.** For speech, `dapi media transcribe` prints the full transcript with word-level start/end times directly — read any segment straight from it.
 - **Sample the video against the audio.** Use `dapi media grab` to pull frames. When the audio has already pointed you at specific moments, feed those timestamps straight in from the transcript or listen output, e.g. `-t '00:32' '00:45' ...`. When you need a visual pass without such cues, reach for `--auto`: it scans the footage and keeps only the frames where the picture settles into a new visual state, dropping near-duplicates.
 
-# Editing workflow
+# The editing loop
 
-- Write the brief first. For anything nontrivial, capture the edit as a markdown file: it is the plan every mount works toward and the thing to check the result against.
-- Lay down the A-roll. Assemble the primary footage as JSX and `dapi mount` it. Get the spine of the edit right before anything else.
-- Layer the rest on top. Once the A-roll holds, add B-roll and secondary assets (sound effects, captions, overlays) with further mounts or `dapi node insert`.
+- Write the brief first. For anything nontrivial, capture the edit as a markdown file: it is the plan every save works toward and the thing to check the result against.
+- Lay down the A-roll. Assemble the primary footage as JSX and save. Get the spine of the edit right before anything else.
+- Layer the rest on top. Once the A-roll holds, add B-roll and secondary assets (sound effects, captions, overlays) in the same source.
+- Put media the project uses under its `assets/` folder and name it by library path (`assets/b-roll/drone.mp4` is `"b-roll/drone.mp4"`); local and remote paths work too but stay outside the library.
+- `dapi context` reports which folder the app actually has open, where the playhead sits, and where every `generate.*` declaration stands — poll it to wait for generations without blocking.
+
+**The source is the document.** A project is a folder of JSX; Use `dapi open <dir>` once, then write the files and save. Saving recompiles and re-renders the canvas.
 
 # Compositing
 
@@ -34,32 +38,33 @@ How to understand source material before editing it. Inspect only the modalities
 
 # Verification
 
-How to confirm a change actually produced what you intended. A clean `mount` or `insert` does not guarantee a correct-looking composition.
+How to confirm a change actually produced what you intended. A clean save does not guarantee a correct-looking composition.
 
-- Use `dapi node capture` to see what the viewer actually gets.
+- Use `dapi capture <id>` to see what the viewer actually gets.
 - Reconcile captured frames with the brief, and the brief with these guidelines.
 - Verify after every stage, not only at the end — build the composition incrementally so a problem is caught next to the change that caused it.
 - Scale verification to the change. A small or incremental tweak the user asked for needs no visual confirmation so the user gets the result back fast and can keep iterating.
 - Fix the largest viewer-facing problem before polishing details, and recheck related moments after structural changes, since pacing, continuity, emphasis, and meaning are relational.
 - Use `screenshot` or `logs` to debug issues.
-- DO NOT export/render the scene for visual confirmation — `dapi node capture` is equivalent to a render but far more efficient. Rendering to a video should be a user-triggered action unless explicitly requested in the prompt.
+- DO NOT export/render the scene for visual confirmation — `dapi capture` is equivalent to a render but far more efficient. Rendering to a video should be a user-triggered action unless explicitly requested in the prompt.
 
 # Best practices
 
-- Wrap entities in `<sequence>` tags wherever the parent tag supports it — A-roll, B-roll, and other clips belong in sequences so the timeline stays structured rather than a flat, messy pile. (`<html>` does not support sequences.)
+- Wrap clips in `<sequence>` tags wherever the parent tag supports it — A-roll, B-roll, and other clips belong in sequences so the timeline stays structured rather than a flat, messy pile. A sequence does not place its children: give every clip an explicit `start`.
 - Use the built-in tags for the media a composition is made of (audio, video, images, captions).
 - For anything 3D, use Three.js drawn into a `<surface>` tag.
 - For motion graphics, overlays and UI-heavy graphics, the `<html>` tag driven by a paused [anime.js](https://animejs.com) timeline
-- Before animating anything, read the [cubic-bezier easings example](references/examples/code/easings.jsx) and choose easings deliberately — default or linear easing is what makes motion read as a slideshow.
+- Before animating anything, read the [cubic-bezier easings example](references/examples/code/easings.tsx) and choose easings deliberately — default or linear easing is what makes motion read as a slideshow.
 - Add auto captions last, after everything else is assembled, so they transcribe the finished audio at its final placement.
-- Open the application in the background for tasks that don't require an editing UI.
+- Open the application in the background (`dapi open -b`) for tasks that don't require an editing UI.
 - Only render (export) the result when prompted.
 - Start with a fresh project.
 
 # Docs
 
+Every project carries its own authoring reference, written by the app for the installed version, and its `AGENTS.md` points at it. Read it there and trust it over memory; it is app-owned, so never edit it.
+
 - [Installation guide, read when dapi is unavailable](references/installation.md)
-- [An API reference for the JSX syntax](references/jsx/README.md)
 
 # Examples
 
@@ -82,12 +87,4 @@ Complete compositions with fixed styling and swappable content.
 
 ## JSX
 
-- [Basics on how to structure a composition](references/examples/code/basics.jsx)
-- [Driving values from composition time with `useTicker`](references/examples/code/ticker.jsx)
-- [Animating with an anime.js timeline](references/examples/code/anime-timeline.jsx)
-- [Six go-to cubic-bezier easings, compared side by side](references/examples/code/easings.jsx)
-- [Animating an `<html>` overlay in a canvas scene with an anime.js timeline](references/examples/code/html-overlay.jsx)
-- [Applying a WGSL shader to a video with shader paint](references/examples/code/shader-paint.jsx)
-- [Rendering a custom WebGPU pass into a `<canvas>`](references/examples/code/webgpu.jsx)
-- [Rendering a Three.js scene into a `<canvas>`](references/examples/code/three.jsx)
-- [Generating images and video with `generate`](references/examples/code/genai.jsx)
+- [Six go-to cubic-bezier easings, compared side by side](references/examples/code/easings.tsx)
