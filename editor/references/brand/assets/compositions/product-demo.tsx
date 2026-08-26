@@ -26,7 +26,7 @@ export default function ProductDemo() {
 
   return (
     <scene
-      key="product-demo"
+      id="product-demo"
       name="Product demo"
       width={WIDTH}
       height={HEIGHT}

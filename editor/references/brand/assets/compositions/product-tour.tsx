@@ -35,7 +35,7 @@ export default function ProductTour() {
 
   return (
     <scene
-      key="product-tour"
+      id="product-tour"
       name="Product tour"
       width={WIDTH}
       height={HEIGHT}

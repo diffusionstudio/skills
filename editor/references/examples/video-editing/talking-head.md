@@ -86,7 +86,7 @@ One line of copy is a job for the native `<text>` tag:
 <text
   x={80} y={1240} width={920} height={260}
   start={0} end={3}
-  fontFamily="Inter" fontSize={84} fontWeight={500} fill="#fff"
+  fontFamily="Inter" fontSize={84} fontWeight={500} color="#fff"
   textAlign="left" textBaseline="top"
 >
   The one editing trick

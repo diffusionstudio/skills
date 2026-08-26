@@ -41,7 +41,7 @@ export function Callout(props: CalloutProps) {
         fontFamily={fonts.sans}
         fontSize={typography.label.size * frame.scale}
         fontWeight={typography.label.weight}
-        fill={colors.textSecondary}
+        color={colors.textSecondary}
       >
         {props.label}
       </text>
@@ -58,7 +58,7 @@ export function Callout(props: CalloutProps) {
         fontFamily={fonts.sans}
         fontSize={typography.lowerThirdName.size * frame.scale}
         fontWeight={typography.lowerThirdName.weight}
-        fill={colors.text}
+        color={colors.text}
       >
         {props.value}
       </text>

@@ -43,7 +43,7 @@ export function LowerThird(props: LowerThirdProps) {
         fontFamily={fonts.sans}
         fontSize={typography.lowerThirdName.size * frame.scale}
         fontWeight={typography.lowerThirdName.weight}
-        fill={colors.text}
+        color={colors.text}
       >
         {props.name}
       </text>
@@ -60,7 +60,7 @@ export function LowerThird(props: LowerThirdProps) {
         fontFamily={fonts.sans}
         fontSize={typography.lowerThirdDetail.size * frame.scale}
         fontWeight={typography.lowerThirdDetail.weight}
-        fill={colors.textSecondary}
+        color={colors.textSecondary}
       >
         {props.detail}
       </text>

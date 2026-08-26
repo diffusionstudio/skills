@@ -35,7 +35,7 @@ export function TitleCard(props: TitleCardProps) {
         fontFamily={fonts.sans}
         fontSize={typography.title.size * frame.scale}
         fontWeight={typography.title.weight}
-        fill={colors.text}
+        color={colors.text}
       >
         {props.title}
       </text>
@@ -53,7 +53,7 @@ export function TitleCard(props: TitleCardProps) {
           fontFamily={fonts.sans}
           fontSize={typography.subtitle.size * frame.scale}
           fontWeight={typography.subtitle.weight}
-          fill={colors.textSecondary}
+          color={colors.textSecondary}
         >
           {props.subtitle}
         </text>
