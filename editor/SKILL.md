@@ -35,6 +35,7 @@ How to understand source material before editing it. Inspect only the modalities
 - Video is its own medium, with its own rules; it is not a website, poster, slide, or UI. It is watched, not read.
 - Let visuals, sound, and voice carry context; let text punctuate rather than explain. Do not add copy, eyebrows, labels, underlines, or brand color highlights unless the brief or explicit video guidance calls for them; examples alone are not instructions.
 - Choose easing from the intended weight, energy, and continuity of the action.
+- When the brief, project, or user specifies branding, follow it. Only when none is specified, fall back to the [Diffusion Studio brand](references/brand/README.md) — its design, voice, video, and library references, and the components and compositions bundled with them.
 
 # Verification
 
@@ -66,6 +67,7 @@ Every project carries its own authoring reference, written by the app for the in
 
 - [Installation guide, read when dapi is unavailable](references/installation.md)
 - [Easings: which cubic-bezier to use and when](references/easings.md)
+- [Diffusion Studio brand — the fallback when no other branding is specified](references/brand/README.md)
 
 # Examples
 
