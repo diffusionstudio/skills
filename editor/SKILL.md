@@ -54,7 +54,7 @@ How to confirm a change actually produced what you intended. A clean save does n
 - Use the built-in tags for the media a composition is made of (audio, video, images, captions).
 - For anything 3D, use Three.js drawn into a `<surface>` tag.
 - For motion graphics, overlays and UI-heavy graphics, the `<html>` tag driven by a paused [anime.js](https://animejs.com) timeline
-- Before animating anything, read the [cubic-bezier easings example](references/examples/code/easings.tsx) and choose easings deliberately — default or linear easing is what makes motion read as a slideshow.
+- Before animating anything, read the [easings reference](references/easings.md) and choose easings deliberately — default or linear easing is what makes motion read as a slideshow.
 - Add auto captions last, after everything else is assembled, so they transcribe the finished audio at its final placement.
 - Open the application in the background (`dapi open -b`) for tasks that don't require an editing UI.
 - Only render (export) the result when prompted.
@@ -65,6 +65,7 @@ How to confirm a change actually produced what you intended. A clean save does n
 Every project carries its own authoring reference, written by the app for the installed version, and its `AGENTS.md` points at it. Read it there and trust it over memory; it is app-owned, so never edit it.
 
 - [Installation guide, read when dapi is unavailable](references/installation.md)
+- [Easings: which cubic-bezier to use and when](references/easings.md)
 
 # Examples
 
@@ -78,7 +79,3 @@ Read worked example(s) that match your context.
 ## Prompts
 
 - [Writing prompts for `dapi media listen`](references/examples/prompts/media-listen.md)
-
-## JSX
-
-- [Six go-to cubic-bezier easings, compared side by side](references/examples/code/easings.tsx)
