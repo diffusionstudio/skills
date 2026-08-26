@@ -76,19 +76,21 @@ The cut points matter most. Capture the **first frame of every clip** with `dapi
 
 A hook makes the video readable at a glance. Aim for a frame you could lift out and use as a thumbnail.
 
-- **Just a title.** Large medium sans-serif with a single word highlighted in a serif. That is the whole hook: **no sub-header, eyebrow, or secondary line**, and **no background, box, panel, or fill** — the text sits directly on the A-roll.
+- **Just a title.** One line of large Inter at medium weight, in a single colour. That is the whole hook: **no sub-header, eyebrow, or secondary line**, and **no background, box, panel, or fill** — the text sits directly on the A-roll.
 - **Placement.** Beside the speaker's head or below it, **never covering the head**. A popular strategy is to place it A-roll aware.
 - **Duration.** Keep it on screen as long as the viewer needs to read it.
 
-Build it with `<html>` so it styles and animates as real markup (see `reference/jsx/html.md` in the project's docs):
+One line of copy is a job for the native `<text>` tag:
 
 ```tsx
-<html x={80} y={1240} width={920} height={260} start={0} end={3}>
-  <div style="font:600 84px Inter, sans-serif; color:#fff; line-height:1.05;">
-    The one <span style="font-family:'Playfair Display', serif; font-style:italic;
-      border-bottom:8px solid #FF5A36;">editing</span> trick
-  </div>
-</html>
+<text
+  x={80} y={1240} width={920} height={260}
+  start={0} end={3}
+  fontFamily="Inter" fontSize={84} fontWeight={500} fill="#fff"
+  textAlign="left" textBaseline="top"
+>
+  The one editing trick
+</text>
 ```
 
 ## 7. Captions (optional)
