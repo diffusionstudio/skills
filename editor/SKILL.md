@@ -24,7 +24,7 @@ How to understand source material before editing it. Inspect only the modalities
 - Write the brief first. For anything nontrivial, capture the edit as a markdown file: it is the plan every save works toward and the thing to check the result against.
 - Lay down the A-roll. Assemble the primary footage as JSX and save. Get the spine of the edit right before anything else.
 - Layer the rest on top. Once the A-roll holds, add B-roll and secondary assets (sound effects, captions, overlays) in the same source.
-- Put media the project uses under its `assets/` folder and name it by library path (`assets/b-roll/drone.mp4` is `"b-roll/drone.mp4"`); local and remote paths work too but stay outside the library.
+- Symlink media the project uses into its `assets/` folder and name it by library path (`assets/b-roll/drone.mp4` is `"b-roll/drone.mp4"`); local and remote paths work too but stay outside the library.
 - `dapi context` reports which folder the app actually has open, where the playhead sits, and where every `generate.*` declaration stands — poll it to wait for generations without blocking.
 
 **The source is the document.** A project is a folder of JSX; Use `dapi open <dir>` once, then write the files and save. Saving recompiles and re-renders the canvas.
@@ -33,6 +33,7 @@ How to understand source material before editing it. Inspect only the modalities
 
 - Chrome, scaffolding, and ornament all draw from a visual budget whose default balance is `0`; prefer not to use them. A cut, hold, or change of size can separate two ideas as clearly as a divider without adding visual clutter. An element earns its place by deepening the story, guiding attention, or expanding imagination, never by filling space.
 - Video is its own medium, with its own rules; it is not a website, poster, slide, or UI. It is watched, not read.
+- Don't darken, blur, or cover the picture to make something on top of it legible
 - Let visuals, sound, and voice carry context; let text punctuate rather than explain. Do not add copy, eyebrows, labels, underlines, or brand color highlights unless the brief or explicit video guidance calls for them; examples alone are not instructions.
 - Choose easing from the intended weight, energy, and continuity of the action.
 - When the brief, project, or user specifies branding, follow it. Only when none is specified, fall back to the [Diffusion Studio brand](references/brand/README.md) — its design, voice, video, and library references, and the components and compositions bundled with them.
