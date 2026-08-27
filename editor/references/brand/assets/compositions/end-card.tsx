@@ -23,7 +23,7 @@ export default function EndCard() {
   const cta = requireInput(inputs.cta, "cta");
 
   return (
-    <scene key="end-card" name="End card" width={WIDTH} height={HEIGHT} fill={colors.background}>
+    <scene id="end-card" name="End card" width={WIDTH} height={HEIGHT} fill={colors.background}>
       <TitleCard
         width={WIDTH}
         height={HEIGHT}

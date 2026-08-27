@@ -93,6 +93,10 @@ At 1080×1920, keep readable content inside `x 64–900`, `y 200–1520`. The ri
 Use `stark` for 9:16 output and `cascade` for other ratios. Pass no `colors`; neither preset
 exposes color slots. On 9:16, do not add another bottom offset to the preset.
 
+A preset carries its own legibility. Never put a band, plate, or gradient behind captions. When one
+does not read over the footage, change the preset or its `verticalAlign` or `offsetY`; if it still does not read,
+that is the answer for that stretch, not a reason to dim the picture.
+
 ## Known gaps
 
 The brand has no bundled fonts, dark logo, approved video logo bug, image library, shared code
