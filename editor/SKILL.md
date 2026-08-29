@@ -55,6 +55,7 @@ How to confirm a change actually produced what you intended. A clean save does n
 
 - Wrap clips in `<sequence>` tags wherever the parent tag supports it — A-roll, B-roll, and other clips belong in sequences so the timeline stays structured rather than a flat, messy pile. A sequence does not place its children: give every clip an explicit `start`.
 - Use the built-in tags for the media a composition is made of (audio, video, images, captions).
+- Hoist the properties that define the composition's look — title copy, font family and size, accent colors, key padding — into top-level consts annotated with `@inspect`, so they become live controls in the app's inspector.
 - For anything 3D, use Three.js drawn into a `<surface>` tag.
 - For motion graphics, overlays and UI-heavy graphics, the `<html>` tag driven by a paused [anime.js](https://animejs.com) timeline
 - Before animating anything, read the [easings reference](references/easings.md) and choose easings deliberately — default or linear easing is what makes motion read as a slideshow.
