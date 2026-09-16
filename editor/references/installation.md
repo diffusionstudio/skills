@@ -57,7 +57,19 @@ npm run symlink:create --workspace=@diffusionstudio/cli
 `npm run dev:desktop` rebuilds the CLI on every start, so the linked `dapi`
 always drives the locally running app with the latest code.
 
+## Connecting the agent (MCP)
+
+The app registers its MCP server with supported agents (Claude Code, Codex,
+Cursor, Copilot, Gemini CLI) during setup. If it is not registered, connect it
+manually:
+
+- Agents that speak Streamable HTTP: `http://127.0.0.1:3274/mcp` (the app
+  must be running).
+- Agents that only speak stdio (Claude Desktop): run `dapi mcp`, which also
+  launches the app in the background.
+
 ## Verify
 
 Whichever path you took: `dapi --help` should print the command list, and
-`dapi open` launches the app.
+`dapi open` launches the app. The docs are then at
+`Diffusion Studio.app/Contents/Resources/docs`.
