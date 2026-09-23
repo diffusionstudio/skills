@@ -13,6 +13,6 @@ The guidance for this skill ships with the Diffusion Studio app, so it always ma
 
 The docs live inside the app bundle at `Diffusion Studio.app/Contents/Resources/docs` (usually under `/Applications`). Start with `skills/watch.md` and follow it for the rest of the session. It links to the media tool reference and prompt guides in the same folder.
 
-The app exposes its tools through an MCP server (`media_probe`, `media_transcribe`, …). The `dapi` CLI provides the same tools from a shell: `dapi media grab` corresponds to `media_grab`.
+The app exposes its tools through an MCP server (`media_probe`, `media_transcribe`, …). The `diffusion` CLI (`dapi` also works, as an alias) provides the same tools from a shell: `diffusion media grab` corresponds to `media_grab`.
 
-If neither the Diffusion Studio tools nor `dapi` is available, or the app is not installed, read [installation.md](references/installation.md).
+If neither the Diffusion Studio tools nor `diffusion` is available, or the app is not installed, read [installation.md](references/installation.md).
