@@ -1,0 +1,14 @@
+{
+  "name": "diffusion",
+  "displayName": "Diffusion Studio",
+  "version": "1.0.0",
+  "description": "Edit and watch video with Diffusion Studio: analyze, generate, and compose footage, or summarize it and find moments, through the desktop app's tools.",
+  "author": {
+    "name": "Diffusion Studio",
+    "url": "https://www.diffusion.studio"
+  },
+  "homepage": "https://www.diffusion.studio",
+  "repository": "https://github.com/diffusionstudio/skills",
+  "license": "MIT",
+  "keywords": ["video", "editing", "transcription", "captions", "media", "diffusion-studio"]
+}

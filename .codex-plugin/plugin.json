@@ -1,0 +1,33 @@
+{
+  "name": "diffusion",
+  "version": "1.0.0",
+  "description": "Edit and watch video with Diffusion Studio: analyze, generate, and compose footage, or summarize it and find moments, through the desktop app's tools.",
+  "author": {
+    "name": "Diffusion Studio",
+    "url": "https://www.diffusion.studio"
+  },
+  "homepage": "https://www.diffusion.studio",
+  "repository": "https://github.com/diffusionstudio/skills",
+  "license": "MIT",
+  "keywords": ["video", "editing", "transcription", "captions", "media", "diffusion-studio"],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "Diffusion Studio",
+    "shortDescription": "Edit and watch video",
+    "longDescription": "Drive the Diffusion Studio desktop app from your agent. The editor skill analyzes video, audio, and images, generates media with AI, and composes video compositions. The watch skill answers questions about footage: summaries, quotes, and finding the moment something happens. Both work through the app's diffusion CLI and MCP tools, and read their guidance from the installed app so it always matches your version.",
+    "developerName": "Diffusion Studio",
+    "category": "Creativity",
+    "capabilities": ["Read", "Write"],
+    "websiteURL": "https://www.diffusion.studio",
+    "privacyPolicyURL": "https://www.diffusion.studio/legal/privacy-policy",
+    "termsOfServiceURL": "https://www.diffusion.studio/legal/terms-of-service",
+    "defaultPrompt": [
+      "Summarize this video and list its key moments with timestamps",
+      "Cut a 30-second highlight reel from this footage with captions",
+      "Find where the speaker mentions pricing in this recording"
+    ],
+    "brandColor": "#FF1833",
+    "composerIcon": "./assets/icon.png",
+    "logo": "./assets/icon.png"
+  }
+}

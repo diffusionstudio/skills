@@ -1,0 +1,15 @@
+{
+  "name": "diffusionstudio",
+  "description": "Diffusion Studio plugins for agents.",
+  "owner": {
+    "name": "Diffusion Studio",
+    "url": "https://www.diffusion.studio"
+  },
+  "plugins": [
+    {
+      "name": "diffusion",
+      "source": "./",
+      "description": "Edit and watch video with the Diffusion Studio desktop app."
+    }
+  ]
+}
