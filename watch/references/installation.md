@@ -72,5 +72,5 @@ manually:
 ## Verify
 
 Whichever path you took: `diffusion --help` should print the command list,
-and `diffusion open` launches the app. The docs are then at
-`Diffusion Studio.app/Contents/Resources/docs`.
+and `diffusion open --background` launches the app without raising a window.
+The docs are then at `Diffusion Studio.app/Contents/Resources/docs`.
