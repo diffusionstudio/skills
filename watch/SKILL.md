@@ -15,4 +15,6 @@ The docs live inside the app bundle at `Diffusion Studio.app/Contents/Resources/
 
 The app exposes its tools through an MCP server (`media_probe`, `media_transcribe`, …). The `diffusion` CLI (`dapi` also works, as an alias) provides the same tools from a shell: `diffusion media grab` corresponds to `media_grab`.
 
+Always launch the app in the background (`diffusion open --background`, or the matching option on the `open` tool) so it doesn't take focus from the user. Bring its window forward only when the user asks to see the app.
+
 If neither the Diffusion Studio tools nor `diffusion` is available, or the app is not installed, read [installation.md](references/installation.md).
