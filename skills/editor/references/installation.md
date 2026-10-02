@@ -58,11 +58,10 @@ npm run link --workspace=@diffusionstudio/cli
 `npm run dev:desktop` rebuilds the CLI on every start, so the linked
 `diffusion` always drives the locally running app with the latest code.
 
-## Connecting the agent (MCP)
+## Optional: connect the MCP server
 
-The app registers its MCP server with supported agents (Claude Code, Codex,
-Cursor, Copilot, Gemini CLI) during setup. If it is not registered, connect it
-manually:
+The skills only need `diffusion`. For MCP, the app registers its server with
+supported agents during setup; otherwise connect it manually:
 
 - Agents that speak Streamable HTTP: `http://127.0.0.1:3274/mcp` (the app
   must be running).

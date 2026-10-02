@@ -10,8 +10,8 @@ The guidance for this skill ships with the Diffusion Studio app, so it always ma
 
 The docs live inside the app bundle at `Diffusion Studio.app/Contents/Resources/docs` (usually under `/Applications`). Start with `skills/editor.md` and follow it for the rest of the session. It links to the tool and JSX reference, guides, runnable examples, and the brand kit in the same folder.
 
-The app exposes its tools through an MCP server (`media_probe`, `capture`, `check`, …). The `diffusion` CLI (`dapi` also works, as an alias) provides the same tools from a shell: `diffusion media grab` corresponds to `media_grab`.
+Use the tools through the `diffusion` CLI (alias `dapi`). The docs use MCP tool names; `media_grab` is `diffusion media grab`, and `diffusion <command> --help` lists its options. If the MCP tools are connected, they work the same.
 
-Start the app in the background (`diffusion open --background` so it doesn't take focus from the user while you work. Once you're done, present the result by showing the window with `diffusion window show`.
+Work with the app in the background (`diffusion open --background <dir>`), then show the result with `diffusion window show`.
 
-If neither the Diffusion Studio tools nor `diffusion` is available, or the app is not installed, read [installation.md](references/installation.md).
+If `diffusion` or the app is missing, read [installation.md](references/installation.md).

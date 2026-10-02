@@ -37,7 +37,7 @@ Then install the app, if you haven't: `brew install --cask diffusionstudio/tap/e
 The plugin is Markdown only: two skills and an installation reference. It runs nothing on its own, bundles no MCP server or executables, and sends nothing anywhere. When a skill is active, it tells the agent to:
 
 - Read the guidance that ships inside the installed app, at `Diffusion Studio.app/Contents/Resources/docs`, so it always matches your version.
-- Use the app's tools, either through its MCP server (`http://127.0.0.1:3274/mcp`, local to your machine) or through the `diffusion` command-line tool bundled with the app.
+- Use the app's tools through the `diffusion` command-line tool bundled with the app, or through its MCP server (`http://127.0.0.1:3274/mcp`, local to your machine) if your agent has it connected.
 - Launch the app in the background with `diffusion open --background`.
 - If the app or the `diffusion` command is missing, follow `references/installation.md`. That can mean running `brew install --cask diffusionstudio/tap/editor`, or linking the bundled command into `/usr/local/bin` with `sudo ln -sf`. Depending on its permission settings, your agent asks before running them.
 
