@@ -22,9 +22,9 @@
     "privacyPolicyURL": "https://www.diffusion.studio/legal/privacy-policy",
     "termsOfServiceURL": "https://www.diffusion.studio/legal/terms-of-service",
     "defaultPrompt": [
+      "Show off your motion design skills in a 20-second reel",
       "Cut a 30-second highlight reel with captions",
-      "Turn this script into a narrated video with AI visuals",
-      "Summarize this video with timestamped key moments"
+      "Turn this script into a narrated video with AI visuals"
     ],
     "brandColor": "#FF1833",
     "composerIcon": "./assets/icon.png",
