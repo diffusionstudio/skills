@@ -9,7 +9,7 @@
     {
       "name": "diffusion",
       "source": "./",
-      "description": "Edit and watch video with the Diffusion Studio desktop app."
+      "description": "Edit, generate, and analyze video with the Diffusion Studio desktop app."
     }
   ]
 }
