@@ -1,10 +1,10 @@
 # Installation
 
 `diffusion` ships bundled inside the desktop app (as does its `dapi` alias),
-so installing the app is what puts the CLI within reach. Check the cases in
-this order.
+so installing the app is what puts the CLI within reach. On Windows, skip to
+[Windows](#windows). On macOS, check the cases in this order.
 
-## App already installed, diffusion not linked (default case)
+## macOS: app already installed, diffusion not linked (default case)
 
 Most users have installed the app manually from the `.dmg` without setting up
 the CLI. If `diffusion` is not on the PATH, check for the app first:
@@ -25,7 +25,7 @@ works:
   sudo ln -sf "/Applications/Diffusion Studio.app/Contents/Resources/cli/bin/dapi" /usr/local/bin/dapi
   ```
 
-## Nothing installed: Homebrew (recommended)
+## macOS: nothing installed, Homebrew (recommended)
 
 ```sh
 brew install --cask diffusionstudio/tap/editor
@@ -34,9 +34,45 @@ brew install --cask diffusionstudio/tap/editor
 The cask installs the app and links `diffusion` (and `dapi`) automatically.
 Requires macOS 11+ on Apple silicon.
 
+## Windows
+
+The Windows build (x64) is a per-user installer from the GitHub releases. It
+needs no administrator and installs to `%LOCALAPPDATA%\DiffusionStudio`.
+
+### App already installed, diffusion not on PATH
+
+The installer always writes the `diffusion.cmd` and `dapi.cmd` shims, but
+does not put them on PATH. Check for them first (PowerShell):
+
+```powershell
+Test-Path "$env:LOCALAPPDATA\DiffusionStudio\bin\diffusion.cmd"
+```
+
+If they exist, add the folder to PATH from the app's **Settings** → **CLI**
+section → **Install** (no admin prompt). Terminals opened afterwards find
+`diffusion`; in a shell that is already running, add it for this session:
+
+```powershell
+$env:Path += ";$env:LOCALAPPDATA\DiffusionStudio\bin"
+```
+
+### Nothing installed: GitHub release
+
+Download the latest installer and run it silently (PowerShell):
+
+```powershell
+$setup = "$env:TEMP\Diffusion-Studio-x64-Setup.exe"
+curl.exe -L -o $setup https://github.com/diffusionstudio/editor/releases/latest/download/Diffusion-Studio-x64-Setup.exe
+Start-Process $setup -ArgumentList '--silent' -Wait
+```
+
+Then put `diffusion` on PATH as in the case above. The app updates itself
+from then on. Users who prefer to click through can download the same
+installer from [diffusion.studio](https://www.diffusion.studio/download).
+
 ## From source (any platform, full codebase access)
 
-Only if you need the full codebase to read and modify, or a non-macOS setup:
+Only if you need the full codebase to read and modify, or a Linux setup:
 clone the repo and run the app locally. Requires Node 20+ and npm.
 
 ```sh
@@ -72,4 +108,5 @@ supported agents during setup; otherwise connect it manually:
 
 Whichever path you took: `diffusion --help` should print the command list,
 and `diffusion open --background` launches the app without raising a window.
-The docs are then at `Diffusion Studio.app/Contents/Resources/docs`.
+The docs are then at `Diffusion Studio.app/Contents/Resources/docs` on macOS,
+or `%LOCALAPPDATA%\DiffusionStudio\app-<version>\resources\docs` on Windows.

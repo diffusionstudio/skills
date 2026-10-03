@@ -30,7 +30,7 @@ codex plugin marketplace add diffusionstudio/skills
 npx skills add diffusionstudio/skills
 ```
 
-Then install the app, if you haven't: `brew install --cask diffusionstudio/tap/editor`, or download it from [diffusion.studio](https://www.diffusion.studio). The skills walk the agent through it when the app is missing.
+Then install the app, if you haven't: `brew install --cask diffusionstudio/tap/editor` on macOS, the `Diffusion-Studio-x64-Setup.exe` installer from the [latest release](https://github.com/diffusionstudio/editor/releases/latest) on Windows, or download it from [diffusion.studio](https://www.diffusion.studio). The skills walk the agent through it when the app is missing.
 
 ## What the plugin does
 
@@ -39,7 +39,7 @@ The plugin is Markdown only: two skills and an installation reference. It runs n
 - Read the guidance that ships inside the installed app, at `Diffusion Studio.app/Contents/Resources/docs`, so it always matches your version.
 - Use the app's tools through the `diffusion` command-line tool bundled with the app, or through its MCP server (`http://127.0.0.1:3274/mcp`, local to your machine) if your agent has it connected.
 - Launch the app in the background with `diffusion open --background`.
-- If the app or the `diffusion` command is missing, follow `references/installation.md`. That can mean running `brew install --cask diffusionstudio/tap/editor`, or linking the bundled command into `/usr/local/bin` with `sudo ln -sf`. Depending on its permission settings, your agent asks before running them.
+- If the app or the `diffusion` command is missing, follow `references/installation.md`. That can mean running `brew install --cask diffusionstudio/tap/editor`, or linking the bundled command into `/usr/local/bin` with `sudo ln -sf`. On Windows it can mean downloading the installer from the editor's GitHub releases with `curl.exe` and running it with `--silent`. Depending on its permission settings, your agent asks before running them.
 
 What the app itself does with your media, including any AI generation, is covered by the [privacy policy](https://www.diffusion.studio/legal/privacy-policy) and [terms of service](https://www.diffusion.studio/legal/terms-of-service).
 

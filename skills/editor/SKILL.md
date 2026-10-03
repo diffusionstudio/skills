@@ -8,7 +8,7 @@ description: >-
 
 The guidance for this skill ships with the Diffusion Studio app, so it always matches the installed version. Read it from there and trust it over memory; it belongs to the app, so never edit it.
 
-The docs live inside the app bundle at `Diffusion Studio.app/Contents/Resources/docs` (usually under `/Applications`). Start with `skills/editor.md` and follow it for the rest of the session. It links to the tool and JSX reference, guides, runnable examples, and the brand kit in the same folder.
+The docs live inside the app bundle at `Diffusion Studio.app/Contents/Resources/docs` (usually under `/Applications`); on Windows, at `%LOCALAPPDATA%\DiffusionStudio\app-<version>\resources\docs`. Start with `skills/editor.md` and follow it for the rest of the session. It links to the tool and JSX reference, guides, runnable examples, and the brand kit in the same folder.
 
 Use the tools through the `diffusion` CLI (alias `dapi`). The docs use MCP tool names; `media_grab` is `diffusion media grab`, and `diffusion <command> --help` lists its options. If the MCP tools are connected, they work the same.
 
