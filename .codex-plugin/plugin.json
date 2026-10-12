@@ -1,0 +1,33 @@
+{
+  "name": "diffusion",
+  "version": "1.0.0",
+  "description": "Edit, generate, and analyze video with Diffusion Studio: compose footage, create media with AI, or summarize it and find moments, through the desktop app's tools.",
+  "author": {
+    "name": "Diffusion Studio",
+    "url": "https://www.diffusion.studio"
+  },
+  "homepage": "https://www.diffusion.studio",
+  "repository": "https://github.com/diffusionstudio/skills",
+  "license": "MIT",
+  "keywords": ["video", "editing", "transcription", "captions", "media", "diffusion-studio"],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "Diffusion Studio",
+    "shortDescription": "Edit, generate & analyze video",
+    "longDescription": "Edit, generate, and analyze video with the Diffusion Studio desktop app. Create motion graphics, animated titles, and finished videos, cut footage with captions, and generate images, clips, and voiceovers with AI. Requires the Diffusion Studio app. If it isn't installed, your agent can install it for you, which may ask for your admin password.",
+    "developerName": "Diffusion Studio",
+    "category": "Creativity",
+    "capabilities": ["Read", "Write"],
+    "websiteURL": "https://www.diffusion.studio",
+    "privacyPolicyURL": "https://www.diffusion.studio/legal/privacy-policy",
+    "termsOfServiceURL": "https://www.diffusion.studio/legal/terms-of-service",
+    "defaultPrompt": [
+      "Show off your motion design skills in a 20-second reel",
+      "Cut a 30-second highlight reel with captions",
+      "Turn this script into a narrated video with AI visuals"
+    ],
+    "brandColor": "#FF1833",
+    "composerIcon": "./assets/icon.png",
+    "logo": "./assets/icon.png"
+  }
+}
