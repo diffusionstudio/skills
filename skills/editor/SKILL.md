@@ -14,4 +14,6 @@ Use the tools through the `diffusion` CLI (alias `dapi`). The docs use MCP tool 
 
 Work with the app in the background (`diffusion open --background <dir>`), then show the result with `diffusion window show`.
 
+Don't open a `<dir>` in a cloud-synced folder (iCloud Drive, including a synced Desktop or Documents, Dropbox, OneDrive, Google Drive). Sync clients evict media to placeholders, upload half-written renders and leave conflict copies. Use a local folder outside the synced tree.
+
 If `diffusion` or the app is missing, read [installation.md](references/installation.md).
