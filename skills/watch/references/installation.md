@@ -36,8 +36,8 @@ Requires macOS 11+ on Apple silicon.
 
 ## Windows
 
-The Windows build (x64) is a per-user installer from the GitHub releases. It
-needs no administrator and installs to `%LOCALAPPDATA%\DiffusionStudio`.
+The Windows build (x64) is distributed through the Microsoft Store and
+installs with `winget`. It needs no administrator.
 
 ### App already installed, diffusion not on PATH
 
@@ -56,19 +56,17 @@ section → **Install** (no admin prompt). Terminals opened afterwards find
 $env:Path += ";$env:LOCALAPPDATA\DiffusionStudio\bin"
 ```
 
-### Nothing installed: GitHub release
+### Nothing installed: Microsoft Store (winget)
 
-Download the latest installer and run it silently (PowerShell):
+Install the app from the Microsoft Store (PowerShell):
 
 ```powershell
-$setup = "$env:TEMP\Diffusion-Studio-x64-Setup.exe"
-curl.exe -L -o $setup https://github.com/diffusionstudio/editor/releases/latest/download/Diffusion-Studio-x64-Setup.exe
-Start-Process $setup -ArgumentList '--silent' -Wait
+winget install --id XP9CW1WHRX3693 --source msstore --exact --accept-source-agreements --accept-package-agreements
 ```
 
-Then put `diffusion` on PATH as in the case above. The app updates itself
-from then on. Users who prefer to click through can download the same
-installer from [diffusion.studio](https://www.diffusion.studio/download).
+Then put `diffusion` on PATH as in the case above. The Store keeps the app
+updated from then on. Users who prefer to click through can get it from
+[diffusion.studio](https://www.diffusion.studio/download).
 
 ## From source (any platform, full codebase access)
 
